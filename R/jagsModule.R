@@ -305,7 +305,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
       rhat <- try(coda::gelman.diag(mcmcResult[["samples"]]))
       if (isTryError(rhat)) {
-        tb$addFootnote(message = gettext("Failed to compute the Rhat statistic. This is expected if the model contains discrete parameters."), 
+        tb$addFootnote(message = gettext("Failed to compute the Rhat statistic. This is expected if the model contains discrete parameters."),
                        colNames = c("rhatPoint", "rhatCI"))
       } else {
 
@@ -512,7 +512,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   if (isDiscrete) {
     # This works because by default, graphics::hist makes the first category using e.g., [0, 1], but the next
-    # using (1, 2]. The resulting histogram may be heavily misleading, as the first bar can lump two categories 
+    # using (1, 2]. The resulting histogram may be heavily misleading, as the first bar can lump two categories
     # together. This only for particular frequencies, but unfortunately, the default number of samples can lead
     # to this when sampling from the prior predictive of binomial(theta) with theta ~ dbeta(1, 1).
     return(list(breaks = c(u[1L], 0.999 + u), unique = u))
@@ -653,17 +653,18 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   options[["showLegend"]]      <- FALSE
 
   for (j in seq_len(nParams)) {
-    for (i in seq_len(nParams)) {
+    for (i in j:nParams) {
 
       if (i == j) {
         if (options[["bivariateScatterDiagType"]] == "dens") {
-          plotMatrix[[i, j]] <- .JAGSPlotDensity(samples, allParams[[j]], options, removeAxisLabels = TRUE)
+          plotMatrix[[i, j]] <- .JAGSPlotDensity(samples, allParams[j], options, removeAxisLabels = TRUE)
         } else {
           plotMatrix[[i, j]] <- .JAGSPlotHistogram(samples, allParams[j], options, removeAxisLabels = TRUE)
         }
       } else {#if (i > j) {
-        plotMatrix[[i, j]] <- .JAGSPlotHexOrScatter(samples, allParams[i], allParams[j],
+        plotMatrix[[i, j]] <- .JAGSPlotHexOrScatter(samples, allParams[j], allParams[i],
                                                     type = options[["bivariateScatterOffDiagType"]])
+        plotMatrix[[j, i]] <- plotMatrix[[i, j]] + ggplot2::coord_flip()
         # } else {
         # TODO: do we want to show anything else for i > j?
       }
