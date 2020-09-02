@@ -23,6 +23,9 @@ options$userData <- list(list(
   values = c("70", "100")
 ))
 options$parameters <- c("\"theta\"", "\"mu\"")
+
+options$runUnitTests <- TRUE
+
 set.seed(1)
 results <- jaspTools::runAnalysis("JAGS", "debug.csv", options)
 

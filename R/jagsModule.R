@@ -112,39 +112,52 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       inits[[i]]$.RNG.seed <- runif(1, 0, 2^31)
     }
   }
-  
-  # this code is similar to how R2jags does it, but with
-  # a try around it.
+
+    # this code is similar to how R2jags does it, but with
+    # a try around it.
   e <- try({
-    
-    # compile model
-    model <- rjags::jags.model(
-      file     = modelFile,
-      n.chains = noChains,
-      n.adapt  = 0L,
-      data     = datList,
-      inits    = inits#unname(lapply(inits, list))
-    )
-    
-    # sample burnin
-    rjags::adapt(
-      object         = model,
-      n.iter         = noBurnin,
-      by             = 0L,
-      progress.bar   = "none",
-      end.adaptation = TRUE
-    )
-    
-    # sample remainder
-    samples <- rjags::coda.samples(
-      model          = model,
-      variable.names = parametersToSave,
-      n.iter         = noSamples,
-      thin           = noThinning,
-      by             = 0L,
-      progress.bar   = "none"
-    )
-    
+
+    if (isTRUE(options$runUnitTests)) {
+
+      candidates <- c(
+        "jags-test-model.rds",
+        file.path("tests/testthat/", "jags-test-model.rds")
+      )
+      testFile <- Filter(file.exists, candidates)
+      samples <- readRDS(testFile)
+
+    } else {
+
+      # compile model
+      model <- rjags::jags.model(
+        file     = modelFile,
+        n.chains = noChains,
+        n.adapt  = 0L,
+        data     = datList,
+        inits    = inits#unname(lapply(inits, list))
+      )
+
+      # sample burnin
+      rjags::adapt(
+        object         = model,
+        n.iter         = noBurnin,
+        by             = 0L,
+        progress.bar   = "none",
+        end.adaptation = TRUE
+      )
+
+      # sample remainder
+      samples <- rjags::coda.samples(
+        model          = model,
+        variable.names = parametersToSave,
+        n.iter         = noSamples,
+        thin           = noThinning,
+        by             = 0L,
+        progress.bar   = "none"
+      )
+
+    }
+
     fit <- coda:::summary.mcmc.list(samples, quantiles = c(0.025, 0.5, 0.975))
     neff <- coda::effectiveSize(samples)
     
