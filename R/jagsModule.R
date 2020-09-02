@@ -113,8 +113,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     }
   }
 
-    # this code is similar to how R2jags does it, but with
-    # a try around it.
+  # this code is similar to how R2jags does it, but with
+  # a try around it.
   e <- try({
 
     if (isTRUE(options$runUnitTests)) {
