@@ -117,46 +117,33 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   # a try around it.
   e <- try({
 
-    if (isTRUE(options$runUnitTests)) {
+    # compile model
+    model <- rjags::jags.model(
+      file     = modelFile,
+      n.chains = noChains,
+      n.adapt  = 0L,
+      data     = datList,
+      inits    = inits#unname(lapply(inits, list))
+    )
 
-      candidates <- c(
-        "jags-test-model.rds",
-        file.path("tests/testthat/", "jags-test-model.rds")
-      )
-      testFile <- Filter(file.exists, candidates)
-      samples <- readRDS(testFile)
+    # sample burnin
+    rjags::adapt(
+      object         = model,
+      n.iter         = noBurnin,
+      by             = 0L,
+      progress.bar   = "none",
+      end.adaptation = TRUE
+    )
 
-    } else {
-
-      # compile model
-      model <- rjags::jags.model(
-        file     = modelFile,
-        n.chains = noChains,
-        n.adapt  = 0L,
-        data     = datList,
-        inits    = inits#unname(lapply(inits, list))
-      )
-
-      # sample burnin
-      rjags::adapt(
-        object         = model,
-        n.iter         = noBurnin,
-        by             = 0L,
-        progress.bar   = "none",
-        end.adaptation = TRUE
-      )
-
-      # sample remainder
-      samples <- rjags::coda.samples(
-        model          = model,
-        variable.names = parametersToSave,
-        n.iter         = noSamples,
-        thin           = noThinning,
-        by             = 0L,
-        progress.bar   = "none"
-      )
-
-    }
+    # sample remainder
+    samples <- rjags::coda.samples(
+      model          = model,
+      variable.names = parametersToSave,
+      n.iter         = noSamples,
+      thin           = noThinning,
+      by             = 0L,
+      progress.bar   = "none"
+    )
 
     fit <- coda:::summary.mcmc.list(samples, quantiles = c(0.025, 0.5, 0.975))
     neff <- coda::effectiveSize(samples)
