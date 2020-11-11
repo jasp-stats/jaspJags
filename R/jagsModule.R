@@ -256,10 +256,13 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSReadData <- function(jaspResults, options) {
 
-  if (jaspResults[["mainContainer"]]$getError() || !.JAGSgetGoodModel(jaspResults) || !.JAGShasData(options))
+  columnsFoundInUserCode <- .JAGSgetColumnNamesInUserCode(options)
+  if (jaspResults[["mainContainer"]]$getError() ||
+      !.JAGSgetGoodModel(jaspResults) ||
+      (!.JAGShasData(options) && length(columnsFoundInUserCode) == 0L))
     return(NULL)
 
-  varsToRead <- options[["model"]][["columns"]]
+  varsToRead <- union(options[["model"]][["columns"]], columnsFoundInUserCode)
   dataset <- .readDataSetToEnd(columns.as.numeric = varsToRead)
   return(dataset)
 }
@@ -818,6 +821,44 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   )
   if (isTryError(e))
     .JAGSsetModuleLoadingError(e)
+}
+
+.JAGSgetColumnNamesInUserCode <- function(options) {
+
+  targets <- Filter(
+    function(x) x != "...",
+    c(
+      options$userData[[2L]]$values,
+      options$initialValues[[2L]]$values
+    )
+  )
+  allColumnNames <- names(.readDataSetHeader(all.columns = TRUE))
+  columnsFound <- c()
+  if (length(allColumnNames) > 0L)
+    for (target in targets) {
+      expr <- parse(text = target)
+      newColumnsFound <- .JAGSlocateColumnNamesInExpression(expr, allColumnNames)
+      columnsFound <- union(columnsFound, newColumnsFound)
+    }
+  return(columnsFound)
+}
+
+.JAGSlocateColumnNamesInExpression <- function(expr, keyvals, res = c()) {
+
+  if (length(expr) == 0L)
+    return()
+
+  for (i in seq_along(expr)) {
+
+    if (is.call(expr[[i]]))
+      res <- Recall(expr[[i]][-1L], keyvals, res)
+
+    nm <- deparse(expr[[i]])
+    if (is.name(expr[[i]]) && nm %in% keyvals && !(nm %in% res))
+      res <- c(res, nm)
+
+  }
+  return(res)
 }
 
 # one line helpers ----
