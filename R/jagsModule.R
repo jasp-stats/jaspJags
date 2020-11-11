@@ -832,7 +832,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       options$initialValues[[2L]]$values
     )
   )
-  allColumnNames <- names(.readDataSetHeader(all.columns = TRUE))
+  allColumnNames <- .allColumnNamesDataset()
   columnsFound <- c()
   if (length(allColumnNames) > 0L)
     for (target in targets) {
