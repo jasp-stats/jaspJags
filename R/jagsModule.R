@@ -792,7 +792,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       if (is.null(string) || string == "" || string == "...") { # this shouldn't be possible, but if string = NULL, parse prompts for user input.
         next
       }
-      obj <- try(eval(parse(text = encodeColNames(string)), envir = envir, enclos = globalenv()))
+      obj <- try(eval(parse(text = string), envir = envir, enclos = globalenv()))
       if (isTryError(obj)) {
         jaspResults[["mainContainer"]]$setError(gettextf("The R code for %1$s crashed with error:\n%2$s",
                                                          type, .extractErrorMessage(obj)))
