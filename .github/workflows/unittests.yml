@@ -1,0 +1,51 @@
+# For help debugging build failures open an issue on the RStudio community with the 'github-actions' tag.
+# https://community.rstudio.com/new-topic?category=Package%20development&tags=github-actions
+on: [push, pull_request]
+
+name: R-CMD-check
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          # - {os: windows-latest, r: 'release'}
+          - {os: macOS-latest, r: "3.6.1", R_LIBS: "~/Frameworks/R.framework/Versions"}
+          # - {os: ubuntu-20.04, r: "release", R_LIBS: "", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
+      VDIFFR_RUN_TESTS=true
+      REQUIRED_PKGS=~/pkgs
+      #RSPM: ${{ matrix.config.rspm }}
+      #R_LIBS: ${{ matrix.config.R_LIBS }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - uses: r-lib/actions/setup-pandoc@master
+      
+      - name: Clone required-files
+        run: git clone --branch=MacOS-Original https://github.com/jasp-stats/jasp-required-files.git ~/pkgs
+      
+      - name: Setup JAGS
+        run: |
+          rm '/usr/local/bin/gfortran'
+          brew install jags
+        
+      - name: Setup jaspTools
+        run: |
+          RScript -e ".libPaths(c(.libPaths(), '~/pkgs')); install.packages('remotes'); remotes::install_github('jasp-stats/jaspTools')"
+        shell: Rscript {0}
+      
+      - name: Unit tests
+        run: R < tests/testthat.R --no-save
