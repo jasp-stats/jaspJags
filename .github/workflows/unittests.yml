@@ -51,8 +51,6 @@ jobs:
           .libPaths(c(.libPaths(), '~/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/'))
           install.packages('remotes')
           remotes::install_github('jasp-stats/jaspTools')
-          #dir('/Users/runner/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts/libs/')
-          #try(remotes::install_version("systemfonts", "0.1.1"))
           library(jaspTools)
         shell: Rscript {0}
       
