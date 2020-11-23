@@ -44,7 +44,9 @@ jobs:
         
       - name: Setup jaspTools
         run: |
-          RScript -e ".libPaths(c(.libPaths(), '~/pkgs')); install.packages('remotes'); remotes::install_github('jasp-stats/jaspTools')"
+          .libPaths(c(.libPaths(), '~/pkgs'))
+          install.packages('remotes')
+          remotes::install_github('jasp-stats/jaspTools')
         shell: Rscript {0}
       
       - name: Unit tests
