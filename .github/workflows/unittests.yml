@@ -19,9 +19,9 @@ jobs:
           # - {os: ubuntu-20.04, r: "release", R_LIBS: "", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
     env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
-      VDIFFR_RUN_TESTS=true
-      REQUIRED_PKGS=~/pkgs
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      VDIFFR_RUN_TESTS: true
+      REQUIRED_PKGS: ~/pkgs
       #RSPM: ${{ matrix.config.rspm }}
       #R_LIBS: ${{ matrix.config.R_LIBS }}
 
