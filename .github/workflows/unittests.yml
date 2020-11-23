@@ -44,7 +44,9 @@ jobs:
         
       - name: Setup jaspTools
         run: |
-          .libPaths(c(.libPaths(), '~/pkgs'))
+          print(dir('~/pkgs'))
+          print(dir('~/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/'))
+          .libPaths(c(.libPaths(), '~/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/'))
           install.packages('remotes')
           remotes::install_github('jasp-stats/jaspTools')
         shell: Rscript {0}
