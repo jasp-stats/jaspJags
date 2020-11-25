@@ -14,15 +14,15 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        clonedir: "~/pkgs", libPath: "/pkgs/R/library"}
-          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", clonedir: "~/pkgs", libPath: "/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/"}
+          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        required_pkgs: "pkgs", clonedir: "~/pkgs", libPath: "/pkgs/R/library"}
+          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", required_pkgs: "pkgs", clonedir: "~/pkgs", libPath: "/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/"}
           # - {os: ubuntu-20.04, r: "release", R_LIBS: "", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       R_REMOTES_UPGRADE: never
       VDIFFR_RUN_TESTS: true
-      REQUIRED_PKGS: ${{ matrix.config.clonedir }}
+      REQUIRED_PKGS: ${HOME}${{ matrix.config.required_pkgs}}
 
     steps:
       - uses: actions/checkout@v2
@@ -34,18 +34,6 @@ jobs:
       - name: Clone jasp-required-files
         run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git ${{ matrix.config.clonedir }}
         shell: bash
-
-      #- name: Setup Windows
-        #if: runner.os == 'Windows'
-        #run: |
-          ## R libpath
-          #$libpath="${HOME}${{ matrix.config.libPath }}"
-          #echo "R_LIBS_USER=${libpath}"
-          #$GITHUB_ENV:R_LIBS_USER=${libpath}
-          ## JAGS
-          #$jagsPath="${GITHUB_WORKSPACE}\64\JAGS\x64"
-          #echo "JAGS_HOME=${jagsPath}"
-          #$GITHUB_ENV:JAGS_HOME=${jagsPath}
 
       - name: Setup Windows
         if: runner.os == 'Windows'
@@ -75,27 +63,6 @@ jobs:
           rm '/usr/local/bin/gfortran'
           brew install jags
           brew cask install xquartz
-
-
-      #- name: Setup R_LIBS_USER
-        #run: |
-          #libpath="${HOME}${{ matrix.config.libPath }}"
-          #echo "R_LIBS_USER=${libpath}"
-          #echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
-
-      #- name: Install JAGS & xquartz on macOS
-        #if : runner.os == 'macOS'
-        #run: |
-          #rm '/usr/local/bin/gfortran'
-          #brew install jags
-          #brew cask install xquartz
-
-      #- name: Setup JAGS_HOME on Windows
-        #if : runner.os == 'Windows'
-        #run: |
-          #jagsPath="${GITHUB_WORKSPACE}\64\JAGS\x64"
-          #echo "JAGS_HOME=${jagsPath}"
-          #echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
 
       - name: test environment variables
         run: |
