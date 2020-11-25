@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        clonedir: "~/pkgs", libPath: "\pkgs\R\library\"}
+          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        clonedir: "~/pkgs", libPath: "\\pkgs\\R\\library"}
           - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", clonedir: "~/pkgs", libPath: "/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/"}
           # - {os: ubuntu-20.04, r: "release", R_LIBS: "", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
@@ -68,12 +68,11 @@ jobs:
           jagsPath="${GITHUB_WORKSPACE}\64\JAGS\x64"
           echo "JAGS_HOME=${jagsPath}"
           echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
-        
+
       - name: test environment variables
         run: |
           print(Sys.getenv("R_LIBS_USER"))
           print(Sys.getenv("JAGS_HOME"))
-          print(Sys.getenv("R_HOME"))
           print(.libPaths())
           print(sapply(.libPaths(), function(x) head(dir(x))))
         shell: Rscript {0}
@@ -87,6 +86,5 @@ jobs:
         shell: Rscript {0}
 
       - name: Unit tests
-        run: |
-          source("tests/testthat.R")
+        run: source("tests/testthat.R")
         shell: Rscript {0}
