@@ -35,17 +35,31 @@ jobs:
         run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git ${{ matrix.config.clonedir }}
         shell: bash # avoid any Windows shenanigans
 
+      #- name: Setup Windows
+        #if: runner.os == 'Windows'
+        #run: |
+          ## R libpath
+          #$libpath="${HOME}${{ matrix.config.libPath }}"
+          #echo "R_LIBS_USER=${libpath}"
+          #$GITHUB_ENV:R_LIBS_USER=${libpath}
+          ## JAGS
+          #$jagsPath="${GITHUB_WORKSPACE}\64\JAGS\x64"
+          #echo "JAGS_HOME=${jagsPath}"
+          #$GITHUB_ENV:JAGS_HOME=${jagsPath}
+
       - name: Setup Windows
         if: runner.os == 'Windows'
         run: |
+          which wslpath
           # R libpath
-          $libpath="${HOME}${{ matrix.config.libPath }}"
+          libpath=$(wslpath -w "${HOME}${{ matrix.config.libPath }}")
           echo "R_LIBS_USER=${libpath}"
-          $GITHUB_ENV:R_LIBS_USER=${libpath}
+          echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
           # JAGS
-          $jagsPath="${GITHUB_WORKSPACE}\64\JAGS\x64"
+          jagsPath=$(wslpath -w "${GITHUB_WORKSPACE}/64/JAGS/x64")
           echo "JAGS_HOME=${jagsPath}"
-          $GITHUB_ENV:JAGS_HOME=${jagsPath}
+          echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
+        shell: bash
 
       - name: Setup macOS
         if: runner.os == 'macOS'
