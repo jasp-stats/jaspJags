@@ -24,7 +24,7 @@ jobs:
       VDIFFR_RUN_TESTS: true
       REQUIRED_PKGS: ${{ matrix.config.clonedir }}
       #LIBPATH: ${{ matrix.config.libPath }}
-      R_LIBS_USER: ${{ matrix.config.libPath }}
+      #R_LIBS_USER: ${{ matrix.config.libPath }}
 
     steps:
       - uses: actions/checkout@v2
@@ -36,6 +36,12 @@ jobs:
       - name: Clone jasp-required-files
         run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git ${{ matrix.config.clonedir }}
 
+      - name: Setup R_LIBS_USER
+        run: |
+          libpath=$(realpath ${{ matrix.config.libPath }})
+          echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
+        shell: bash # avoid any Windows shenanigans
+
       - name: Install JAGS on macOS
         if : runner.os == 'macOS'
         run: |
@@ -45,7 +51,8 @@ jobs:
       - name: Setup JAGS_HOME on Windows
         if : runner.os == 'Windows'
         run: |
-          echo "JAGS_HOME=$()/pkgs/64/JAGS/x64/" >> $GITHUB_ENV
+          jagsPath=$(realpath ../pkgs/64/JAGS/x64/)
+          echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
         shell: bash # avoid any Windows shenanigans
 
       - name: Setup XQuarz
@@ -63,6 +70,9 @@ jobs:
       - name: Unit tests
         run: |
           print(Sys.getenv("R_LIBS_USER"))
+          print(Sys.getenv("JAGS_HOME"))
           print(Sys.getenv("R_HOME"))
+          print(.libPaths())
+          print(sapply(.libPaths(), dir))
           source("tests/testthat.R")
         shell: Rscript {0}
