@@ -42,12 +42,16 @@ jobs:
             # convert POSIX to Windows https://stackoverflow.com/a/13701495/4917834
             echo $1 | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/'
           }
+          # required pkgs location for jasptools
+          req_pkgs=$(posix2windows "${HOME}${{ matrix.config.required_pkgs}}")
+          echo "REQUIRED_PKGS=${req_pkgs}"
+          echo "REQUIRED_PKGS=${req_pkgs}" >> $GITHUB_ENV
           # R libpath
           libpath=$(posix2windows "${HOME}${{ matrix.config.libPath }}")
           echo "R_LIBS_USER=${libpath}"
           echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
           # JAGS
-          jagsPath=$(posix2windows "${GITHUB_WORKSPACE}/pkgs/64/JAGS/x64")
+          jagsPath=$(posix2windows "${HOME}/pkgs/64/JAGS/x64")
           echo "JAGS_HOME=${jagsPath}"
           echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
         shell: bash
@@ -55,11 +59,15 @@ jobs:
       - name: Setup macOS
         if: runner.os == 'macOS'
         run: |
+          # required pkgs location for jasptools
+          req_pkgs="${HOME}${{ matrix.config.required_pkgs}}")
+          echo "REQUIRED_PKGS=${req_pkgs}"
+          echo "REQUIRED_PKGS=${req_pkgs}" >> $GITHUB_ENV
           # R libpath
           libpath="${HOME}${{ matrix.config.libPath }}"
           echo "R_LIBS_USER=${libpath}"
           echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
-          # JAGS
+          # JAGS + xquartz
           rm '/usr/local/bin/gfortran'
           brew install jags
           brew cask install xquartz
