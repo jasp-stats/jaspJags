@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        clonedir: "~/pkgs", libPath: "\\pkgs\\R\\library"}
+          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        clonedir: "~/pkgs", libPath: "/pkgs/R/library"}
           - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", clonedir: "~/pkgs", libPath: "/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/"}
           # - {os: ubuntu-20.04, r: "release", R_LIBS: "", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
@@ -33,7 +33,7 @@ jobs:
 
       - name: Clone jasp-required-files
         run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git ${{ matrix.config.clonedir }}
-        shell: bash # avoid any Windows shenanigans
+        shell: bash
 
       #- name: Setup Windows
         #if: runner.os == 'Windows'
@@ -50,13 +50,16 @@ jobs:
       - name: Setup Windows
         if: runner.os == 'Windows'
         run: |
-          which wslpath
+          function posix2windows {
+            # convert POSIX to Windows https://stackoverflow.com/a/13701495/4917834
+            echo $1 | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/'
+          }
           # R libpath
-          libpath=$(wslpath -w "${HOME}${{ matrix.config.libPath }}")
+          libpath=$(posix2windows "${HOME}${{ matrix.config.libPath }}")
           echo "R_LIBS_USER=${libpath}"
           echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
           # JAGS
-          jagsPath=$(wslpath -w "${GITHUB_WORKSPACE}/64/JAGS/x64")
+          jagsPath=$(posix2windows "${GITHUB_WORKSPACE}/pkgs/64/JAGS/x64")
           echo "JAGS_HOME=${jagsPath}"
           echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
         shell: bash
