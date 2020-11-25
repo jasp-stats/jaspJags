@@ -23,8 +23,6 @@ jobs:
       R_REMOTES_UPGRADE: never
       VDIFFR_RUN_TESTS: true
       REQUIRED_PKGS: ${{ matrix.config.clonedir }}
-      #LIBPATH: ${{ matrix.config.libPath }}
-      #R_LIBS_USER: ${{ matrix.config.libPath }}
 
     steps:
       - uses: actions/checkout@v2
@@ -43,11 +41,11 @@ jobs:
           # R libpath
           $libpath="${HOME}${{ matrix.config.libPath }}"
           echo "R_LIBS_USER=${libpath}"
-          echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
+          $GITHUB_ENV:R_LIBS_USER=${libpath}
           # JAGS
           $jagsPath="${GITHUB_WORKSPACE}\64\JAGS\x64"
           echo "JAGS_HOME=${jagsPath}"
-          echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
+          $GITHUB_ENV:JAGS_HOME=${jagsPath}
 
       - name: Setup macOS
         if: runner.os == 'macOS'
