@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        clonedir: "~/pkgs", libPath: "/pkgs/R/library/"}
+          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        clonedir: "~/pkgs", libPath: "\pkgs\R\library\"}
           - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", clonedir: "~/pkgs", libPath: "/pkgs/Frameworks/R.framework/Versions/3.6/Resources/library/"}
           # - {os: ubuntu-20.04, r: "release", R_LIBS: "", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
@@ -37,28 +37,37 @@ jobs:
         run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git ${{ matrix.config.clonedir }}
         shell: bash # avoid any Windows shenanigans
 
+      #- name: Setup Windows
+        #if runner.os == 'Windows'
+        #run: |
+          ## R libpath
+          #libpath="${HOME}${{ matrix.config.libPath }}"
+          #echo "R_LIBS_USER=${libpath}"
+          #echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
+          ## JAGS
+          #jagsPath="${GITHUB_WORKSPACE}\64\JAGS\x64"
+          #echo "JAGS_HOME=${jagsPath}"
+          #echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
+
       - name: Setup R_LIBS_USER
         run: |
-          pwd
-          echo $HOME
           libpath="${HOME}${{ matrix.config.libPath }}"
-          echo $libpath
+          echo "R_LIBS_USER=${libpath}"
           echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
-        shell: bash # avoid any Windows shenanigans
 
-      - name: Install JAGS on macOS
+      - name: Install JAGS & xquartz on macOS
         if : runner.os == 'macOS'
         run: |
           rm '/usr/local/bin/gfortran'
           brew install jags
+          brew cask install xquartz
 
       - name: Setup JAGS_HOME on Windows
         if : runner.os == 'Windows'
         run: |
-          jagsPath="${GITHUB_WORKSPACE}${{ matrix.config.libPath }}"
-          echo $jagsPath
+          jagsPath="${GITHUB_WORKSPACE}\64\JAGS\x64"
+          echo "JAGS_HOME=${jagsPath}"
           echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
-        shell: bash # avoid any Windows shenanigans
         
       - name: test environment variables
         run: |
@@ -68,10 +77,6 @@ jobs:
           print(.libPaths())
           print(sapply(.libPaths(), function(x) head(dir(x))))
         shell: Rscript {0}
-
-      - name: Setup XQuarz
-        if : runner.os == 'macOS'
-        run: brew cask install xquartz
 
       - name: Setup jaspTools
         run: |
