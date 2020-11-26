@@ -38,7 +38,6 @@ jobs:
       - name: Setup .Rprofile
         run: |
           echo ".libPaths(c(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'), .libPaths()))" >> ${GITHUB_WORKSPACE}/.Rprofile
-          cat ~/.Rprofile
 
       - name: Locate JAGS (Windows)
         if: runner.os == 'Windows'
