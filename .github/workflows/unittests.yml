@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        libPath: "/R/library"}
-          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", libPath: "/Frameworks/R.framework/Versions/3.6/Resources/library/"}
+          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        libPath: "R\\library"}
+          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", libPath: "Frameworks/R.framework/Versions/3.6/Resources/library"}
           # - {os: ubuntu-20.04, r: "release", R_LIBS: "", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
     env:
@@ -43,7 +43,7 @@ jobs:
       - name: Locate JAGS (Windows)
         if: runner.os == 'Windows'
         run: |
-          echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('HOME'), \"${{ matrix.config.libPath }}\", '64', 'JAGS'))"  >> ~/.Rprofile
+          echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('HOME'), 'pkgs', '64', 'JAGS'))"  >> ~/.Rprofile
           cat ~/.Rprofile
 
       - name: Check libPaths
