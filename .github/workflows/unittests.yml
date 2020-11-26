@@ -37,11 +37,13 @@ jobs:
       - name: Setup libPath
         run: |
           echo ".libPaths(c(normalizePath(file.path('${HOME}', 'pkgs', '${{ matrix.config.libPath }}')), .libPaths()))" >> ~/.Rprofile
+          cat ~/.Rprofile
 
       - name: Check libPaths
         run: |
           print(.libPaths())
           print(sapply(.libPaths(), dir))
+          print(normalizePath(file.path("${HOME}", "pkgs", "${{ matrix.config.libPath }}")))
         shell: Rscript {0}
 
       - name: Setup Windows
