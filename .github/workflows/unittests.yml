@@ -1,11 +1,9 @@
-# For help debugging build failures open an issue on the RStudio community with the 'github-actions' tag.
-# https://community.rstudio.com/new-topic?category=Package%20development&tags=github-actions
 on: [push, pull_request]
 
-name: unittests
+name: unit-tests
 
 jobs:
-  unittests:
+  unit-tests:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -14,11 +12,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        libPath: "R/library"}
-          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", libPath: "Frameworks/R.framework/Versions/3.6/Resources/library"}
+          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        libPath: "/R/library"}
+          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", libPath: "/Frameworks/R.framework/Versions/3.6/Resources/library/"}
 
     env:
-      R_COMPILE_AND_INSTALL_PACKAGES: never # unclear if we really want this though
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       R_REMOTES_UPGRADE: never
       VDIFFR_RUN_TESTS: true
@@ -30,7 +27,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - name: Install xquartz on macOS
+      - name: Install system dependencies on macOS
         if: runner.os == 'macOS'
         run: brew cask install xquartz
 
@@ -40,15 +37,8 @@ jobs:
 
       - name: Set R library path
         run: |
-          cat(paste0("\n.libPaths(c(", normalizePath(file.path('..', 'pkgs', '${{ matrix.config.libPath }}')), " .libPaths()))\n"), file = "~/.Rprofile", append = TRUE)
-          if (.Platform$OS.type == "windows") {
-            cat(paste0("Sys.setenv(JAGS_HOME = ", normalizePath(file.path('..', 'pkgs', '64', 'JAGS')), ")"), file = "~/.Rprofile", append = TRUE)
-          }
-        shell: Rscript {0}
-
-      - name: Locate JAGS on Windows
-        if: runner.os == 'Windows'
-        run: cat(paste0("Sys.setenv(JAGS_HOME = ", normalizePath(file.path('..', 'pkgs', '64', 'JAGS')), ")"), file = "~/.Rprofile", append = TRUE)
+          path <- normalizePath(file.path("..", "pkgs", "${{ matrix.config.libPath }}"), winslash = "/")
+          cat("\n.libPaths(c('", path, "', .libPaths()))\n", file = "~/.Rprofile", sep = "", append = TRUE)
         shell: Rscript {0}
 
       - name: Install JAGS on macOS
@@ -56,14 +46,20 @@ jobs:
         run: |
           rm '/usr/local/bin/gfortran'
           brew install jags
+      - name: Locate JAGS on Windows
+        if: runner.os == 'Windows'
+        run: |
+          path <- normalizePath(file.path("..", "pkgs", "64", "JAGS"), winslash = "/")
+          cat("\nSys.setenv(JAGS_HOME = '", path, "')\n", file = "~/.Rprofile", sep = "", append = TRUE)
+        shell: Rscript {0}
 
       - name: Setup jaspTools
         run: |
-          install.packages('remotes')
-          remotes::install_github('jasp-stats/jaspTools')
+          install.packages("remotes")
+          remotes::install_github("jasp-stats/jaspTools")
           jaspTools::setupJaspTools()
         shell: Rscript {0}
 
-      - name: Unit tests
+      - name: Run unit tests
         run: source("tests/testthat.R")
         shell: Rscript {0}
