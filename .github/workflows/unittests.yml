@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        required_pkgs: "/pkgs", libPath: "/R/library"}
-          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", required_pkgs: "/pkgs", libPath: "/Frameworks/R.framework/Versions/3.6/Resources/library/"}
+          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        libPath: "/R/library"}
+          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", libPath: "/Frameworks/R.framework/Versions/3.6/Resources/library/"}
           # - {os: ubuntu-20.04, r: "release", R_LIBS: "", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
     env:
@@ -31,19 +31,20 @@ jobs:
           r-version: ${{ matrix.config.r }}
 
       - name: Clone jasp-required-files
-        run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git "${HOME}/${{ matrix.config.required_pkgs}}"
+        run: |
+          git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git "${HOME}/pkgs"
         shell: bash
 
-      - name: Setup libPath
+      - name: Setup .Rprofile
         run: |
-          echo ".libPaths(c(normalizePath(file.path(Sys.getenv('HOME'), 'pkgs', Sys.getenv('matrix.config.libPath'))), .libPaths()))" >> ~/.Rprofile
-          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME'), Sys.getenv('matrix.config.required_pkgs'))))"  >> ~/.Rprofile
+          echo ".libPaths(c(normalizePath(file.path(Sys.getenv('HOME'), 'pkgs', \"${{ matrix.config.libPath }}\")), .libPaths()))" >> ~/.Rprofile
+          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), pkgs)))"  >> ~/.Rprofile
           cat ~/.Rprofile
 
       - name: Setup Windows
         if: runner.os == 'Windows'
         run: |
-          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME'), Sys.getenv('matrix.config.required_pkgs'), '64', 'JAGS')))"  >> ~/.Rprofile
+          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), \"${{ matrix.config.libPath }}\", '64', 'JAGS'))"  >> ~/.Rprofile
           cat ~/.Rprofile
 
       - name: Setup macOS
@@ -59,7 +60,9 @@ jobs:
           print(Sys.getenv())
           print(.libPaths())
           print(sapply(.libPaths(), dir))
-          print(normalizePath(file.path("${HOME}", "pkgs", "${{ matrix.config.libPath }}")))
+          print(".libPaths(c(normalizePath(file.path(Sys.getenv('HOME'), 'pkgs', \"${{ matrix.config.libPath }}\")), .libPaths()))")
+          print("Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), pkgs)))")
+          print("Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), \"${{ matrix.config.libPath }}\", '64', 'JAGS'))")
         shell: Rscript {0}
 
       - name: Setup jaspTools
