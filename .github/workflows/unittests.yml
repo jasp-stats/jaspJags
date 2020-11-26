@@ -49,9 +49,9 @@ jobs:
           print(Sys.getenv())
           print(.libPaths())
           print(sapply(.libPaths(), dir))
-          if (file.exists("~/.Rprofile"))
+          if (file.exists("~/.Rprofile")) {
             print(readLines("~/.Rprofile"))
-          else {
+          } else {
             print("~/.Rprofile does not exist!")
           }
         shell: Rscript {0}
