@@ -41,6 +41,7 @@ jobs:
 
       - name: Check libPaths
         run: |
+          print(Sys.getenv())
           print(.libPaths())
           print(sapply(.libPaths(), dir))
           print(normalizePath(file.path("${HOME}", "pkgs", "${{ matrix.config.libPath }}")))
