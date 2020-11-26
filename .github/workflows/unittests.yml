@@ -42,13 +42,13 @@ jobs:
             echo $1 | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/'
           }
           # required pkgs location for jasptools
-          req_pkgs=$(posix2windows "${HOME}/${{ matrix.config.required_pkgs}}")
+          req_pkgs=$(posix2windows "${HOME}${{ matrix.config.required_pkgs}}")
           echo "REQUIRED_PKGS=${req_pkgs}" >> $GITHUB_ENV
           # R libpath
           libpath=$(posix2windows "${HOME}${{ matrix.config.required_pkgs}}${{ matrix.config.libPath }}")
           echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
           # JAGS
-          jagsPath=$(posix2windows "${HOME}/pkgs/64/JAGS")
+          jagsPath=$(posix2windows "${HOME}${{ matrix.config.required_pkgs}}/64/JAGS")
           echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
         shell: bash
 
