@@ -32,39 +32,16 @@ jobs:
           r-version: ${{ matrix.config.r }}
 
       - name: Clone jasp-required-files
-        run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git "${GITHUB_WORKSPACE}/../pkgs"
-        shell: bash
-        
-      - name: Setup .Rprofile
-        run: |
-          path <- normalizePath(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'))
-          print(path)
-          cat(sprintf("\n.libPaths(c(%s, .libPaths()))\n", path), file = "~/.Rprofile", append = TRUE)
-          if (.Platform$OS.type == "windows") {
-            path <- normalizePath(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '64', 'JAGS'))
-            print(path)
-            cat(sprintf("Sys.setenv(JAGS_HOME = %s)", path), file = "~/.Rprofile", append = TRUE)
-          }
-          print(readLines("~/.Rprofile"))
-        shell: Rscript {0}
-        
-      #- name: Setup .Rprofile
-        #run: |
-          ## locate R profile and store it in an environment variable for later use
-          #R_PROFILE=$(locate -b .Rprofile | head -n 1)
-          #echo ${R_PROFILE}
-          #cat ${R_PROFILE}
-          #echo "R_PROFILE=${R_PROFILE}" >> $GITHUB_ENV
-          #echo ".libPaths(c(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'), .libPaths()))" >> ${R_PROFILE}
-          #cat ${R_PROFILE}
-        #shell: bash
+        run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git pkgs
+        working-directory: ..
 
-      #- name: Locate JAGS (Windows)
-        #if: runner.os == 'Windows'
-        #run: |
-          #echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '64', 'JAGS'))"  >> ${R_PROFILE}
-          #cat ${R_PROFILE}
-        #shell: bash
+      - name: Set R library path
+        run: |
+          cat(paste0("\n.libPaths(c(", normalizePath(file.path('..', 'pkgs', '${{ matrix.config.libPath }}')), " .libPaths()))\n"), file = "~/.Rprofile", append = TRUE)
+          if (.Platform$OS.type == "windows") {
+            cat(paste0("Sys.setenv(JAGS_HOME = ", normalizePath(file.path('..', 'pkgs', '64', 'JAGS')), ")"), file = "~/.Rprofile", append = TRUE)
+          }
+        shell: Rscript {0}
 
       - name: Check libPaths
         run: |
