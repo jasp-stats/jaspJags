@@ -37,14 +37,20 @@ jobs:
 
       - name: Setup .Rprofile
         run: |
-          echo ".libPaths(c(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'), .libPaths()))" >> ${HOME}/.Rprofile
-          cat "${HOME}/.Rprofile"
-        
+          # locate R profile and store it in an environment variable for later use
+          R_PROFILE=$(locate -b .Rprofile | head -n 1)
+          echo ${R_PROFILE}
+          cat ${R_PROFILE}
+          echo "R_PROFILE=${R_PROFILE}" >> $GITHUB_ENV
+          echo ".libPaths(c(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'), .libPaths()))" >> ${R_PROFILE}
+          cat ${R_PROFILE}
         shell: bash
 
       - name: Locate JAGS (Windows)
         if: runner.os == 'Windows'
-        run: echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '64', 'JAGS'))"  >> ${HOME}/.Rprofile
+        run: |
+          echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '64', 'JAGS'))"  >> ${R_PROFILE}
+          cat ${R_PROFILE}
         shell: bash
 
       - name: Check libPaths
