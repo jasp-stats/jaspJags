@@ -37,17 +37,23 @@ jobs:
 
       - name: Setup .Rprofile
         run: |
-          echo ".libPaths(c(normalizePath(file.path(Sys.getenv('HOME'), 'pkgs', \"${{ matrix.config.libPath }}\")), .libPaths()))" >> ~/.Rprofile
-          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), 'pkgs')))"  >> ~/.Rprofile
+          echo ".libPaths(c(file.path(Sys.getenv('HOME'), 'pkgs', \"${{ matrix.config.libPath }}\"), .libPaths()))" >> ~/.Rprofile
           cat ~/.Rprofile
 
-      - name: Setup Windows
+      - name: Locate JAGS (Windows)
         if: runner.os == 'Windows'
         run: |
-          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), \"${{ matrix.config.libPath }}\", '64', 'JAGS'))"  >> ~/.Rprofile
+          echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('HOME'), \"${{ matrix.config.libPath }}\", '64', 'JAGS'))"  >> ~/.Rprofile
           cat ~/.Rprofile
 
-      - name: Setup macOS
+      - name: Check libPaths
+        run: |
+          print(Sys.getenv())
+          print(.libPaths())
+          print(sapply(.libPaths(), dir))
+        shell: Rscript {0}
+
+      - name: Install xquartz & JAGS (macOS)
         if: runner.os == 'macOS'
         run: |
           # JAGS + xquartz
@@ -55,21 +61,10 @@ jobs:
           brew install jags
           brew cask install xquartz
 
-      - name: Check libPaths
-        run: |
-          print(Sys.getenv())
-          print(.libPaths())
-          print(sapply(.libPaths(), dir))
-          print(".libPaths(c(normalizePath(file.path(Sys.getenv('HOME'), 'pkgs', \"${{ matrix.config.libPath }}\")), .libPaths()))")
-          print("Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), pkgs)))")
-          print("Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), \"${{ matrix.config.libPath }}\", '64', 'JAGS'))")
-        shell: Rscript {0}
-
       - name: Setup jaspTools
         run: |
           install.packages('remotes')
-          # remotes::install_github('jasp-stats/jaspTools')
-          remotes::install_github('TimKDJ/jaspTools')
+          remotes::install_github('jasp-stats/jaspTools')
           jaspTools::setupJaspTools()
         shell: Rscript {0}
 
