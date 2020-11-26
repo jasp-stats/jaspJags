@@ -37,7 +37,7 @@ jobs:
         
       - name: Setup .Rprofile
         run: |
-          path <- Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'), .libPaths()))
+          path <- normalizePath(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'))
           print(path)
           cat(sprintf("\n.libPaths(c(%s, .libPaths()))\n", path), file = "~/.Rprofile", append = TRUE)
           if (.Platform$OS.type == "windows") {
