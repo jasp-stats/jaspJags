@@ -58,6 +58,7 @@ jobs:
           print(Sys.getenv())
           print(.libPaths())
           print(sapply(.libPaths(), dir))
+          print(normalizePath("~/.Rprofile"))
           if (file.exists("~/.Rprofile")) {
             print(readLines("~/.Rprofile"))
           } else {
