@@ -27,39 +27,8 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - name: Install system dependencies on macOS
-        if: runner.os == 'macOS'
-        run: brew cask install xquartz
-
-      - name: Clone jasp-required-files
-        run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git pkgs
-        working-directory: ..
-
-      - name: Set R library path
-        run: |
-          path <- normalizePath(file.path("..", "pkgs", "${{ matrix.config.libPath }}"), winslash = "/")
-          cat("\n.libPaths(c('", path, "', .libPaths()))\n", file = "~/.Rprofile", sep = "", append = TRUE)
-        shell: Rscript {0}
-
-      - name: Install JAGS on macOS
-        if: runner.os == 'macOS'
-        run: |
-          rm '/usr/local/bin/gfortran'
-          brew install jags
-      - name: Locate JAGS on Windows
-        if: runner.os == 'Windows'
-        run: |
-          path <- normalizePath(file.path("..", "pkgs", "64", "JAGS"), winslash = "/")
-          cat("\nSys.setenv(JAGS_HOME = '", path, "')\n", file = "~/.Rprofile", sep = "", append = TRUE)
-        shell: Rscript {0}
-
-      - name: Setup jaspTools
-        run: |
-          install.packages("remotes")
-          remotes::install_github("jasp-stats/jaspTools")
-          jaspTools::setupJaspTools()
-        shell: Rscript {0}
-
-      - name: Run unit tests
-        run: source("tests/testthat.R")
-        shell: Rscript {0}
+      - uses: vandenman/jasp-actions/unittests@80f20ca
+        with:
+          jaspRequiredFilesBranch: ${{ matrix.config.jaspRequiredFilesBranch }}
+          libPath: ${{ matrix.config.libPath }}
+          needsJAGS: true
