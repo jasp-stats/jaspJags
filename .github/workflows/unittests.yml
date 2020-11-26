@@ -32,19 +32,17 @@ jobs:
 
       - name: Clone jasp-required-files
         run: |
-          git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git "${HOME}/pkgs"
+          git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git "${GITHUB_WORKSPACE}/../pkgs"
         shell: bash
 
       - name: Setup .Rprofile
         run: |
-          echo ".libPaths(c(file.path(Sys.getenv('HOME'), 'pkgs', \"${{ matrix.config.libPath }}\"), .libPaths()))" >> ~/.Rprofile
+          echo ".libPaths(c(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'), .libPaths()))" >> ~/.Rprofile
           cat ~/.Rprofile
 
       - name: Locate JAGS (Windows)
         if: runner.os == 'Windows'
-        run: |
-          echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('HOME'), 'pkgs', '64', 'JAGS'))"  >> ~/.Rprofile
-          cat ~/.Rprofile
+        run: echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '64', 'JAGS'))"  >> ~/.Rprofile
 
       - name: Check libPaths
         run: |
