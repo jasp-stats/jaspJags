@@ -38,7 +38,7 @@ jobs:
       - name: Setup .Rprofile
         run: |
           echo ".libPaths(c(normalizePath(file.path(Sys.getenv('HOME'), 'pkgs', \"${{ matrix.config.libPath }}\")), .libPaths()))" >> ~/.Rprofile
-          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), pkgs)))"  >> ~/.Rprofile
+          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME')), 'pkgs')))"  >> ~/.Rprofile
           cat ~/.Rprofile
 
       - name: Setup Windows
