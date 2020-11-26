@@ -34,6 +34,16 @@ jobs:
         run: git clone --branch=${{ matrix.config.jaspRequiredFilesBranch }} https://github.com/jasp-stats/jasp-required-files.git "${HOME}/${{ matrix.config.required_pkgs}}"
         shell: bash
 
+      - name: Setup libPath
+        run: |
+          echo ".libPaths(c(normalizePath(file.path('${HOME}', 'pkgs', '${{ matrix.config.libPath }}')), .libPaths()))" >> ~/.Rprofile
+
+      - name: Check libPaths
+        run: |
+          print(.libPaths())
+          print(sapply(.libPaths(), dir))
+        shell: Rscript {0}
+
       - name: Setup Windows
         if: runner.os == 'Windows'
         run: |
