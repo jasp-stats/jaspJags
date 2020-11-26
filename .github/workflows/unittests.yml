@@ -50,7 +50,7 @@ jobs:
           echo "R_LIBS_USER=${libpath}"
           echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
           # JAGS
-          jagsPath=$(posix2windows "${HOME}/pkgs/64/JAGS/x64")
+          jagsPath=$(posix2windows "${HOME}/pkgs/64/JAGS")
           echo "JAGS_HOME=${jagsPath}"
           echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
         shell: bash
