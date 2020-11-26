@@ -27,7 +27,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - uses: vandenman/jasp-actions/unittests@80f20ca
+      - uses: vandenman/jasp-actions/unittests@66f8ac3
         with:
           jaspRequiredFilesBranch: ${{ matrix.config.jaspRequiredFilesBranch }}
           libPath: ${{ matrix.config.libPath }}
