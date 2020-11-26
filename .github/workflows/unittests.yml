@@ -36,12 +36,15 @@ jobs:
         shell: bash
 
       - name: Setup .Rprofile
-        run: echo ".libPaths(c(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'), .libPaths()))" >> ~/.Rprofile
+        run: |
+          echo ".libPaths(c(file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '${{ matrix.config.libPath }}'), .libPaths()))" >> ${HOME}/.Rprofile
+          cat "${HOME}/.Rprofile"
+        
         shell: bash
 
       - name: Locate JAGS (Windows)
         if: runner.os == 'Windows'
-        run: echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '64', 'JAGS'))"  >> ~/.Rprofile
+        run: echo "Sys.setenv(JAGS_HOME = file.path(Sys.getenv('GITHUB_WORKSPACE'), '..', 'pkgs', '64', 'JAGS'))"  >> ${HOME}/.Rprofile
         shell: bash
 
       - name: Check libPaths
