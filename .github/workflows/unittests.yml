@@ -36,8 +36,23 @@ jobs:
 
       - name: Setup libPath
         run: |
-          echo ".libPaths(c(normalizePath(file.path('${HOME}', 'pkgs', '${{ matrix.config.libPath }}')), .libPaths()))" >> ~/.Rprofile
+          echo ".libPaths(c(normalizePath(file.path(Sys.getenv('HOME'), 'pkgs', Sys.getenv('matrix.config.libPath'))), .libPaths()))" >> ~/.Rprofile
+          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME'), Sys.getenv('matrix.config.required_pkgs'))))"  >> ~/.Rprofile
           cat ~/.Rprofile
+
+      - name: Setup Windows
+        if: runner.os == 'Windows'
+        run: |
+          echo "Sys.setenv(REQUIRED_PKGS = file.path(normalizePath(Sys.getenv('HOME'), Sys.getenv('matrix.config.required_pkgs'), '64', 'JAGS')))"  >> ~/.Rprofile
+          cat ~/.Rprofile
+
+      - name: Setup macOS
+        if: runner.os == 'macOS'
+        run: |
+          # JAGS + xquartz
+          rm '/usr/local/bin/gfortran'
+          brew install jags
+          brew cask install xquartz
 
       - name: Check libPaths
         run: |
@@ -46,38 +61,6 @@ jobs:
           print(sapply(.libPaths(), dir))
           print(normalizePath(file.path("${HOME}", "pkgs", "${{ matrix.config.libPath }}")))
         shell: Rscript {0}
-
-      - name: Setup Windows
-        if: runner.os == 'Windows'
-        run: |
-          function posix2windows {
-            # convert POSIX to Windows https://stackoverflow.com/a/13701495/4917834
-            echo $1 | sed -e 's/^\///' -e 's/\//\\/g' -e 's/^./\0:/'
-          }
-          # required pkgs location for jasptools
-          req_pkgs=$(posix2windows "${HOME}${{ matrix.config.required_pkgs}}")
-          echo "REQUIRED_PKGS=${req_pkgs}" >> $GITHUB_ENV
-          # R libpath
-          libpath=$(posix2windows "${HOME}${{ matrix.config.required_pkgs}}${{ matrix.config.libPath }}")
-          echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
-          # JAGS
-          jagsPath=$(posix2windows "${HOME}${{ matrix.config.required_pkgs}}/64/JAGS")
-          echo "JAGS_HOME=${jagsPath}" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Setup macOS
-        if: runner.os == 'macOS'
-        run: |
-          # required pkgs location for jasptools
-          req_pkgs="${HOME}${{ matrix.config.required_pkgs}}"
-          echo "REQUIRED_PKGS=${req_pkgs}" >> $GITHUB_ENV
-          # R libpath
-          libpath="${HOME}${{ matrix.config.required_pkgs}}${{ matrix.config.libPath }}"
-          echo "R_LIBS_USER=${libpath}" >> $GITHUB_ENV
-          # JAGS + xquartz
-          rm '/usr/local/bin/gfortran'
-          brew install jags
-          brew cask install xquartz
 
       - name: Setup jaspTools
         run: |
