@@ -27,7 +27,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - uses: vandenman/jasp-actions/unittests@c8e2b30
+      - uses: vandenman/jasp-actions/unittests@378d937
         with:
           needsJAGS: true
 
