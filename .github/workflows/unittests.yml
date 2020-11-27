@@ -27,7 +27,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - uses: jasp-stats/jasp-actions/setup-r-env@master
+      - uses: jasp-stats/jasp-actions/setup-test-env@master
         with:
           requiresJAGS: true
 
