@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: "3.6.1", jaspRequiredFilesBranch: "Windows",        libPath: "/R/library"}
-          - {os: macOS-latest,   r: "3.6.1", jaspRequiredFilesBranch: "MacOS-Original", libPath: "/Frameworks/R.framework/Versions/3.6/Resources/library/"}
+          - {os: windows-latest, r: "3.6.1"}
+          - {os: macOS-latest,   r: "3.6.1"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -27,8 +27,11 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - uses: vandenman/jasp-actions/unittests@7afcf4d
+      - uses: vandenman/jasp-actions/unittests@c8e2b30
         with:
-          jaspRequiredFilesBranch: ${{ matrix.config.jaspRequiredFilesBranch }}
-          libPath: ${{ matrix.config.libPath }}
           needsJAGS: true
+
+      - name: Run unit tests
+        run: source("tests/testthat.R")
+        shell: Rscript {0}
+
