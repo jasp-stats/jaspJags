@@ -2,7 +2,7 @@ Package: jaspJags
 Type: Package
 Title: JAGS Module for JASP
 Version: 0.1
-Date: 2020-04-08
+Date: 2020-02-12
 Author: Don van den Bergh
 Website: jasp-stats.org
 Maintainer: Don van den Bergh <d.vandenBergh@jasp-stats.com>
