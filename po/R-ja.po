@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.1\n"
 "POT-Creation-Date: 2021-01-05 09:39\n"
-"PO-Revision-Date: 2021-02-10 08:50+0000\n"
+"PO-Revision-Date: 2021-02-21 03:50+0000\n"
 "Last-Translator: Koji Kosugi <kosugitti@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
 "ja/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.5\n"
 
 msgid "The following names appeared both in the data set and in the user specified data:\n%s"
 msgstr ""
@@ -55,7 +55,7 @@ msgid "Point est."
 msgstr "点推定値"
 
 msgid "Upper CI"
-msgstr ""
+msgstr "上側CI"
 
 msgid "Effective Sample Size"
 msgstr "有効サンプルサイズ"
@@ -67,7 +67,7 @@ msgid "Deviance cannot be computed without data."
 msgstr "逸脱度は、データなしでは計算できません。"
 
 msgid "Failed to compute the Rhat statistic. This is expected if the model contains discrete parameters."
-msgstr ""
+msgstr "Rhat統計量の計算に失敗しました。これはモデルが離散パラメータを含む場合に生じることがあります。"
 
 msgid "The multivariate potential scale reduction factor is estimated at %.3f."
 msgstr "多変量潜在スケール減少係数は%.3fと推定されます。"
@@ -94,13 +94,13 @@ msgid "Density"
 msgstr "密度"
 
 msgid "Chain"
-msgstr ""
+msgstr "チェーン"
 
 msgid "Counts"
 msgstr "カウント"
 
 msgid "Iteration"
-msgstr ""
+msgstr "イテレーション"
 
 msgid "Autocorrelation"
 msgstr "自己 相関"
@@ -112,10 +112,10 @@ msgid "At least two parameters need to be monitored and shown to make a bivariat
 msgstr "2変量散布図を作成するには、少なくとも 2 つのパラメータをモニターして表示する必要があります!"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
-msgstr ""
+msgstr "%1$s%2$s に加えて:%3$s%4$s"
 
 msgid "The model contains more '%1$s' than '%2$s' (%3$d vs %4$d)"
-msgstr ""
+msgstr "モデルは '%2$s' より '%1$s' が多いです(%3$d vs %4$d)"
 
 msgid "There was a problem loading JAGS, JAGS_HOME is: '%1$s'.\nPlease contact the JASP team for support.\nError was: %2$s."
 msgstr ""
