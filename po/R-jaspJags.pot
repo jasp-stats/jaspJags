@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: jaspJags 0.1\n"
-"POT-Creation-Date: 2021-01-05 09:39\n"
+"Project-Id-Version: jaspJags 0.15\n"
+"POT-Creation-Date: 2021-03-06 14:33\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,6 +53,9 @@ msgid "Upper CI"
 msgstr ""
 
 msgid "Effective Sample Size"
+msgstr ""
+
+msgid "Output based on %s MCMC draws."
 msgstr ""
 
 msgid "No data was supplied, everything was sampled from the priors!"
