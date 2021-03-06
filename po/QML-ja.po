@@ -1,0 +1,177 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-02-21 05:50+0000\n"
+"Last-Translator: Koji Kosugi <kosugitti@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/"
+"jaspjags-qml/ja/>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.5\n"
+"X-Qt-Contexts: true\n"
+
+msgctxt "Description|"
+msgid "JAGS"
+msgstr "JAGS"
+
+msgctxt "Description|"
+msgid "JAGS interface for JASP"
+msgstr "JASP用JAGSインターフェース"
+
+msgctxt "JAGS|"
+msgid "Enter JAGS model below"
+msgstr "以下にJAGSモデルを入力してください"
+
+msgctxt "JAGS|"
+msgid "Parameters in model"
+msgstr "モデル内のパラメータ"
+
+msgctxt "JAGS|"
+msgid "Monitor these parameters"
+msgstr "これらのパラメーターをモニタする"
+
+msgctxt "JAGS|"
+msgid "Monitored parameters"
+msgstr "モニタされるパラメータ"
+
+msgctxt "JAGS|"
+msgid "Show results for these parameters"
+msgstr "これらのパラメータの結果を表示する"
+
+msgctxt "JAGS|"
+msgid "Plots"
+msgstr "プロット"
+
+msgctxt "JAGS|"
+msgid "Color scheme for plots:"
+msgstr "プロットの配色:"
+
+msgctxt "JAGS|"
+msgid "Colorblind"
+msgstr "色覚異常"
+
+msgctxt "JAGS|"
+msgid "Colorblind Alt."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Viridis"
+msgstr "ビリジアン"
+
+msgctxt "JAGS|"
+msgid "Blue"
+msgstr "青"
+
+msgctxt "JAGS|"
+msgid "Gray"
+msgstr "灰色"
+
+msgctxt "JAGS|"
+msgid "Aggregate chains for densities and histograms"
+msgstr "密度とヒストグラムのためにチェーンを集約する"
+
+msgctxt "JAGS|"
+msgid "Show legends"
+msgstr "凡例を表示する"
+
+msgctxt "JAGS|"
+msgid "Density"
+msgstr "密度"
+
+msgctxt "JAGS|"
+msgid "Histogram"
+msgstr "ヒストグラム"
+
+msgctxt "JAGS|"
+msgid "Trace"
+msgstr "トレース"
+
+msgctxt "JAGS|"
+msgid "Autocorrelation"
+msgstr "自己 相関"
+
+msgctxt "JAGS|"
+msgid "No. lags"
+msgstr "ラグなし"
+
+msgctxt "JAGS|"
+msgid "Type"
+msgstr "型"
+
+msgctxt "JAGS|"
+msgid "line"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "bar"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Bivariate scatter"
+msgstr "二変量散布図"
+
+msgctxt "JAGS|"
+msgid "Diagonal plot type"
+msgstr "対角プロットのタイプ"
+
+msgctxt "JAGS|"
+msgid "Off-diagonal plot type"
+msgstr "非対角線プロットのタイプ"
+
+msgctxt "JAGS|"
+msgid "Hexagonal"
+msgstr "六角形"
+
+msgctxt "JAGS|"
+msgid "Contour"
+msgstr "輪郭"
+
+msgctxt "JAGS|"
+msgid "Initial Values"
+msgstr "初期値"
+
+msgctxt "JAGS|"
+msgid "Observed Values"
+msgstr "観測値"
+
+msgctxt "JAGS|"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "MCMC parameters"
+msgstr "MCMC パラメータ"
+
+msgctxt "JAGS|"
+msgid "No. samples"
+msgstr "サンプル数"
+
+msgctxt "JAGS|"
+msgid "No. burnin samples"
+msgstr "バーンインサンプルの数"
+
+msgctxt "JAGS|"
+msgid "Thinning"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. chains"
+msgstr "チェーンの数"
+
+msgctxt "JAGS|"
+msgid "Show results for"
+msgstr "結果を表示する"
+
+msgctxt "JAGS|"
+msgid "all monitored parameters"
+msgstr "すべてのモニタ対象パラメータ"
+
+msgctxt "JAGS|"
+msgid "selected parameters"
+msgstr "選択されたパラメータ"
+
+msgctxt "JAGS|"
+msgid "Show Deviance"
+msgstr "逸脱度を表示"
