@@ -1,0 +1,136 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: jaspJags 0.1\n"
+"POT-Creation-Date: 2021-01-05 09:39\n"
+"PO-Revision-Date: 2021-02-21 03:50+0000\n"
+"Last-Translator: Koji Kosugi <kosugitti@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
+"ja/>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.5\n"
+
+msgid "The following names appeared both in the data set and in the user specified data:\n%s"
+msgstr ""
+"以下の名前は、データセットとユーザー指定データの両方に現れました。\n"
+"%s"
+
+msgid "Please specify which parameters to monitor!"
+msgstr "監視するパラメータを指定してください!"
+
+msgid "Please specify which parameters to show output for!"
+msgstr "出力を表示するパラメータを指定してください！"
+
+msgid "Posterior"
+msgstr "事後分布"
+
+msgid "95%% Credible Interval"
+msgstr "95%% 確信区間"
+
+msgid "Rhat"
+msgstr "Rhat"
+
+msgid "Parameter"
+msgstr "パラメータ"
+
+msgid "Mean"
+msgstr "平均値"
+
+msgid "Median"
+msgstr "中央値"
+
+msgid "SD"
+msgstr "標準偏差"
+
+msgid "Lower"
+msgstr "下"
+
+msgid "Upper"
+msgstr "上"
+
+msgid "Point est."
+msgstr "点推定値"
+
+msgid "Upper CI"
+msgstr "上側CI"
+
+msgid "Effective Sample Size"
+msgstr "有効サンプルサイズ"
+
+msgid "No data was supplied, everything was sampled from the priors!"
+msgstr "データは提供されなかったため，すべてが事前分布からサンプリングされました!"
+
+msgid "Deviance cannot be computed without data."
+msgstr "逸脱度は、データなしでは計算できません。"
+
+msgid "Failed to compute the Rhat statistic. This is expected if the model contains discrete parameters."
+msgstr "Rhat統計量の計算に失敗しました。これはモデルが離散パラメータを含む場合に生じることがあります。"
+
+msgid "The multivariate potential scale reduction factor is estimated at %.3f."
+msgstr "多変量潜在スケール減少係数は%.3fと推定されます。"
+
+msgid "Rhat statistic cannot be computed for only one chain. It is strongly recommoned to run more than one chain to assess MCMC convergence!"
+msgstr "Rhat統計量は、1つの連鎖だけでは計算できません。MCMCの収束性を評価するために、複数の連鎖を実行することを強く推奨します!"
+
+msgid "Marginal Density"
+msgstr "周辺密度"
+
+msgid "Marginal Histogram"
+msgstr "周辺ヒストグラム"
+
+msgid "Trace Plots"
+msgstr "トレースプロット"
+
+msgid "Autocorrelation Plots"
+msgstr "自己相関プロット"
+
+msgid "Bivariate Scatter Plot"
+msgstr "2変量散布図"
+
+msgid "Density"
+msgstr "密度"
+
+msgid "Chain"
+msgstr "チェーン"
+
+msgid "Counts"
+msgstr "カウント"
+
+msgid "Iteration"
+msgstr "イテレーション"
+
+msgid "Autocorrelation"
+msgstr "自己 相関"
+
+msgid "Lag"
+msgstr "ラグ"
+
+msgid "At least two parameters need to be monitored and shown to make a bivariate scatter plot!"
+msgstr "2変量散布図を作成するには、少なくとも 2 つのパラメータをモニターして表示する必要があります!"
+
+msgid "%1$s%2$sIn addition:%3$s%4$s"
+msgstr "%1$s%2$s に加えて:%3$s%4$s"
+
+msgid "The model contains more '%1$s' than '%2$s' (%3$d vs %4$d)"
+msgstr "モデルは '%2$s' より '%1$s' が多いです(%3$d vs %4$d)"
+
+msgid "There was a problem loading JAGS, JAGS_HOME is: '%1$s'.\nPlease contact the JASP team for support.\nError was: %2$s."
+msgstr ""
+"JAGS の読み込みに問題がありました。JAGS_HOMEは'%1$s' です。\n"
+"サポートについては、JASPチームにお問い合わせください。\n"
+"エラー: %2$s です。"
+
+msgid "Expected JAGS version 4.3.0 but found %s"
+msgstr "JAGS バージョン 4.3.0 が必要ですが、%s が見つかりました"
+
+#, fuzzy
+msgid "The R code for %1$s crashed with error:\n%2$s"
+msgstr ""
+"%1$s の R コードがエラーでクラッシュしました:\n"
+"%2$s"
+
+msgid "The result of %1$s R code should be numeric but it was of mode %2$s and class %3$s"
+msgstr "%1$Rコードの結果は数値のはずですが，モード %2$s および class %3$s でした。"
