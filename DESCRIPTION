@@ -6,7 +6,7 @@ Date: 2020-04-08
 Author: Don van den Bergh
 Website: jasp-stats.org
 Maintainer: Don van den Bergh <d.vandenBergh@jasp-stats.com>
-Description: JAGS interface for JASP
+Description: Implement Bayesian graphical models with Martyn Plummer’s JAGS program for Markov chain Monte Carlo
 License: GPL (>= 2)
 Encoding: UTF-8
 Depends:
