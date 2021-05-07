@@ -9,10 +9,6 @@ msgctxt "Description|"
 msgid "JAGS"
 msgstr ""
 
-msgctxt "Description|"
-msgid "JAGS interface for JASP"
-msgstr ""
-
 msgctxt "JAGS|"
 msgid "Enter JAGS model below"
 msgstr ""
@@ -167,4 +163,10 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Show Deviance"
+msgstr ""
+
+msgctxt "Description|"
+msgid ""
+"Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
+"Markov chain Monte Carlo"
 msgstr ""
