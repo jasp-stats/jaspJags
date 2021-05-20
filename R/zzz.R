@@ -1,4 +1,4 @@
-.onAttach <- function(libname, pkgname) {
+.onLoad <- function(libname, pkgname) {
 
   # function from zzzWrappers.R inside jaspResults
   jaspResultsCalledFromJasp <- mget("jaspResultsCalledFromJasp", envir = .GlobalEnv, mode = "function", ifnotfound = NA)
