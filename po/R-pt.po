@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: R 3.6.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
 "POT-Creation-Date: 2021-03-06 14:33\n"
-"PO-Revision-Date: 2021-06-13 19:32+0000\n"
+"PO-Revision-Date: 2021-06-15 09:20+0000\n"
 "Last-Translator: Alex França <alex.tonante@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/"
 "jaspjags-r/pt/>\n"
@@ -32,9 +32,8 @@ msgstr ""
 msgid "Please specify which parameters to show output for!"
 msgstr ""
 
-#, fuzzy
 msgid "Posterior"
-msgstr "RÂ² Posterior"
+msgstr "Posterior"
 
 #, fuzzy
 msgid "95%% Credible Interval"
