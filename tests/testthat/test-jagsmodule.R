@@ -51,53 +51,53 @@ test_that("MCMC summary table results match", {
 test_that("plotAutoCor mu plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotAutoCor"]][["collection"]][["mainContainer_plotContainer_plotAutoCor_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "plotAutoCor-mu", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "plotAutoCor-mu")
 })
 
 test_that("plotAutoCor theta plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotAutoCor"]][["collection"]][["mainContainer_plotContainer_plotAutoCor_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "plotAutoCor-theta", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "plotAutoCor-theta")
 })
 
 test_that("plotDensity mu plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotDensity"]][["collection"]][["mainContainer_plotContainer_plotDensity_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "plotDensity-mu", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "plotDensity-mu")
 })
 
 test_that("plotDensity theta plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotDensity"]][["collection"]][["mainContainer_plotContainer_plotDensity_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "plotDensity-theta", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "plotDensity-theta")
 })
 
 test_that("plotHistogram mu plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotHistogram"]][["collection"]][["mainContainer_plotContainer_plotHistogram_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "plotHistogram-mu", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "plotHistogram-mu")
 })
 
 test_that("plotHistogram theta plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotHistogram"]][["collection"]][["mainContainer_plotContainer_plotHistogram_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "plotHistogram-theta", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "plotHistogram-theta")
 })
 
 test_that("plotTrace mu plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotTrace"]][["collection"]][["mainContainer_plotContainer_plotTrace_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "plotTrace-mu", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "plotTrace-mu")
 })
 
 test_that("plotTrace theta plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotTrace"]][["collection"]][["mainContainer_plotContainer_plotTrace_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "plotTrace-theta", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "plotTrace-theta")
 })
 
 test_that("Bivariate Scatter Plot matches", {
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotBivarHex"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
-  jaspTools::expect_equal_plots(testPlot, "bivariate-scatter-plot", dir="JAGS")
+  jaspTools::expect_equal_plots(testPlot, "bivariate-scatter-plot")
 })
