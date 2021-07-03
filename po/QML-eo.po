@@ -3,175 +3,170 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Language: de\n"
-"X-Source-Language: American English\n"
 "X-Qt-Contexts: true\n"
 
 msgctxt "Description|"
 msgid "JAGS"
-msgstr "JAGS"
-
-msgctxt "JAGS|"
-msgid "Enter JAGS model below"
-msgstr "JAGS-Modell unten eingeben"
-
-msgctxt "JAGS|"
-msgid "Parameters in model"
-msgstr "Modellparameter"
-
-msgctxt "JAGS|"
-msgid "Monitor these parameters"
-msgstr "Diese Parameter beobachten"
-
-msgctxt "JAGS|"
-msgid "Monitored parameters"
-msgstr "Beobachtete Parameter"
-
-msgctxt "JAGS|"
-msgid "Show results for these parameters"
-msgstr "Ergebnisse für diese Parameter anzeigen"
-
-msgctxt "JAGS|"
-msgid "Plots"
-msgstr "Abbildungen"
-
-msgctxt "JAGS|"
-msgid "Color scheme for plots:"
-msgstr "Farbschema für Abbildungen:"
-
-msgctxt "JAGS|"
-msgid "Colorblind"
-msgstr "Farbenblind"
-
-msgctxt "JAGS|"
-msgid "Colorblind Alt."
-msgstr "Farbenblind alt."
-
-msgctxt "JAGS|"
-msgid "Viridis"
-msgstr "Viridis"
-
-msgctxt "JAGS|"
-msgid "Blue"
-msgstr "Blau"
-
-msgctxt "JAGS|"
-msgid "Gray"
-msgstr "Grau"
-
-msgctxt "JAGS|"
-msgid "Aggregate chains for densities and histograms"
-msgstr "Ketten für Verteilungen und Histogramme aggregieren"
-
-msgctxt "JAGS|"
-msgid "Show legends"
-msgstr "Legenden anzeigen"
-
-msgctxt "JAGS|"
-msgid "Density"
-msgstr "Dichte"
-
-msgctxt "JAGS|"
-msgid "Histogram"
-msgstr "Histogramm"
-
-msgctxt "JAGS|"
-msgid "Trace"
-msgstr "Spur"
-
-msgctxt "JAGS|"
-msgid "Autocorrelation"
-msgstr "Autokorrelation"
-
-msgctxt "JAGS|"
-msgid "No. lags"
-msgstr "Anzahl Verzögerungen"
-
-msgctxt "JAGS|"
-msgid "Type"
-msgstr "Typ"
-
-msgctxt "JAGS|"
-msgid "line"
-msgstr "Linie"
-
-msgctxt "JAGS|"
-msgid "bar"
-msgstr "Balken"
-
-msgctxt "JAGS|"
-msgid "Bivariate scatter"
-msgstr "Bivariate spreiding"
-
-msgctxt "JAGS|"
-msgid "Diagonal plot type"
-msgstr "Diagrammtyp der Diagonale"
-
-msgctxt "JAGS|"
-msgid "Off-diagonal plot type"
-msgstr "Diagrammtyp der Nebendiagonale"
-
-msgctxt "JAGS|"
-msgid "Hexagonal"
-msgstr "Hexagonal"
-
-msgctxt "JAGS|"
-msgid "Contour"
-msgstr "Kontouren"
-
-msgctxt "JAGS|"
-msgid "Initial Values"
-msgstr "Startwerte"
-
-msgctxt "JAGS|"
-msgid "Observed Values"
-msgstr "Beobachtete Werte"
-
-msgctxt "JAGS|"
-msgid "Advanced"
-msgstr "Weiteres"
-
-msgctxt "JAGS|"
-msgid "MCMC parameters"
-msgstr "MCMC-Parameter"
-
-msgctxt "JAGS|"
-msgid "No. samples"
-msgstr "Stichprobenumfang"
-
-msgctxt "JAGS|"
-msgid "No. burnin samples"
-msgstr "Stichprobenumfang Aufwärmphase"
-
-msgctxt "JAGS|"
-msgid "Thinning"
-msgstr "Ausdünnung"
-
-msgctxt "JAGS|"
-msgid "No. chains"
-msgstr "Anzahl Ketten"
-
-msgctxt "JAGS|"
-msgid "Show results for"
-msgstr "Ergebnisse anzeigen für"
-
-msgctxt "JAGS|"
-msgid "all monitored parameters"
-msgstr "alle überwachten Parameter"
-
-msgctxt "JAGS|"
-msgid "selected parameters"
-msgstr "ausgewählte Parameter"
-
-msgctxt "JAGS|"
-msgid "Show Deviance"
-msgstr "Devianz anzeigen"
+msgstr ""
 
 msgctxt "Description|"
 msgid ""
 "Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
 "Markov chain Monte Carlo"
 msgstr ""
-"Implementiere Bayessche grafische Modelle mit Martyn Plummers JAGS-Programm "
-"für Markow-Ketten-Monte-Carlo"
+
+msgctxt "JAGS|"
+msgid "Enter JAGS model below"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Parameters in model"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Monitor these parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Monitored parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show results for these parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Plots"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Color scheme for plots:"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Colorblind"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Colorblind Alt."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Viridis"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Blue"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Gray"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Aggregate chains for densities and histograms"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show legends"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Density"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Histogram"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Trace"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Autocorrelation"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. lags"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "line"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "bar"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Bivariate scatter"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Diagonal plot type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Off-diagonal plot type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Hexagonal"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Contour"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Initial Values"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Observed Values"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "MCMC parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. burnin samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Thinning"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. chains"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show results for"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "all monitored parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "selected parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show Deviance"
+msgstr ""
