@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2021-03-06 14:33\n"
-"PO-Revision-Date: 2021-07-01 19:32+0000\n"
+"PO-Revision-Date: 2021-07-08 20:32+0000\n"
 "Last-Translator: ecadrian <ecadrian@hotmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
 "gl/>\n"
@@ -26,22 +26,25 @@ msgid ""
 "data:\n"
 "%s"
 msgstr ""
+"Os seguintes nomes apareceron tanto no conxunto de datos como nos datos "
+"especificados polo usuario:\n"
+"%s"
 
 msgid "Please specify which parameters to monitor!"
-msgstr ""
+msgstr "Por favor, especifica que parámetros se supervisan!"
 
 msgid "Please specify which parameters to show output for!"
 msgstr ""
+"Por favor, especifica para que parámetros se amosa a saída de resultados!"
 
-#, fuzzy
 msgid "Posterior"
-msgstr "R² posterior"
+msgstr "Posterior"
 
 msgid "95%% Credible Interval"
-msgstr "Intervalo co 95%% de credibilidade"
+msgstr "Intervalo co 95%% de Credibilidade"
 
 msgid "Rhat"
-msgstr ""
+msgstr "Rhat"
 
 msgid "Parameter"
 msgstr "Parámetro"
@@ -53,7 +56,7 @@ msgid "Median"
 msgstr "Mediana"
 
 msgid "SD"
-msgstr "DS"
+msgstr "EP"
 
 msgid "Lower"
 msgstr "Inferior"
@@ -61,107 +64,111 @@ msgstr "Inferior"
 msgid "Upper"
 msgstr "Superior"
 
-#, fuzzy
 msgid "Point est."
 msgstr "Estimación por punto"
 
-#, fuzzy
 msgid "Upper CI"
-msgstr "Superior"
+msgstr "IC Superior"
 
-#, fuzzy
 msgid "Effective Sample Size"
-msgstr "Tamaño da mostra"
+msgstr "Tamaño Efectivo da Mostra"
 
 msgid "Output based on %s MCMC draws."
-msgstr ""
+msgstr "Saída de resultados baseada en %s extraccións MCMC."
 
 msgid "No data was supplied, everything was sampled from the priors!"
-msgstr ""
+msgstr "Non se proporcionaron datos, todo se ensaiou a partir dos previos!"
 
 msgid "Deviance cannot be computed without data."
-msgstr ""
+msgstr "A desviación non pode calcularse sen datos."
 
 msgid ""
 "Failed to compute the Rhat statistic. This is expected if the model contains "
 "discrete parameters."
 msgstr ""
+"Fallo ao calcular o estatístico Rhat. Isto é de agardar, se o modelo contén "
+"parámetros discretos."
 
 msgid "The multivariate potential scale reduction factor is estimated at %.3f."
 msgstr ""
+"O factor de redución de escala potencial multivariante estímase en %.3f."
 
 msgid ""
 "Rhat statistic cannot be computed for only one chain. It is strongly "
 "recommoned to run more than one chain to assess MCMC convergence!"
 msgstr ""
+"O estatístico Rhat non pode calcularse para unha única cadea. Recoméndase "
+"encarecidamente executar máis de unha cadea para avaliar a converxencia do "
+"MCMC!"
 
-#, fuzzy
 msgid "Marginal Density"
-msgstr "Medias marxinais"
+msgstr "Densidade Marxinal"
 
-#, fuzzy
 msgid "Marginal Histogram"
-msgstr "Posteriores marxinais"
+msgstr "Histograma Marxinal"
 
-#, fuzzy
 msgid "Trace Plots"
-msgstr "Gráficas de trazado"
+msgstr "Gráficas de Trazado"
 
-#, fuzzy
 msgid "Autocorrelation Plots"
-msgstr "Autocorrelacións"
+msgstr "Gráficas de Autocorrelación"
 
-#, fuzzy
 msgid "Bivariate Scatter Plot"
-msgstr "Dispersión bivariante"
+msgstr "Gráficas de Dispersión Bivariante"
 
 msgid "Density"
 msgstr "Densidade"
 
-#, fuzzy
 msgid "Chain"
-msgstr "Cadeas"
+msgstr "Cadea"
 
 msgid "Counts"
 msgstr "Recontos"
 
-#, fuzzy
 msgid "Iteration"
-msgstr "Iteracións"
+msgstr "Iteración"
 
 msgid "Autocorrelation"
 msgstr "Autocorrelación"
 
-#, fuzzy
 msgid "Lag"
-msgstr "Logaritmo"
+msgstr "Retardo"
 
 msgid ""
 "At least two parameters need to be monitored and shown to make a bivariate "
 "scatter plot!"
 msgstr ""
+"É necesario supervisar e amosar cando menos dous parámetros, para facer unha "
+"gráfica de dispersión bivariante!"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
-msgstr ""
+msgstr "%1$s%2$sAmais:%3$s%4$s"
 
 msgid "The model contains more '%1$s' than '%2$s' (%3$d vs %4$d)"
-msgstr ""
+msgstr "O modelo contén máis '%1$s' que '%2$s' (%3$d vs %4$d)"
 
 msgid ""
 "There was a problem loading JAGS, JAGS_HOME is: '%1$s'.\n"
 "Please contact the JASP team for support.\n"
 "Error was: %2$s."
 msgstr ""
+"Houbo un problema ao cargar JAGS; JAGS_HOME é: '%1$s'.\n"
+"Por favor, contacta co equipo de JASP para obter axuda.\n"
+"O fallo foi: %2$s."
 
 msgid "Expected JAGS version 4.3.0 but found %s"
-msgstr ""
+msgstr "Agardábase a versión 4.3.0 de JAGS pero atopouse %s"
 
 msgid ""
 "The R code for %1$s crashed with error:\n"
 "%2$s"
 msgstr ""
+"O código de R para %1$s rachou cun fallo:\n"
+"%2$s"
 
 msgid ""
 "The result of %1$s R code should be numeric but it was of mode %2$s and "
 "class %3$s"
 msgstr ""
+"O resultado do código %1$s de R debera ser numérico, pero foi de modo %2$s e "
+"clase %3$s"
