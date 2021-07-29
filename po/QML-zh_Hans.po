@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-23 18:56+0000\n"
+"PO-Revision-Date: 2021-07-24 19:13+0000\n"
 "Last-Translator: shun wang <shuonwang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "jasp/jaspjags-qml/zh_Hans/>\n"
@@ -90,92 +90,92 @@ msgstr "直方图"
 
 msgctxt "JAGS|"
 msgid "Trace"
-msgstr ""
+msgstr "轨迹(Trace)"
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr ""
+msgstr "自相关"
 
 msgctxt "JAGS|"
 msgid "No. lags"
-msgstr ""
+msgstr "滞后(lag)阶数"
 
 msgctxt "JAGS|"
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 msgctxt "JAGS|"
 msgid "line"
-msgstr ""
+msgstr "线形"
 
 msgctxt "JAGS|"
 msgid "bar"
-msgstr ""
+msgstr "条形"
 
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
-msgstr ""
+msgstr "二变量散点( Bivariate scatter)"
 
 msgctxt "JAGS|"
 msgid "Diagonal plot type"
-msgstr ""
+msgstr "对角线图类型"
 
 msgctxt "JAGS|"
 msgid "Off-diagonal plot type"
-msgstr ""
+msgstr "非对角线绘图类型"
 
 msgctxt "JAGS|"
 msgid "Hexagonal"
-msgstr ""
+msgstr "六边形(Hexagonal)"
 
 msgctxt "JAGS|"
 msgid "Contour"
-msgstr ""
+msgstr "轮廓( Contour)"
 
 msgctxt "JAGS|"
 msgid "Initial Values"
-msgstr ""
+msgstr "初始值"
 
 msgctxt "JAGS|"
 msgid "Observed Values"
-msgstr ""
+msgstr "观测值"
 
 msgctxt "JAGS|"
 msgid "Advanced"
-msgstr ""
+msgstr "高级"
 
 msgctxt "JAGS|"
 msgid "MCMC parameters"
-msgstr ""
+msgstr "MCMC 参数"
 
 msgctxt "JAGS|"
 msgid "No. samples"
-msgstr ""
+msgstr "样本数量"
 
 msgctxt "JAGS|"
 msgid "No. burnin samples"
-msgstr ""
+msgstr "No. burnin samples"
 
 msgctxt "JAGS|"
 msgid "Thinning"
-msgstr ""
+msgstr "Thinning"
 
 msgctxt "JAGS|"
 msgid "No. chains"
-msgstr ""
+msgstr "No. chains"
 
 msgctxt "JAGS|"
 msgid "Show results for"
-msgstr ""
+msgstr "显示结果为"
 
 msgctxt "JAGS|"
 msgid "all monitored parameters"
-msgstr ""
+msgstr "所有监控的参数"
 
 msgctxt "JAGS|"
 msgid "selected parameters"
-msgstr ""
+msgstr "选定的参数"
 
 msgctxt "JAGS|"
 msgid "Show Deviance"
-msgstr ""
+msgstr "显示偏差"
