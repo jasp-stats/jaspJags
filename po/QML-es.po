@@ -1,9 +1,15 @@
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2021-08-08 21:33+0000\n"
+"Last-Translator: ecadrian <ecadrian@hotmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/jasp/"
+"jaspjags-qml/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.8-dev\n"
 "X-Language: es\n"
 "X-Source-Language: American English\n"
 "X-Qt-Contexts: true\n"
@@ -37,15 +43,13 @@ msgctxt "JAGS|"
 msgid "Show results for these parameters"
 msgstr "Mostrar resultados para estos parámetros"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Plots"
-msgstr "Parcelas"
+msgstr "Gráficos"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Color scheme for plots:"
-msgstr "Esquema de color para parcelas:"
+msgstr "Esquema de color para gráficos:"
 
 #, fuzzy
 msgctxt "JAGS|"
@@ -57,37 +61,30 @@ msgctxt "JAGS|"
 msgid "Colorblind Alt."
 msgstr "Daltonismo Alt."
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr "Viridis"
+msgstr "Verde"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Blue"
 msgstr "Azul"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Gray"
-msgstr "gris"
+msgstr "Gris"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Aggregate chains for densities and histograms"
-msgstr "Cadenas agregadas para densidades e histogramas"
+msgstr "Agregar cadenas para densidades e histogramas"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Show legends"
 msgstr "Mostrar leyendas"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Density"
 msgstr "Densidad"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Histogram"
 msgstr "Histograma"
@@ -127,10 +124,9 @@ msgctxt "JAGS|"
 msgid "Bivariate scatter"
 msgstr "Dispersión bivariada"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Diagonal plot type"
-msgstr "Tipo de parcela diagonal"
+msgstr "Tipo de gráfico diagonal"
 
 #, fuzzy
 msgctxt "JAGS|"
