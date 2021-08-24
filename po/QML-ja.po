@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2021-08-25 22:32+0000\n"
-"Last-Translator: Daiki Hojo <dhojo.bayes@gmail.com>\n"
+"Last-Translator: Koji Kosugi <kosugitti@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/"
 "jaspjags-qml/ja/>\n"
 "Language: ja\n"
@@ -99,11 +99,11 @@ msgstr "型"
 
 msgctxt "JAGS|"
 msgid "line"
-msgstr ""
+msgstr "ライン"
 
 msgctxt "JAGS|"
 msgid "bar"
-msgstr ""
+msgstr "バー"
 
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
@@ -135,7 +135,7 @@ msgstr "観測値"
 
 msgctxt "JAGS|"
 msgid "Advanced"
-msgstr ""
+msgstr "詳細"
 
 msgctxt "JAGS|"
 msgid "MCMC parameters"
@@ -151,7 +151,7 @@ msgstr "バーンインサンプルの数"
 
 msgctxt "JAGS|"
 msgid "Thinning"
-msgstr ""
+msgstr "Thin"
 
 msgctxt "JAGS|"
 msgid "No. chains"
