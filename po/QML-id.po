@@ -1,62 +1,68 @@
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2021-09-28 08:37+0000\n"
+"Last-Translator: Sunu Bagaskara <sunu.bagaskara@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/jasp/"
+"jaspjags-qml/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "X-Qt-Contexts: true\n"
 
 msgctxt "Description|"
 msgid "JAGS"
-msgstr ""
+msgstr "JAGS"
 
 msgctxt "JAGS|"
 msgid "Enter JAGS model below"
-msgstr ""
+msgstr "Masukkan model JAGS di bawah"
 
 msgctxt "JAGS|"
 msgid "Parameters in model"
-msgstr ""
+msgstr "Parameter pada model"
 
 msgctxt "JAGS|"
 msgid "Monitor these parameters"
-msgstr ""
+msgstr "Pantau parameter ini"
 
 msgctxt "JAGS|"
 msgid "Monitored parameters"
-msgstr ""
+msgstr "Parameter yang dipantau"
 
 msgctxt "JAGS|"
 msgid "Show results for these parameters"
-msgstr ""
+msgstr "Tampilkan hasil untuk parameter ini"
 
 msgctxt "JAGS|"
 msgid "Plots"
-msgstr ""
+msgstr "Plot"
 
 msgctxt "JAGS|"
 msgid "Color scheme for plots:"
-msgstr ""
+msgstr "Skema warna untuk plot:"
 
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr ""
+msgstr "Buta warna"
 
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
-msgstr ""
+msgstr "Alt. Butawarna"
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr ""
+msgstr "Viridis"
 
 msgctxt "JAGS|"
 msgid "Blue"
-msgstr ""
+msgstr "Biru"
 
 msgctxt "JAGS|"
 msgid "Gray"
-msgstr ""
+msgstr "Abu-abu"
 
 msgctxt "JAGS|"
 msgid "Aggregate chains for densities and histograms"
@@ -64,23 +70,23 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Show legends"
-msgstr ""
+msgstr "Tampilkan legenda"
 
 msgctxt "JAGS|"
 msgid "Density"
-msgstr ""
+msgstr "Kepekatan"
 
 msgctxt "JAGS|"
 msgid "Histogram"
-msgstr ""
+msgstr "Histogram"
 
 msgctxt "JAGS|"
 msgid "Trace"
-msgstr ""
+msgstr "Lacak"
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr ""
+msgstr "Otokorelasi"
 
 msgctxt "JAGS|"
 msgid "No. lags"
@@ -88,86 +94,90 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Type"
-msgstr ""
+msgstr "Tipe"
 
 msgctxt "JAGS|"
 msgid "line"
-msgstr ""
+msgstr "garis"
 
 msgctxt "JAGS|"
 msgid "bar"
-msgstr ""
+msgstr "batang"
 
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
-msgstr ""
+msgstr "Pencaran bivariat"
 
 msgctxt "JAGS|"
 msgid "Diagonal plot type"
-msgstr ""
+msgstr "Tipe plot diagonal"
 
+#, fuzzy
 msgctxt "JAGS|"
 msgid "Off-diagonal plot type"
-msgstr ""
+msgstr "Tipe plot off-diagonal"
 
 msgctxt "JAGS|"
 msgid "Hexagonal"
-msgstr ""
+msgstr "Heksagonal"
 
 msgctxt "JAGS|"
 msgid "Contour"
-msgstr ""
+msgstr "Kontur"
 
 msgctxt "JAGS|"
 msgid "Initial Values"
-msgstr ""
+msgstr "Nilai Awal"
 
 msgctxt "JAGS|"
 msgid "Observed Values"
-msgstr ""
+msgstr "Nilai Hasil Amatan"
 
 msgctxt "JAGS|"
 msgid "Advanced"
-msgstr ""
+msgstr "Lanjutan"
 
 msgctxt "JAGS|"
 msgid "MCMC parameters"
-msgstr ""
+msgstr "Parameter MCMC"
 
 msgctxt "JAGS|"
 msgid "No. samples"
-msgstr ""
+msgstr "Jml. Sampel"
 
 msgctxt "JAGS|"
 msgid "No. burnin samples"
 msgstr ""
 
+#, fuzzy
 msgctxt "JAGS|"
 msgid "Thinning"
-msgstr ""
+msgstr "Penipisan"
 
 msgctxt "JAGS|"
 msgid "No. chains"
-msgstr ""
+msgstr "Jml. rangkaian"
 
 msgctxt "JAGS|"
 msgid "Show results for"
-msgstr ""
+msgstr "Tampilkan hasil untuk"
 
 msgctxt "JAGS|"
 msgid "all monitored parameters"
-msgstr ""
+msgstr "semua parameter yang dipantau"
 
 msgctxt "JAGS|"
 msgid "selected parameters"
-msgstr ""
+msgstr "parameter yang dipilih"
 
 msgctxt "JAGS|"
 msgid "Show Deviance"
-msgstr ""
+msgstr "Tampilkan Simpangan"
 
 msgctxt "Description|"
 msgid ""
 "Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
 "Markov chain Monte Carlo"
 msgstr ""
+"Terapkan model grafis Bayesian dengan program JAGS Martyn Plummer untuk "
+"Monter Carlo rangkaian Markov"
