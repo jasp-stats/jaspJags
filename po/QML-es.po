@@ -1,9 +1,15 @@
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2021-10-14 01:51+0000\n"
+"Last-Translator: ecadrian <ecadrian@hotmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/jasp/"
+"jaspjags-qml/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "X-Language: es\n"
 "X-Source-Language: American English\n"
 "X-Qt-Contexts: true\n"
@@ -45,19 +51,17 @@ msgctxt "JAGS|"
 msgid "Color scheme for plots:"
 msgstr "Esquema de color para gráficos:"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr "Daltónico"
+msgstr "Daltónica"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
-msgstr "Daltonismo Alt."
+msgstr "Daltónica Alternativa"
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr "Verde"
+msgstr "Violeta"
 
 msgctxt "JAGS|"
 msgid "Blue"
@@ -157,45 +161,37 @@ msgctxt "JAGS|"
 msgid "MCMC parameters"
 msgstr "Parámetros de MCMC"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "No. samples"
-msgstr "No muestras"
+msgstr "Número de muestras"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "No. burnin samples"
-msgstr "No. de muestras quemadas"
+msgstr "Número de muestras quemadas"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Thinning"
-msgstr "Adelgazamiento"
+msgstr "Estrechamiento"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "No. chains"
-msgstr "No cadenas"
+msgstr "Número de cadenas"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Show results for"
 msgstr "Mostrar resultados para"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "all monitored parameters"
-msgstr "todos los parámetros monitoreados"
+msgstr "todos los parámetros supervisados"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "selected parameters"
 msgstr "parámetros seleccionados"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Show Deviance"
-msgstr "Mostrar desviación"
+msgstr "Mostrar Desviación"
 
 msgctxt "Description|"
 msgid ""
