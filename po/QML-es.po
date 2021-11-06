@@ -1,9 +1,15 @@
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2021-10-30 20:58+0000\n"
+"Last-Translator: ecadrian <ecadrian@hotmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/jasp/"
+"jaspjags-qml/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 "X-Language: es\n"
 "X-Source-Language: American English\n"
 "X-Qt-Contexts: true\n"
@@ -12,30 +18,25 @@ msgctxt "Description|"
 msgid "JAGS"
 msgstr "JAGS"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Enter JAGS model below"
-msgstr "Ingrese el modelo JAGS a continuación"
+msgstr "Introducir abajo el modelo JAGS"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Parameters in model"
-msgstr "Parámetros en modelo"
+msgstr "Parámetros del modelo"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Monitor these parameters"
-msgstr "Monitorear estos parámetros"
+msgstr "Supervisar estos parámetros"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Monitored parameters"
-msgstr "Parámetros monitoreados"
+msgstr "Parámetros supervisados"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Show results for these parameters"
-msgstr "Mostrar resultados para estos parámetros"
+msgstr "Mostrar los resultados para estos parámetros"
 
 msgctxt "JAGS|"
 msgid "Plots"
@@ -81,69 +82,57 @@ msgctxt "JAGS|"
 msgid "Histogram"
 msgstr "Histograma"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Trace"
 msgstr "Rastro"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Autocorrelation"
 msgstr "Autocorrelación"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "No. lags"
-msgstr "No retrasos"
+msgstr "Número de retardos"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Type"
 msgstr "Tipo"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "line"
 msgstr "línea"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "bar"
-msgstr "bar"
+msgstr "barra"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
-msgstr "Dispersión bivariada"
+msgstr "Dispersión bivariante"
 
 msgctxt "JAGS|"
 msgid "Diagonal plot type"
 msgstr "Tipo de gráfico diagonal"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Off-diagonal plot type"
 msgstr "Tipo de gráfico fuera de la diagonal"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Hexagonal"
 msgstr "Hexagonal"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Contour"
 msgstr "Contorno"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Initial Values"
-msgstr "Valores iniciales"
+msgstr "Valores Iniciales"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Observed Values"
-msgstr "Valores observados"
+msgstr "Valores Observados"
 
 msgctxt "JAGS|"
 msgid "Advanced"
@@ -190,3 +179,5 @@ msgid ""
 "Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
 "Markov chain Monte Carlo"
 msgstr ""
+"Implementar modelos gráficos bayesianos con el programa JAGS de Martyn "
+"Plummer para Monte Carlo de cadenas de Markov"
