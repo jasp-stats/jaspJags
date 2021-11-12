@@ -73,7 +73,11 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   datList <- as.list(dataset)
 
-  error <- .JAGSloadModules(jaspResults)
+  maybeErrorMessage <- .JAGSloadModules(jaspResults)
+  if (!is.null(maybeErrorMessage)) {
+    jaspResults[["mainContainer"]]$setError(maybeErrorMessage)
+    return(NULL)
+  }
 
   if (.JAGShasData(options)) {
 
@@ -646,7 +650,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (length(options[["parametersShown"]]) >= 2L) {
     jaspPlot$width  <- sum(lengths(mcmcResult[["params"]])) * 320L
     jaspPlot$height <- sum(lengths(mcmcResult[["params"]])) * 320L
-    jaspPlot$plotObject <- .JAGSPlotBivariateMatrix(options, mcmcResult, unlist(params))
+
+    if (!plotContainer$getError())
+      jaspPlot$plotObject <- .JAGSPlotBivariateMatrix(options, mcmcResult, unlist(params))
+
   } else if (length(options[["parametersShown"]]) == 1L) {
     # only show an error when some variables are selected to avoid error messages when users set the options
     jaspPlot$setError(gettext("At least two parameters need to be monitored and shown to make a bivariate scatter plot!"))
@@ -823,12 +830,15 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSloadModules <- function(jaspResults) {
   # just like R2jags, we just always load the modules
-  e <- try(
+  e <- try({
     for (m in c("glm", "dic")) # allow users to add custom modules?
       rjags::load.module(m)
-  )
+  })
+
   if (isTryError(e))
-    .JAGSsetModuleLoadingError(e)
+    return(gettextf("The following error occured while loading the jags modules \"glm\" and \"dic\": %s.", jaspBase::.extractErrorMessage(e)))
+
+  return(NULL)
 }
 
 .JAGSgetColumnNamesInUserCode <- function(options) {
@@ -882,9 +892,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSsetMonitorWarning <- function(jaspResults, value) .JAGSsetState(jaspResults, "__monitorWarning", value)
 .JAGSgetMonitorWarning <- function(jaspResults) .JAGSgetState(jaspResults, "__monitorWarning")
-
-.JAGSsetModuleLoadingError <- function(jaspResults, value) .JAGSsetState(jaspResults, "__moduleLoading", value)
-.JAGSgetModuleLoadingError <- function(jaspResults) .JAGSgetState(jaspResults, "__moduleLoading")
 
 # References ----
 # citation("rjags")
