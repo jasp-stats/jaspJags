@@ -1,4 +1,8 @@
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron:  '12,47 9,12,15,18,21 * * 1-5'
 
 name: unit-tests
 
