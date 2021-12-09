@@ -789,7 +789,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   type <- match.arg(type)
   paramNms <- unlist(input[[1L]][["values"]])
-  rcodes   <- unlist(input[[2L]][["values"]])
+  rcodes   <- encodeColNames(unlist(input[[2L]][["values"]]))
 
   output <- vector("list", length = noChains)
   for (j in seq_len(noChains)) {
