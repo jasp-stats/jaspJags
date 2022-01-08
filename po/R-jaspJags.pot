@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.15\n"
-"POT-Creation-Date: 2021-03-06 14:33\n"
+"POT-Creation-Date: 2022-01-08 03:46\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,4 +125,7 @@ msgid "The R code for %1$s crashed with error:\n%2$s"
 msgstr ""
 
 msgid "The result of %1$s R code should be numeric but it was of mode %2$s and class %3$s"
+msgstr ""
+
+msgid "The following error occured while loading the jags modules \"glm\" and \"dic\": %s."
 msgstr ""
