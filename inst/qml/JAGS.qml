@@ -152,6 +152,7 @@ Form
 			title: qsTr("MCMC parameters")
 			IntegerField
 			{
+				id: noSamples
 				name: "noSamples"
 				label: qsTr("No. samples")
 				defaultValue: 2e3
@@ -174,7 +175,7 @@ Form
 				label: qsTr("Thinning")
 				defaultValue: 1
 				min: 1
-				max: 1e9
+				max: Math.floor(noSamples.value / 2)
 				fieldWidth: 100
 			}
 			IntegerField
