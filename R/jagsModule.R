@@ -178,7 +178,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # if something went wrong, present useful error message
   if (isTryError(e)) {
-    jaspResults[["mainContainer"]]$setError(.JAGSmodelError(e, model, options))
+    jaspResults[["mainContainer"]]$setError(.JAGSmodelError(e, options))
     return(NULL)
   }
 
@@ -724,11 +724,12 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   return(trimws(paste(split[-1L], collapse = "\n")))
 }
 
-.JAGSmodelError <- function(error, model, options) {
+.JAGSmodelError <- function(error, options) {
 
   errorMessage <- .extractJAGSErrorMessage(error)
 
-  # perhaps some helpfull checks...
+  # perhaps some helpful checks...
+  modelString <- options[["model"]][["model"]]
   chars <- stringr::fixed(c("[", "]", "{", "}", "(", ")"))
   counts <- stringr::str_count(model, chars)
   toAdd <- paste(
