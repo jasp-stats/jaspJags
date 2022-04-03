@@ -1,5 +1,4 @@
-
-on: 
+on:
   push:
     paths: ['**.R', 'tests/**', '**.Rd', '**.c', '**.cpp', '**.h', '**.hpp', 'DESCRIPTION', 'NAMESPACE', 'MAKEVARS', 'MAKEVARS.win', '**.yml']
   pull_request:
@@ -10,11 +9,10 @@ on:
 name: unit-tests
 
 jobs:
-  call-jasp-unit-tests-workflow:
 
-    uses: vandenman/jasp-actions/reuseable-workflows/unittest.yml@reuseable_workflow_unittests
+  unit-tests:
+
+    uses: vandenman/jasp-actions/.github/workflows/unittests.yml@reuseable_workflow_unittests
     with:
       needs_JAGS:   true
       needs_igraph: false
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
