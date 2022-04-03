@@ -10,19 +10,7 @@ on:
 name: unit-tests
 
 jobs:
-  debugging:
-    runs-on: ubuntu-latest
-
-    - name: print variables
-      run: |
-        echo "$GITHUB_CONTEXT"
-        echo "$GITHUB_EVENT_NAME"
-      shell: bash
-
   call-jasp-unit-tests-workflow:
-
-    if: GITHUB_EVENT_NAME != 'schedule'
-    # if: GITHUB_EVENT_NAME != 'schedule' || GITHUB_REPOSITORY_OWNER == 'jasp-stats'
 
     uses: vandenman/jasp-actions/reuseable-workflows/unittest.yml@reuseable_workflow_unittests
     with:
