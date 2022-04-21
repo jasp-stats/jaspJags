@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013-2019 University of Amsterdam
+# Copyright (C) 2013-2022 University of Amsterdam
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -731,7 +731,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   # perhaps some helpful checks...
   modelString <- options[["model"]][["model"]]
   chars <- stringr::fixed(c("[", "]", "{", "}", "(", ")"))
-  counts <- stringr::str_count(model, chars)
+  counts <- stringr::str_count(modelString, chars)
   toAdd <- paste(
     .JAGSmodelErrorString(counts[1:2], chars[1:2]),
     .JAGSmodelErrorString(counts[3:4], chars[3:4]),
