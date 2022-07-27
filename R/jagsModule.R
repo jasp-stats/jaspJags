@@ -21,6 +21,10 @@ gettextf <- function(fmt, ..., domain = NULL)  {
   return(sprintf(gettext(fmt, domain = domain), ...))
 }
 
+#' @importFrom jaspBase createJaspContainer createJaspPlot createJaspState createJaspTable
+#' encodeColNames .extractErrorMessage .hasErrors isTryError .readDataSetToEnd
+
+#' @export
 JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # check model
