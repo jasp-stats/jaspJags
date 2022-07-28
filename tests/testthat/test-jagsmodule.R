@@ -5,9 +5,9 @@ options$initialValues <- list(list(levels = "Row 1", name = "Parameter", values 
                               list(levels = "Row 1", name = "R Code", values = "..."))
 options$model <- list(columns = list(), model = "model{\n theta ~ dbeta(1, 1)\n k ~ dbinom(theta, n)\n mu ~ dnorm(0, 1)}",
                       parameters = c("theta", "k"))
-options$noBurnin <- 1
-options$noChains <- 4
-options$noSamples <- 50
+options$burnin <- 1
+options$chains <- 4
+options$samples <- 50
 options$parametersShown <- c("theta", "mu")
 options$autoCorPlot <- TRUE
 options$densityPlot <- TRUE

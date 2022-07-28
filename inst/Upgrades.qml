@@ -16,13 +16,14 @@ Upgrades
 		ChangeRename	{	from:	"plotTrace";						to:		"tracePlot"								}
 
 		ChangeRename	{	from:	"plotAutoCor";						to:		"autoCorPlot"							}
+		ChangeRename	{	from:	"acfType"	;						to:		"autoCorPlotType"							}
 
 		ChangeJS
 		{
-			name: "acfType"
+			name: "autoCorPlotType"
 			jsFunction: function(options)
 			{
-				switch (options["acfType"])
+				switch (options["autoCorPlotType"])
 				{
 					case "acfLines":			return "lines";
 					case "acfBars":				return "bars";
@@ -32,7 +33,7 @@ Upgrades
 
 		ChangeRename	{	from:	"plotBivarHex";						to:		"bivariateScatterPlot"					}
 
-		ChangeRename	{	from:	"bivariateScatterDiagType"			to:		"bivariateScatterDiagonalType"			}
+		ChangeRename	{	from:	"bivariateScatterDiagType";			to:		"bivariateScatterDiagonalType"			}
 		ChangeJS
 		{
 			name: "bivariateScatterDiagonalType"
@@ -46,7 +47,7 @@ Upgrades
 			}
 		}
 
-		ChangeRename	{	from:	"bivariateScatterOffDiagType"		to:		"bivariateScatterOffDiagonalType"		}
+		ChangeRename	{	from:	"bivariateScatterOffDiagType";		to:		"bivariateScatterOffDiagonalType"		}
 		ChangeJS
 		{
 			name: "bivariateScatterOffDiagonalType"
@@ -60,7 +61,12 @@ Upgrades
 			}
 		}
 
-		ChangeRename	{	from:	"showResultsFor"			to:		"resultsFor"			}
+		ChangeRename	{	from:	"noSamples";						to:		"samples"								}
+		ChangeRename	{	from:	"noBurnin";							to:		"burnin"								}
+		ChangeRename	{	from:	"noThinning";						to:		"thinning"								}
+		ChangeRename	{	from:	"noChains";							to:		"chains"								}
+
+		ChangeRename	{	from:	"showResultsFor";					to:		"resultsFor"							}
 		ChangeJS
 		{
 			name: "bivariateScatterDiagonalType"
@@ -74,7 +80,7 @@ Upgrades
 			}
 		}
 
-		ChangeRename	{	from:	"showDeviance"						to:		"deviance"								}
+		ChangeRename	{	from:	"showDeviance";						to:		"deviance"								}
 
 	}
 }

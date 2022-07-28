@@ -97,7 +97,7 @@ Form
 				}
 				RadioButtonGroup
 				{
-					name: "acfType"
+					name: "autoCorPlotType"
 					title: qsTr("Type")
 					RadioButton { value: "lines";	label: qsTr("line"); checked:true	}
 					RadioButton { value: "bars";	label: qsTr("bar")					}
@@ -152,8 +152,8 @@ Form
 			title: qsTr("MCMC parameters")
 			IntegerField
 			{
-				id: noSamples
-				name: "noSamples"
+				id: samples
+				name: "samples"
 				label: qsTr("No. samples")
 				defaultValue: 2e3
 				min: 10
@@ -162,7 +162,7 @@ Form
 			}
 			IntegerField
 			{
-				name: "noBurnin"
+				name: "burnin"
 				label: qsTr("No. burnin samples")
 				defaultValue: 500
 				min: 1
@@ -171,16 +171,16 @@ Form
 			}
 			IntegerField
 			{
-				name: "noThinning"
+				name: "thinning"
 				label: qsTr("Thinning")
 				defaultValue: 1
 				min: 1
-				max: Math.floor(noSamples.value / 2)
+				max: Math.floor(samples.value / 2)
 				fieldWidth: 100
 			}
 			IntegerField
 			{
-				name: "noChains"
+				name: "chains"
 				label: qsTr("No. chains")
 				defaultValue: 3
 				min: 1

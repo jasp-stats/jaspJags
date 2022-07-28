@@ -65,10 +65,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   writeLines(model, fileConn)
   close(fileConn)
 
-  noSamples        <- options[["noSamples"]]
-  noBurnin         <- options[["noBurnin"]]
-  noThinning       <- options[["noThinning"]]
-  noChains         <- options[["noChains"]]
+  samples        <- options[["samples"]]
+  burnin         <- options[["burnin"]]
+  thinning       <- options[["thinning"]]
+  chains         <- options[["chains"]]
   deviance         <- options[["monitorDIC"]]
   parametersToSave <- if (options[["resultsFor"]] == "allParameters")
     options[["parametersShown"]]
@@ -96,7 +96,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   # Evaluate user R code, terminate early if the code doesn't work
-  inits    <- .JAGSreadRcode(jaspResults, options[["initialValues"]], type = "initial values", noChains = options[["noChains"]], envir = datList)
+  inits    <- .JAGSreadRcode(jaspResults, options[["initialValues"]], type = "initial values", chains = options[["chains"]], envir = datList)
   if (jaspResults[["mainContainer"]]$getError()) return(NULL)
   if (all(lengths(inits) == 0L)) inits <- NULL
   userData <- .JAGSreadRcode(jaspResults, options[["userData"]], type = "data", envir = datList)
@@ -118,8 +118,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   .setSeedJASP(options)
   RNGname <- "base::Wichmann-Hill"
   if (is.null(inits)) {
-    inits <- vector("list", noChains)
-    for (i in seq_len(noChains)) {
+    inits <- vector("list", chains)
+    for (i in seq_len(chains)) {
       inits[[i]]$.RNG.name <- RNGname
       inits[[i]]$.RNG.seed <- runif(1, 0, 2^31)
     }
@@ -132,7 +132,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     # compile model
     model <- rjags::jags.model(
       file     = modelFile,
-      n.chains = noChains,
+      n.chains = chains,
       n.adapt  = 0L,
       data     = datList,
       inits    = inits#unname(lapply(inits, list))
@@ -141,7 +141,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     # sample burnin
     rjags::adapt(
       object         = model,
-      n.iter         = noBurnin,
+      n.iter         = burnin,
       by             = 0L,
       progress.bar   = "none",
       end.adaptation = TRUE
@@ -151,8 +151,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     samples <- rjags::coda.samples(
       model          = model,
       variable.names = parametersToSave,
-      n.iter         = noSamples,
-      thin           = noThinning,
+      n.iter         = samples,
+      thin           = thinning,
       by             = 0L,
       progress.bar   = "none"
     )
@@ -191,7 +191,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     BUGSoutput         = fit,
     parameters.to.save = parametersToSave,
     model.file         = modelFile,
-    n.iter             = noSamples,
+    n.iter             = samples,
     DIC                = deviance,
     samples            = samples,
     hasUserData        = !is.null(userData),
@@ -199,7 +199,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   )
 
   tmp <- createJaspState(object = out)
-  tmp$dependOn(c("model", "noSamples", "noBurnin", "noThinning", "noChains", "initialValues", "userData", "resultsFor",
+  tmp$dependOn(c("model", "samples", "burnin", "thinning", "chains", "initialValues", "userData", "resultsFor",
                  "setSeed", "seed"))
   if (options[["resultsFor"]] == "allParameters")
     tmp$dependOn("parametersShown")
@@ -221,7 +221,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   jaspResults$addCitation(.JAGSCitations)
   if (is.null(jaspResults[["mainContainer"]])) {
     # setup outer container with all common dependencies
-    mainContainer <- createJaspContainer(dependencies = c("model", "noSamples", "noBurnin", "noThinning", "noChains",
+    mainContainer <- createJaspContainer(dependencies = c("model", "samples", "burnin", "thinning", "chains",
                                                           "parametersMonitored", "parametersShown", "initialValues", "userData",
                                                           "setSeed", "seed", "deviance"))
     jaspResults[["mainContainer"]] <- mainContainer
@@ -300,7 +300,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (!is.null(mcmcResult) && !jaspResults[["mainContainer"]]$getError()) {
 
     tb$addFootnote(gettextf("Output based on %s MCMC draws.",
-                            floor(options[["noSamples"]] / options[["noThinning"]]) * options[["noChains"]]))
+                            floor(options[["samples"]] / options[["thinning"]]) * options[["chains"]]))
 
     if (!.JAGShasData(options) && !mcmcResult[["hasUserData"]]) {
       tb$addFootnote(message = gettext("No data was supplied, everything was sampled from the priors!"), symbol = .JAGSWarningSymbol)
@@ -320,7 +320,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     tbR[["neff"]] <- as.integer(tbR[["neff"]])
     tbR$parameter <- nms[idx]
 
-    if (options[["noChains"]] > 1L) {
+    if (options[["chains"]] > 1L) {
 
       rhat <- try(coda::gelman.diag(mcmcResult[["samples"]]))
       if (isTryError(rhat)) {
@@ -429,7 +429,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     add <- list("function" = ".JAGSPlotAutoCor")
     if (is.null(plotContainer[["autoCorPlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Autocorrelation Plots"),  position = 4,
-                                                dependencies = c("autoCorPlot", "noLags", "acfType", "legend"))
+                                                dependencies = c("autoCorPlot", "noLags", "autoCorPlotType", "legend"))
       plotContainer[["autoCorPlot"]] <- add[["container"]]
     } else {
       add[["container"]] <- plotContainer[["autoCorPlot"]]
@@ -622,7 +622,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     g = factor(rep(seq_len(nchains), each = nvals))
   )
 
-  if (options[["acfType"]] == "lines") {
+  if (options[["autoCorPlotType"]] == "lines") {
     geom <- ggplot2::geom_line()
   } else {
     geom <- ggplot2::geom_col(position = ggplot2::position_dodge())
@@ -797,14 +797,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 }
 
-.JAGSreadRcode <- function(jaspResults, input, type = c("initial values", "data"), noChains = 1L, envir = list()) {
+.JAGSreadRcode <- function(jaspResults, input, type = c("initial values", "data"), chains = 1L, envir = list()) {
 
   type <- match.arg(type)
   paramNms <- unlist(input[[1L]][["values"]])
   rcodes   <- encodeColNames(unlist(input[[2L]][["values"]]))
 
-  output <- vector("list", length = noChains)
-  for (j in seq_len(noChains)) {
+  output <- vector("list", length = chains)
+  for (j in seq_len(chains)) {
     oneOutput <- vector("list", length = length(paramNms))
     names(oneOutput) <- paramNms
     for (i in seq_along(oneOutput)) {
