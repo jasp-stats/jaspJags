@@ -89,7 +89,7 @@ Form
 			CheckBox { label: qsTr("Autocorrelation");	name: "autoCorPlot"; id: autoCorrelation
 				IntegerField
 				{
-					name: "noLags"
+					name: "autoCorPlotLags"
 					label: qsTr("No. lags")
 					defaultValue: 20
 					min: 1

@@ -19,6 +19,7 @@ Upgrades
 		ChangeRename	{	from:	"plotTrace";						to:		"tracePlot"								}
 
 		ChangeRename	{	from:	"plotAutoCor";						to:		"autoCorPlot"							}
+		ChangeRename	{	from:	"noLags";							to:		"autoCorPlotLags"						}
 		ChangeRename	{	from:	"acfType"	;						to:		"autoCorPlotType"						}
 
 		ChangeJS

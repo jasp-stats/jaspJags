@@ -428,7 +428,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     add <- list("function" = ".JAGSPlotAutoCor")
     if (is.null(plotContainer[["autoCorPlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Autocorrelation Plots"),  position = 4,
-                                                dependencies = c("autoCorPlot", "noLags", "autoCorPlotType", "legend"))
+                                                dependencies = c("autoCorPlot", "autoCorPlotLags", "autoCorPlotType", "legend"))
       plotContainer[["autoCorPlot"]] <- add[["container"]]
     } else {
       add[["container"]] <- plotContainer[["autoCorPlot"]]
@@ -608,7 +608,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # TODO: x coordinates should be based on acf()#n.used!
   nchains  <- length(samples)
-  nlags    <- options[["noLags"]]
+  nlags    <- options[["autoCorPlotLags"]]
   nvals    <- nlags + 1L # we're getting one more value than nlags since the 0th lag counts.
   acfs <- numeric(nchains * nvals)
   for (i in seq_len(nchains))
