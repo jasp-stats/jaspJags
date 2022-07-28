@@ -5,7 +5,7 @@ Upgrades
 {
 	Upgrade
 	{
-		functionName:		"NetworkAnalysis"
+		functionName:		"JAGS"
 		fromVersion:		"0.15"
 		toVersion:			"0.16.4"
 
