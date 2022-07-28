@@ -361,7 +361,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   params <- .JAGSGetParams(options, mcmcResult)
   containerObj <- .JAGSInitPlotsContainers(plotContainer, options, params)
-  if (is.null(containerObj) && is.null(plotContainer[["plotBivarHex"]]))
+  if (is.null(containerObj) && is.null(plotContainer[["bivariateScatterPlot"]]))
     return()
 
   # put the container in jaspResults only now so that all empty plots appear at once
@@ -436,12 +436,12 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     output[[length(output) + 1L]] <- add
   }
 
-  if (options[["plotBivarHex"]] && is.null(plotContainer[["plotBivarHex"]])) {
+  if (options[["bivariateScatterPlot"]] && is.null(plotContainer[["bivariateScatterPlot"]])) {
 
     jaspPlot <- createJaspPlot(title  = gettext("Bivariate Scatter Plot"),  position = 5,
-                               dependencies = c("plotBivarHex", "monitoredParametersShown", "bivariateScatterDiagonalType",
+                               dependencies = c("bivariateScatterPlot", "monitoredParametersShown", "bivariateScatterDiagonalType",
                                                 "bivariateScatterOffDiagonalType"))
-    plotContainer[["plotBivarHex"]] <- jaspPlot
+    plotContainer[["bivariateScatterPlot"]] <- jaspPlot
 
   }
 
@@ -646,10 +646,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSPlotBivariateScatter <- function(plotContainer, options, mcmcResult, params) {
 
-  if (is.null(plotContainer[["plotBivarHex"]]) || !is.null(plotContainer[["plotBivarHex"]]$plotObject))
+  if (is.null(plotContainer[["bivariateScatterPlot"]]) || !is.null(plotContainer[["bivariateScatterPlot"]]$plotObject))
     return()
 
-  jaspPlot <- plotContainer[["plotBivarHex"]]
+  jaspPlot <- plotContainer[["bivariateScatterPlot"]]
   if (length(options[["monitoredParametersShown"]]) >= 2L) {
     jaspPlot$width  <- sum(lengths(mcmcResult[["params"]])) * 320L
     jaspPlot$height <- sum(lengths(mcmcResult[["params"]])) * 320L

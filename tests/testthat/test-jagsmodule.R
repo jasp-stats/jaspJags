@@ -13,7 +13,7 @@ options$autoCorPlot <- TRUE
 options$densityPlot <- TRUE
 options$histogramPlot <- TRUE
 options$tracePlot <- TRUE
-options$plotBivarHex <- TRUE
+options$bivariateScatterPlot <- TRUE
 options$userData <- list(list(
   levels = c("Row 0", "Row 1"),
   name = "Parameter", values = c("k", "n")
@@ -97,7 +97,7 @@ test_that("tracePlot theta plot matches", {
 })
 
 test_that("Bivariate Scatter Plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotBivarHex"]][["data"]]
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_bivariateScatterPlot"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "bivariate-scatter-plot")
 })
