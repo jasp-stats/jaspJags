@@ -72,10 +72,10 @@ Upgrades
 		ChangeRename	{	from:	"showResultsFor";					to:		"resultsFor"							}
 		ChangeJS
 		{
-			name: "bivariateScatterDiagonalType"
+			name: "resultsFor"
 			jsFunction: function(options)
 			{
-				switch (options["bivariateScatterDiagonalType"])
+				switch (options["resultsFor"])
 				{
 					case "monitorAllParameters":				return "allParameters";
 					case "monitorSelectedParameters":			return "selectedParameters";
