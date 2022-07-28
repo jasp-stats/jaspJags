@@ -8,7 +8,7 @@ options$model <- list(columns = list(), model = "model{\n theta ~ dbeta(1, 1)\n 
 options$burnin <- 1
 options$chains <- 4
 options$samples <- 50
-options$parametersShown <- c("theta", "mu")
+options$monitoredParametersShown <- c("theta", "mu")
 options$autoCorPlot <- TRUE
 options$densityPlot <- TRUE
 options$histogramPlot <- TRUE

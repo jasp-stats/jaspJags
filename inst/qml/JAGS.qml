@@ -43,7 +43,7 @@ Form
 			title: qsTr("Parameters in model")
 			source: [{ name: "model", discard: { name: "userData", use: "Parameter"}}]
 		}
-		AssignedVariablesList   { name: "monitoredParametersList";   title: qsTr("Monitor these parameters"); }
+		AssignedVariablesList   { name: "monitoredParameters";   title: qsTr("Monitor these parameters"); }
 	}
 
 	VariablesForm
@@ -54,9 +54,9 @@ Form
 			id:		monitoredParametersList2
 			name:	"monitoredParametersList2"
 			title:	allParameters.checked ? qsTr("Parameters in model") : qsTr("Monitored parameters")
-			source:	allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParametersList"]
+			source:	allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"]
 		}
-		AssignedVariablesList   { name: "parametersShown";		title: qsTr("Show results for these parameters")}
+		AssignedVariablesList   { name: "monitoredParametersShown";		title: qsTr("Show results for these parameters")}
 	}
 
 	Section

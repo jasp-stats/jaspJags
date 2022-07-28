@@ -9,6 +9,9 @@ Upgrades
 		fromVersion:		"0.15"
 		toVersion:			"0.16.4"
 
+		ChangeRename	{	from:	"monitoredParametersList"; 			to: 	"monitoredParameters"					}
+		ChangeRename	{	from:	"parametersShown"; 					to: 	"monitoredParametersShown"				}
+
 		ChangeRename	{	from:	"aggregateChains"; 					to: 	"aggregatedChains"						}
 		ChangeRename	{	from:	"showLegend";		 				to: 	"legend"								}
 		ChangeRename	{	from:	"plotDensity";						to:		"densityPlot"							}
@@ -16,7 +19,7 @@ Upgrades
 		ChangeRename	{	from:	"plotTrace";						to:		"tracePlot"								}
 
 		ChangeRename	{	from:	"plotAutoCor";						to:		"autoCorPlot"							}
-		ChangeRename	{	from:	"acfType"	;						to:		"autoCorPlotType"							}
+		ChangeRename	{	from:	"acfType"	;						to:		"autoCorPlotType"						}
 
 		ChangeJS
 		{

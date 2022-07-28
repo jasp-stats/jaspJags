@@ -47,7 +47,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (!is.null(jaspResults[["stateMCMC"]])) {
     obj <- jaspResults[["stateMCMC"]]$object
 
-    # if parametersShown changed, update objects.
+    # if monitoredParametersShown changed, update objects.
     # else if parametersMonitored changed, check if we need to sample again.
     return(obj)
 
@@ -71,9 +71,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   chains         <- options[["chains"]]
   deviance         <- options[["monitorDIC"]]
   parametersToSave <- if (options[["resultsFor"]] == "allParameters")
-    options[["parametersShown"]]
+    options[["monitoredParametersShown"]]
   else
-    options[["monitoredParametersList"]]
+    options[["monitoredParameters"]]
 
   datList <- as.list(dataset)
 
@@ -202,9 +202,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   tmp$dependOn(c("model", "samples", "burnin", "thinning", "chains", "initialValues", "userData", "resultsFor",
                  "setSeed", "seed"))
   if (options[["resultsFor"]] == "allParameters")
-    tmp$dependOn("parametersShown")
+    tmp$dependOn("monitoredParametersShown")
   else
-    tmp$dependOn("monitoredParametersList")
+    tmp$dependOn("monitoredParameters")
   jaspResults[["stateMCMC"]] <- tmp
 
   return(out)
@@ -222,7 +222,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (is.null(jaspResults[["mainContainer"]])) {
     # setup outer container with all common dependencies
     mainContainer <- createJaspContainer(dependencies = c("model", "samples", "burnin", "thinning", "chains",
-                                                          "parametersMonitored", "parametersShown", "initialValues", "userData",
+                                                          "parametersMonitored", "monitoredParametersShown", "initialValues", "userData",
                                                           "setSeed", "seed", "deviance"))
     jaspResults[["mainContainer"]] <- mainContainer
   }
@@ -240,11 +240,11 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # sum because only parameters can be assigned only once
   if (manualMonitor) {
-    nParamMonitored <- length(options[["monitoredParametersList"]])
+    nParamMonitored <- length(options[["monitoredParameters"]])
   } else {
-    nParamMonitored <- length(options[["parametersShown"]])
+    nParamMonitored <- length(options[["monitoredParametersShown"]])
   }
-  nParamShown <- length(options[["parametersShown"]])
+  nParamShown <- length(options[["monitoredParametersShown"]])
 
   monitorWarning <- NULL
   goodModel <- TRUE
@@ -308,7 +308,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
         tb$addFootnote(message = gettext("Deviance cannot be computed without data."), symbol = .JAGSWarningSymbol)
     }
 
-    parametersToShow <- options[["parametersShown"]]
+    parametersToShow <- options[["monitoredParametersShown"]]
     if (mcmcResult[["DIC"]] && options[["deviance"]])
       parametersToShow <- c("deviance", parametersToShow)
     sum <- mcmcResult[["BUGSoutput"]][["summary"]]
@@ -355,7 +355,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 .JAGSmcmcPlots <- function(jaspResults, options, mcmcResult) {
 
   if (is.null(jaspResults[["mainContainer"]][["plotContainer"]])) {
-    plotContainer <- createJaspContainer(dependencies = c("parametersShown", "colorScheme"))
+    plotContainer <- createJaspContainer(dependencies = c("monitoredParametersShown", "colorScheme"))
   } else {
     plotContainer <- jaspResults[["mainContainer"]][["plotContainer"]]
   }
@@ -440,7 +440,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (options[["plotBivarHex"]] && is.null(plotContainer[["plotBivarHex"]])) {
 
     jaspPlot <- createJaspPlot(title  = gettext("Bivariate Scatter Plot"),  position = 5,
-                               dependencies = c("plotBivarHex", "parametersShown", "bivariateScatterDiagonalType",
+                               dependencies = c("plotBivarHex", "monitoredParametersShown", "bivariateScatterDiagonalType",
                                                 "bivariateScatterOffDiagonalType"))
     plotContainer[["plotBivarHex"]] <- jaspPlot
 
@@ -465,7 +465,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       for (param in params[[j]])
         if (is.null(jaspContainer[[param]])) {
           jaspPlot <- createJaspPlot(title = param)
-          jaspPlot$dependOn(optionContainsValue = list(parametersShown = param))
+          jaspPlot$dependOn(optionContainsValue = list(monitoredParametersShown = param))
           jaspContainer[[param]] <- jaspPlot
         }
   }
@@ -651,14 +651,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     return()
 
   jaspPlot <- plotContainer[["plotBivarHex"]]
-  if (length(options[["parametersShown"]]) >= 2L) {
+  if (length(options[["monitoredParametersShown"]]) >= 2L) {
     jaspPlot$width  <- sum(lengths(mcmcResult[["params"]])) * 320L
     jaspPlot$height <- sum(lengths(mcmcResult[["params"]])) * 320L
 
     if (!plotContainer$getError())
       jaspPlot$plotObject <- .JAGSPlotBivariateMatrix(options, mcmcResult, unlist(params))
 
-  } else if (length(options[["parametersShown"]]) == 1L) {
+  } else if (length(options[["monitoredParametersShown"]]) == 1L) {
     # only show an error when some variables are selected to avoid error messages when users set the options
     jaspPlot$setError(gettext("At least two parameters need to be monitored and shown to make a bivariate scatter plot!"))
   }
@@ -788,7 +788,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     return(params)
   }
 
-  params <- unlist(options[["parametersShown"]])
+  params <- unlist(options[["monitoredParametersShown"]])
   if (is.null(params))
     return(NULL)
   obj <- as.list(params)
