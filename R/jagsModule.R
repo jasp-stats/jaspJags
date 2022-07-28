@@ -58,8 +58,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   model <- options[["model"]][["model"]]
 
-  # TODO: uncomment these before merge in JASP!
-  location  <- .fromRCPP(".requestTempFileNameNative", ".txt")
+  location  <- jaspBase::.fromRCPP(".requestTempFileNameNative", ".txt")
   modelFile <- file.path(location$root, location$relativePath)
   fileConn  <- file(modelFile)
   writeLines(model, fileConn)
@@ -115,13 +114,13 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   # set a seed (same procedure as R2jags)
-  .setSeedJASP(options)
+  jaspBase::.setSeedJASP(options)
   RNGname <- "base::Wichmann-Hill"
   if (is.null(inits)) {
     inits <- vector("list", chains)
     for (i in seq_len(chains)) {
       inits[[i]]$.RNG.name <- RNGname
-      inits[[i]]$.RNG.seed <- runif(1, 0, 2^31)
+      inits[[i]]$.RNG.seed <- stats::runif(1, 0, 2^31)
     }
   }
 
@@ -494,14 +493,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   npoints <- 2^10 # precision for density estimation
   if (!options[["aggregatedChains"]]) {
     df <- do.call(rbind.data.frame, lapply(seq_along(samples), function(i) {
-      d <- density(samples[[i]][, param], n = npoints)[c("x", "y")]
+      d <- stats::density(samples[[i]][, param], n = npoints)[c("x", "y")]
       return(data.frame(x = d[["x"]], y = d[["y"]], g = factor(i)))
     }))
     mapping <- ggplot2::aes(x = x, y = y, color = g)
     colorScale <- jaspGraphs::scale_JASPcolor_discrete(name = "Chain")
   } else {
     n <- nrow(samples[[1L]])
-    d <- density(unlist(lapply(samples, `[`, i = 1:n, j = param), use.names = FALSE))
+    d <- stats::density(unlist(lapply(samples, `[`, i = 1:n, j = param), use.names = FALSE))
     df <- data.frame(x = d[["x"]], y = d[["y"]])
     mapping <- ggplot2::aes(x = x, y = y)
     colorScale <- NULL
@@ -855,6 +854,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       options$initialValues[[2L]]$values
     )
   )
+  # TODO: this is only defined in jasp, but not jaspBase!
   allColumnNames <- .allColumnNamesDataset()
   columnsFound <- c()
   if (length(allColumnNames) > 0L)
