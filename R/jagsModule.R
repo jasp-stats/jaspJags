@@ -21,6 +21,10 @@ gettextf <- function(fmt, ..., domain = NULL)  {
   return(sprintf(gettext(fmt, domain = domain), ...))
 }
 
+#' @importFrom jaspBase createJaspContainer createJaspPlot createJaspState createJaspTable
+#' encodeColNames .extractErrorMessage .hasErrors isTryError .readDataSetToEnd
+
+#' @export
 JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # check model
@@ -43,7 +47,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (!is.null(jaspResults[["stateMCMC"]])) {
     obj <- jaspResults[["stateMCMC"]]$object
 
-    # if parametersShown changed, update objects.
+    # if monitoredParametersShown changed, update objects.
     # else if parametersMonitored changed, check if we need to sample again.
     return(obj)
 
@@ -54,22 +58,21 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   model <- options[["model"]][["model"]]
 
-  # TODO: uncomment these before merge in JASP!
-  location  <- .fromRCPP(".requestTempFileNameNative", ".txt")
+  location  <- jaspBase::.fromRCPP(".requestTempFileNameNative", ".txt")
   modelFile <- file.path(location$root, location$relativePath)
   fileConn  <- file(modelFile)
   writeLines(model, fileConn)
   close(fileConn)
 
-  noSamples        <- options[["noSamples"]]
-  noBurnin         <- options[["noBurnin"]]
-  noThinning       <- options[["noThinning"]]
-  noChains         <- options[["noChains"]]
+  samples        <- options[["samples"]]
+  burnin         <- options[["burnin"]]
+  thinning       <- options[["thinning"]]
+  chains         <- options[["chains"]]
   deviance         <- options[["monitorDIC"]]
-  parametersToSave <- if (options[["showResultsFor"]] == "monitorAllParameters")
-    options[["parametersShown"]]
+  parametersToSave <- if (options[["resultsFor"]] == "allParameters")
+    options[["monitoredParametersShown"]]
   else
-    options[["monitoredParametersList"]]
+    options[["monitoredParameters"]]
 
   datList <- as.list(dataset)
 
@@ -92,7 +95,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   # Evaluate user R code, terminate early if the code doesn't work
-  inits    <- .JAGSreadRcode(jaspResults, options[["initialValues"]], type = "initial values", noChains = options[["noChains"]], envir = datList)
+  inits    <- .JAGSreadRcode(jaspResults, options[["initialValues"]], type = "initial values", chains = options[["chains"]], envir = datList)
   if (jaspResults[["mainContainer"]]$getError()) return(NULL)
   if (all(lengths(inits) == 0L)) inits <- NULL
   userData <- .JAGSreadRcode(jaspResults, options[["userData"]], type = "data", envir = datList)
@@ -111,13 +114,13 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   # set a seed (same procedure as R2jags)
-  .setSeedJASP(options)
+  jaspBase::.setSeedJASP(options)
   RNGname <- "base::Wichmann-Hill"
   if (is.null(inits)) {
-    inits <- vector("list", noChains)
-    for (i in seq_len(noChains)) {
+    inits <- vector("list", chains)
+    for (i in seq_len(chains)) {
       inits[[i]]$.RNG.name <- RNGname
-      inits[[i]]$.RNG.seed <- runif(1, 0, 2^31)
+      inits[[i]]$.RNG.seed <- stats::runif(1, 0, 2^31)
     }
   }
 
@@ -128,7 +131,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     # compile model
     model <- rjags::jags.model(
       file     = modelFile,
-      n.chains = noChains,
+      n.chains = chains,
       n.adapt  = 0L,
       data     = datList,
       inits    = inits#unname(lapply(inits, list))
@@ -137,7 +140,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     # sample burnin
     rjags::adapt(
       object         = model,
-      n.iter         = noBurnin,
+      n.iter         = burnin,
       by             = 0L,
       progress.bar   = "none",
       end.adaptation = TRUE
@@ -147,8 +150,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     samples <- rjags::coda.samples(
       model          = model,
       variable.names = parametersToSave,
-      n.iter         = noSamples,
-      thin           = noThinning,
+      n.iter         = samples,
+      thin           = thinning,
       by             = 0L,
       progress.bar   = "none"
     )
@@ -187,7 +190,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     BUGSoutput         = fit,
     parameters.to.save = parametersToSave,
     model.file         = modelFile,
-    n.iter             = noSamples,
+    n.iter             = samples,
     DIC                = deviance,
     samples            = samples,
     hasUserData        = !is.null(userData),
@@ -195,12 +198,12 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   )
 
   tmp <- createJaspState(object = out)
-  tmp$dependOn(c("model", "noSamples", "noBurnin", "noThinning", "noChains", "initialValues", "userData", "showResultsFor",
+  tmp$dependOn(c("model", "samples", "burnin", "thinning", "chains", "initialValues", "userData", "resultsFor",
                  "setSeed", "seed"))
-  if (options[["showResultsFor"]] == "monitorAllParameters")
-    tmp$dependOn("parametersShown")
+  if (options[["resultsFor"]] == "allParameters")
+    tmp$dependOn("monitoredParametersShown")
   else
-    tmp$dependOn("monitoredParametersList")
+    tmp$dependOn("monitoredParameters")
   jaspResults[["stateMCMC"]] <- tmp
 
   return(out)
@@ -217,9 +220,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   jaspResults$addCitation(.JAGSCitations)
   if (is.null(jaspResults[["mainContainer"]])) {
     # setup outer container with all common dependencies
-    mainContainer <- createJaspContainer(dependencies = c("model", "noSamples", "noBurnin", "noThinning", "noChains",
-                                                          "parametersMonitored", "parametersShown", "initialValues", "userData",
-                                                          "setSeed", "seed", "showDeviance"))
+    mainContainer <- createJaspContainer(dependencies = c("model", "samples", "burnin", "thinning", "chains",
+                                                          "parametersMonitored", "monitoredParametersShown", "initialValues", "userData",
+                                                          "setSeed", "seed", "deviance"))
     jaspResults[["mainContainer"]] <- mainContainer
   }
 
@@ -231,16 +234,16 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   # user specified monitoring?
-  manualMonitor   <- options[["showResultsFor"]] == "monitorSelectedParameters"
+  manualMonitor   <- options[["resultsFor"]] == "selectedParameters"
   nParamAvailable <- length(options[["model"]][["parameters"]])
 
   # sum because only parameters can be assigned only once
   if (manualMonitor) {
-    nParamMonitored <- length(options[["monitoredParametersList"]])
+    nParamMonitored <- length(options[["monitoredParameters"]])
   } else {
-    nParamMonitored <- length(options[["parametersShown"]])
+    nParamMonitored <- length(options[["monitoredParametersShown"]])
   }
-  nParamShown <- length(options[["parametersShown"]])
+  nParamShown <- length(options[["monitoredParametersShown"]])
 
   monitorWarning <- NULL
   goodModel <- TRUE
@@ -296,16 +299,16 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (!is.null(mcmcResult) && !jaspResults[["mainContainer"]]$getError()) {
 
     tb$addFootnote(gettextf("Output based on %s MCMC draws.",
-                            floor(options[["noSamples"]] / options[["noThinning"]]) * options[["noChains"]]))
+                            floor(options[["samples"]] / options[["thinning"]]) * options[["chains"]]))
 
     if (!.JAGShasData(options) && !mcmcResult[["hasUserData"]]) {
       tb$addFootnote(message = gettext("No data was supplied, everything was sampled from the priors!"), symbol = .JAGSWarningSymbol)
-      if (options[["showDeviance"]])
+      if (options[["deviance"]])
         tb$addFootnote(message = gettext("Deviance cannot be computed without data."), symbol = .JAGSWarningSymbol)
     }
 
-    parametersToShow <- options[["parametersShown"]]
-    if (mcmcResult[["DIC"]] && options[["showDeviance"]])
+    parametersToShow <- options[["monitoredParametersShown"]]
+    if (mcmcResult[["DIC"]] && options[["deviance"]])
       parametersToShow <- c("deviance", parametersToShow)
     sum <- mcmcResult[["BUGSoutput"]][["summary"]]
     nms <- rownames(sum)
@@ -316,7 +319,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     tbR[["neff"]] <- as.integer(tbR[["neff"]])
     tbR$parameter <- nms[idx]
 
-    if (options[["noChains"]] > 1L) {
+    if (options[["chains"]] > 1L) {
 
       rhat <- try(coda::gelman.diag(mcmcResult[["samples"]]))
       if (isTryError(rhat)) {
@@ -351,14 +354,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 .JAGSmcmcPlots <- function(jaspResults, options, mcmcResult) {
 
   if (is.null(jaspResults[["mainContainer"]][["plotContainer"]])) {
-    plotContainer <- createJaspContainer(dependencies = c("parametersShown", "colorScheme"))
+    plotContainer <- createJaspContainer(dependencies = c("monitoredParametersShown", "colorScheme"))
   } else {
     plotContainer <- jaspResults[["mainContainer"]][["plotContainer"]]
   }
 
   params <- .JAGSGetParams(options, mcmcResult)
   containerObj <- .JAGSInitPlotsContainers(plotContainer, options, params)
-  if (is.null(containerObj) && is.null(plotContainer[["plotBivarHex"]]))
+  if (is.null(containerObj) && is.null(plotContainer[["bivariateScatterPlot"]]))
     return()
 
   # put the container in jaspResults only now so that all empty plots appear at once
@@ -381,64 +384,64 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # for each plot function, create an empty plot container (or the empty plot object)
   output <- NULL
-  if (options[["plotDensity"]]) {
+  if (options[["densityPlot"]]) {
 
     add <- list("function" = ".JAGSPlotDensity")
-    if (is.null(plotContainer[["plotDensity"]])) {
+    if (is.null(plotContainer[["densityPlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Marginal Density"),  position = 1,
-                                                dependencies = c("plotDensity", "aggregateChains", "showLegend"))
-      plotContainer[["plotDensity"]] <- add[["container"]]
+                                                dependencies = c("densityPlot", "aggregatedChains", "legend"))
+      plotContainer[["densityPlot"]] <- add[["container"]]
     } else {
-      add[["container"]] <- plotContainer[["plotDensity"]]
+      add[["container"]] <- plotContainer[["densityPlot"]]
     }
     output[[length(output) + 1L]] <- add
   }
 
-  if (options[["plotHistogram"]]) {
+  if (options[["histogramPlot"]]) {
 
     add <- list("function" = ".JAGSPlotHistogram")
-    if (is.null(plotContainer[["plotHistogram"]])) {
+    if (is.null(plotContainer[["histogramPlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Marginal Histogram"),  position = 2,
-                                                dependencies = c("plotHistogram", "aggregateChains", "showLegend"))
-      plotContainer[["plotHistogram"]] <- add[["container"]]
+                                                dependencies = c("histogramPlot", "aggregatedChains", "legend"))
+      plotContainer[["histogramPlot"]] <- add[["container"]]
     } else {
-      add[["container"]] <- plotContainer[["plotHistogram"]]
+      add[["container"]] <- plotContainer[["histogramPlot"]]
     }
     output[[length(output) + 1L]] <- add
   }
 
-  if (options[["plotTrace"]]) {
+  if (options[["tracePlot"]]) {
 
     add <- list("function" = ".JAGSPlotTrace")
-    if (is.null(plotContainer[["plotTrace"]])) {
+    if (is.null(plotContainer[["tracePlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Trace Plots"),  position = 3,
-                                                dependencies = c("plotTrace", "showLegend"))
-      plotContainer[["plotTrace"]] <- add[["container"]]
+                                                dependencies = c("tracePlot", "legend"))
+      plotContainer[["tracePlot"]] <- add[["container"]]
     } else {
-      add[["container"]] <- plotContainer[["plotTrace"]]
+      add[["container"]] <- plotContainer[["tracePlot"]]
     }
     output[[length(output) + 1L]] <- add
   }
 
-  if (options[["plotAutoCor"]]) {
+  if (options[["autoCorPlot"]]) {
 
     add <- list("function" = ".JAGSPlotAutoCor")
-    if (is.null(plotContainer[["plotAutoCor"]])) {
+    if (is.null(plotContainer[["autoCorPlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Autocorrelation Plots"),  position = 4,
-                                                dependencies = c("plotAutoCor", "noLags", "acfType", "showLegend"))
-      plotContainer[["plotAutoCor"]] <- add[["container"]]
+                                                dependencies = c("autoCorPlot", "autoCorPlotLags", "autoCorPlotType", "legend"))
+      plotContainer[["autoCorPlot"]] <- add[["container"]]
     } else {
-      add[["container"]] <- plotContainer[["plotAutoCor"]]
+      add[["container"]] <- plotContainer[["autoCorPlot"]]
     }
     output[[length(output) + 1L]] <- add
   }
 
-  if (options[["plotBivarHex"]] && is.null(plotContainer[["plotBivarHex"]])) {
+  if (options[["bivariateScatterPlot"]] && is.null(plotContainer[["bivariateScatterPlot"]])) {
 
     jaspPlot <- createJaspPlot(title  = gettext("Bivariate Scatter Plot"),  position = 5,
-                               dependencies = c("plotBivarHex", "parametersShown", "bivariateScatterDiagType",
-                                                "bivariateScatterOffDiagType"))
-    plotContainer[["plotBivarHex"]] <- jaspPlot
+                               dependencies = c("bivariateScatterPlot", "monitoredParametersShown", "bivariateScatterDiagonalType",
+                                                "bivariateScatterOffDiagonalType"))
+    plotContainer[["bivariateScatterPlot"]] <- jaspPlot
 
   }
 
@@ -461,7 +464,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       for (param in params[[j]])
         if (is.null(jaspContainer[[param]])) {
           jaspPlot <- createJaspPlot(title = param)
-          jaspPlot$dependOn(optionContainsValue = list(parametersShown = param))
+          jaspPlot$dependOn(optionContainsValue = list(monitoredParametersShown = param))
           jaspContainer[[param]] <- jaspPlot
         }
   }
@@ -488,16 +491,16 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 .JAGSPlotDensity <- function(samples, param, options, removeAxisLabels = FALSE) {
 
   npoints <- 2^10 # precision for density estimation
-  if (!options[["aggregateChains"]]) {
+  if (!options[["aggregatedChains"]]) {
     df <- do.call(rbind.data.frame, lapply(seq_along(samples), function(i) {
-      d <- density(samples[[i]][, param], n = npoints)[c("x", "y")]
+      d <- stats::density(samples[[i]][, param], n = npoints)[c("x", "y")]
       return(data.frame(x = d[["x"]], y = d[["y"]], g = factor(i)))
     }))
     mapping <- ggplot2::aes(x = x, y = y, color = g)
     colorScale <- jaspGraphs::scale_JASPcolor_discrete(name = "Chain")
   } else {
     n <- nrow(samples[[1L]])
-    d <- density(unlist(lapply(samples, `[`, i = 1:n, j = param), use.names = FALSE))
+    d <- stats::density(unlist(lapply(samples, `[`, i = 1:n, j = param), use.names = FALSE))
     df <- data.frame(x = d[["x"]], y = d[["y"]])
     mapping <- ggplot2::aes(x = x, y = y)
     colorScale <- NULL
@@ -509,9 +512,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   g <- jaspGraphs::themeJasp(
     ggplot2::ggplot(df, mapping) +
-      ggplot2::geom_line(show.legend = !options[["aggregateChains"]]) +
+      ggplot2::geom_line(show.legend = !options[["aggregatedChains"]]) +
       labs +
-      colorScale, legend.position = if (options[["showLegend"]]) "right" else "none"
+      colorScale, legend.position = if (options[["legend"]]) "right" else "none"
   )
   return(g)
 }
@@ -545,7 +548,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   breaksType <- tmpBreaks$breaks
   isDiscrete <- !is.character(breaksType)
 
-  if (!options[["aggregateChains"]]) {
+  if (!options[["aggregatedChains"]]) {
     df <- do.call(rbind.data.frame, lapply(seq_along(samples), function(i) {
       d <- graphics::hist(samples[[i]][, param], breaks = breaksType, plot = FALSE)
       return(data.frame(x = if (isDiscrete) tmpBreaks$unique else d[["mids"]], y = d[["counts"]], g = factor(i)))
@@ -574,10 +577,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   # TODO: (vandenman - 29/03) from ggplot2 version 3.3.0 onwards we need to uncomment the 'orientation = "x"'
   g <- jaspGraphs::themeJasp(
     ggplot2::ggplot(df, mapping) +
-      ggplot2::geom_bar(show.legend = !options[["aggregateChains"]], position = ggplot2::position_dodge(),
+      ggplot2::geom_bar(show.legend = !options[["aggregatedChains"]], position = ggplot2::position_dodge(),
                         stat = "identity") + #, orientation = "x") +
       labs + colorScale + fillScale + xAxis,
-    legend.position = if (options[["showLegend"]]) "right" else "none"
+    legend.position = if (options[["legend"]]) "right" else "none"
   )
   return(g)
 }
@@ -596,7 +599,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     ggplot2::labs(x = gettext("Iteration"), y = param) +
     jaspGraphs::scale_JASPcolor_discrete(name = gettext("Chain")) +
     jaspGraphs::geom_rangeframe() +
-    jaspGraphs::themeJaspRaw(legend.position = if (options[["showLegend"]]) "right" else "none") +
+    jaspGraphs::themeJaspRaw(legend.position = if (options[["legend"]]) "right" else "none") +
     ggplot2::theme(plot.margin = ggplot2::margin(0, 10, 0, 0))
   return(g)
 }
@@ -605,7 +608,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # TODO: x coordinates should be based on acf()#n.used!
   nchains  <- length(samples)
-  nlags    <- options[["noLags"]]
+  nlags    <- options[["autoCorPlotLags"]]
   nvals    <- nlags + 1L # we're getting one more value than nlags since the 0th lag counts.
   acfs <- numeric(nchains * nvals)
   for (i in seq_len(nchains))
@@ -618,7 +621,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     g = factor(rep(seq_len(nchains), each = nvals))
   )
 
-  if (options[["acfType"]] == "acfLines") {
+  if (options[["autoCorPlotType"]] == "lines") {
     geom <- ggplot2::geom_line()
   } else {
     geom <- ggplot2::geom_col(position = ggplot2::position_dodge())
@@ -636,25 +639,25 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     ggplot2::ylab(gettext("Autocorrelation")) +
     ggplot2::scale_x_continuous(name = gettext("Lag"), breaks = xBreaks, limits = xLimits) +
     jaspGraphs::geom_rangeframe() +
-    jaspGraphs::themeJaspRaw(legend.position = if (options[["showLegend"]]) "right" else "none")
+    jaspGraphs::themeJaspRaw(legend.position = if (options[["legend"]]) "right" else "none")
 
   return(g)
 }
 
 .JAGSPlotBivariateScatter <- function(plotContainer, options, mcmcResult, params) {
 
-  if (is.null(plotContainer[["plotBivarHex"]]) || !is.null(plotContainer[["plotBivarHex"]]$plotObject))
+  if (is.null(plotContainer[["bivariateScatterPlot"]]) || !is.null(plotContainer[["bivariateScatterPlot"]]$plotObject))
     return()
 
-  jaspPlot <- plotContainer[["plotBivarHex"]]
-  if (length(options[["parametersShown"]]) >= 2L) {
+  jaspPlot <- plotContainer[["bivariateScatterPlot"]]
+  if (length(options[["monitoredParametersShown"]]) >= 2L) {
     jaspPlot$width  <- sum(lengths(mcmcResult[["params"]])) * 320L
     jaspPlot$height <- sum(lengths(mcmcResult[["params"]])) * 320L
 
     if (!plotContainer$getError())
       jaspPlot$plotObject <- .JAGSPlotBivariateMatrix(options, mcmcResult, unlist(params))
 
-  } else if (length(options[["parametersShown"]]) == 1L) {
+  } else if (length(options[["monitoredParametersShown"]]) == 1L) {
     # only show an error when some variables are selected to avoid error messages when users set the options
     jaspPlot$setError(gettext("At least two parameters need to be monitored and shown to make a bivariate scatter plot!"))
   }
@@ -667,21 +670,21 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   plotMatrix <- matrix(list(), nParams, nParams, dimnames = list(allParams, allParams))
 
   # these should always be fixed for the matrix plot
-  options[["aggregateChains"]] <- TRUE
-  options[["showLegend"]]      <- FALSE
+  options[["aggregatedChains"]] <- TRUE
+  options[["legend"]]      <- FALSE
 
   for (j in seq_len(nParams)) {
     for (i in j:nParams) {
 
       if (i == j) {
-        if (options[["bivariateScatterDiagType"]] == "dens") {
+        if (options[["bivariateScatterDiagonalType"]] == "density") {
           plotMatrix[[i, j]] <- .JAGSPlotDensity(samples, allParams[j], options, removeAxisLabels = TRUE)
         } else {
           plotMatrix[[i, j]] <- .JAGSPlotHistogram(samples, allParams[j], options, removeAxisLabels = TRUE)
         }
       } else {#if (i > j) {
         plotMatrix[[i, j]] <- .JAGSPlotHexOrScatter(samples, allParams[j], allParams[i],
-                                                    type = options[["bivariateScatterOffDiagType"]])
+                                                    type = options[["bivariateScatterOffDiagonalType"]])
         plotMatrix[[j, i]] <- plotMatrix[[i, j]] + ggplot2::coord_flip()
         # } else {
         # TODO: do we want to show anything else for i > j?
@@ -699,7 +702,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     y = unlist(lapply(samples, `[`, i = 1:n, j = paramY), use.names = FALSE)
   )
 
-  if (type == "hex") {
+  if (type == "hexagon") {
     geom <- ggplot2::stat_bin_hex()
     mapping = ggplot2::aes(x = x, y = y, fill = ..density..)
     scaleFill <- jaspGraphs::scale_JASPfill_continuous()
@@ -778,13 +781,13 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   if (!is.null(mcmcResult)) {
     params <- mcmcResult[["params"]]
-    if (!options[["showDeviance"]]) {
+    if (!options[["deviance"]]) {
       params <- params[names(params) != "deviance"]
     }
     return(params)
   }
 
-  params <- unlist(options[["parametersShown"]])
+  params <- unlist(options[["monitoredParametersShown"]])
   if (is.null(params))
     return(NULL)
   obj <- as.list(params)
@@ -793,14 +796,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 }
 
-.JAGSreadRcode <- function(jaspResults, input, type = c("initial values", "data"), noChains = 1L, envir = list()) {
+.JAGSreadRcode <- function(jaspResults, input, type = c("initial values", "data"), chains = 1L, envir = list()) {
 
   type <- match.arg(type)
   paramNms <- unlist(input[[1L]][["values"]])
   rcodes   <- encodeColNames(unlist(input[[2L]][["values"]]))
 
-  output <- vector("list", length = noChains)
-  for (j in seq_len(noChains)) {
+  output <- vector("list", length = chains)
+  for (j in seq_len(chains)) {
     oneOutput <- vector("list", length = length(paramNms))
     names(oneOutput) <- paramNms
     for (i in seq_along(oneOutput)) {
@@ -851,6 +854,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       options$initialValues[[2L]]$values
     )
   )
+  # TODO: this is only defined in jasp, but not jaspBase!
   allColumnNames <- .allColumnNamesDataset()
   columnsFound <- c()
   if (length(allColumnNames) > 0L)

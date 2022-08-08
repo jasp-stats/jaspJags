@@ -4,7 +4,7 @@
   jaspResultsCalledFromJasp <- mget("jaspResultsCalledFromJasp", envir = .GlobalEnv, mode = "function", ifnotfound = NA)
 
   if (!is.na(jaspResultsCalledFromJasp) &&
-      jaspBase:::getOS() == "osx" &&
+      jaspBase::getOS() == "osx" &&
       isTRUE(try(jaspResultsCalledFromJasp()))
   ) {
 

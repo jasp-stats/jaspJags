@@ -5,15 +5,15 @@ options$initialValues <- list(list(levels = "Row 1", name = "Parameter", values 
                               list(levels = "Row 1", name = "R Code", values = "..."))
 options$model <- list(columns = list(), model = "model{\n theta ~ dbeta(1, 1)\n k ~ dbinom(theta, n)\n mu ~ dnorm(0, 1)}",
                       parameters = c("theta", "k"))
-options$noBurnin <- 1
-options$noChains <- 4
-options$noSamples <- 50
-options$parametersShown <- c("theta", "mu")
-options$plotAutoCor <- TRUE
-options$plotDensity <- TRUE
-options$plotHistogram <- TRUE
-options$plotTrace <- TRUE
-options$plotBivarHex <- TRUE
+options$burnin <- 1
+options$chains <- 4
+options$samples <- 50
+options$monitoredParametersShown <- c("theta", "mu")
+options$autoCorPlot <- TRUE
+options$densityPlot <- TRUE
+options$histogramPlot <- TRUE
+options$tracePlot <- TRUE
+options$bivariateScatterPlot <- TRUE
 options$userData <- list(list(
   levels = c("Row 0", "Row 1"),
   name = "Parameter", values = c("k", "n")
@@ -48,56 +48,56 @@ test_that("MCMC summary table results match", {
                            1.25276545060289, 1.07739568349341))
 })
 
-test_that("plotAutoCor mu plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotAutoCor"]][["collection"]][["mainContainer_plotContainer_plotAutoCor_mu"]][["data"]]
+test_that("autoCorPlot mu plot matches", {
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_autoCorPlot"]][["collection"]][["mainContainer_plotContainer_autoCorPlot_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotAutoCor-mu")
 })
 
-test_that("plotAutoCor theta plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotAutoCor"]][["collection"]][["mainContainer_plotContainer_plotAutoCor_theta"]][["data"]]
+test_that("autoCorPlot theta plot matches", {
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_autoCorPlot"]][["collection"]][["mainContainer_plotContainer_autoCorPlot_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotAutoCor-theta")
 })
 
-test_that("plotDensity mu plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotDensity"]][["collection"]][["mainContainer_plotContainer_plotDensity_mu"]][["data"]]
+test_that("densityPlot mu plot matches", {
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_densityPlot"]][["collection"]][["mainContainer_plotContainer_densityPlot_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotDensity-mu")
 })
 
-test_that("plotDensity theta plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotDensity"]][["collection"]][["mainContainer_plotContainer_plotDensity_theta"]][["data"]]
+test_that("densityPlot theta plot matches", {
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_densityPlot"]][["collection"]][["mainContainer_plotContainer_densityPlot_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotDensity-theta")
 })
 
-test_that("plotHistogram mu plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotHistogram"]][["collection"]][["mainContainer_plotContainer_plotHistogram_mu"]][["data"]]
+test_that("histogramPlot mu plot matches", {
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_histogramPlot"]][["collection"]][["mainContainer_plotContainer_histogramPlot_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotHistogram-mu")
 })
 
-test_that("plotHistogram theta plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotHistogram"]][["collection"]][["mainContainer_plotContainer_plotHistogram_theta"]][["data"]]
+test_that("histogramPlot theta plot matches", {
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_histogramPlot"]][["collection"]][["mainContainer_plotContainer_histogramPlot_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotHistogram-theta")
 })
 
-test_that("plotTrace mu plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotTrace"]][["collection"]][["mainContainer_plotContainer_plotTrace_mu"]][["data"]]
+test_that("tracePlot mu plot matches", {
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_tracePlot"]][["collection"]][["mainContainer_plotContainer_tracePlot_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotTrace-mu")
 })
 
-test_that("plotTrace theta plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotTrace"]][["collection"]][["mainContainer_plotContainer_plotTrace_theta"]][["data"]]
+test_that("tracePlot theta plot matches", {
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_tracePlot"]][["collection"]][["mainContainer_plotContainer_tracePlot_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotTrace-theta")
 })
 
 test_that("Bivariate Scatter Plot matches", {
-  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_plotBivarHex"]][["data"]]
+  plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_bivariateScatterPlot"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "bivariate-scatter-plot")
 })

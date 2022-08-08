@@ -1,12 +1,12 @@
 Package: jaspJags
 Type: Package
 Title: JAGS Module for JASP
-Version: 0.15
+Version: 0.16.4
 Date: 2020-04-08
 Author: Don van den Bergh
 Website: jasp-stats.org
 Maintainer: Don van den Bergh <d.vandenBergh@jasp-stats.com>
-Description: Implement Bayesian graphical models with Martyn Plummer’s JAGS program for Markov chain Monte Carlo
+Description: Implement Bayesian graphical models with Martyn Plummer’s JAGS program for Markov chain Monte Carlo.
 License: GPL (>= 2)
 Encoding: UTF-8
 Depends:
@@ -19,6 +19,12 @@ Imports:
   jaspGraphs,
   rjags,
   stringr
+Suggests:
+  jaspTools,
+  testthat
 Remotes:
   jasp-stats/jaspBase,
-  jasp-stats/jaspGraphs
+  jasp-stats/jaspGraphs,
+  jasp-stats/jaspTools
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1

@@ -35,7 +35,7 @@ Form
 
 	VariablesForm
 	{
-		visible: !monitorAllParameters.checked
+		visible: !allParameters.checked
 		preferredHeight: jaspTheme.smallDefaultVariablesFormHeight
 		AvailableVariablesList
 		{
@@ -43,7 +43,7 @@ Form
 			title: qsTr("Parameters in model")
 			source: [{ name: "model", discard: { name: "userData", use: "Parameter"}}]
 		}
-		AssignedVariablesList   { name: "monitoredParametersList";   title: qsTr("Monitor these parameters"); }
+		AssignedVariablesList   { name: "monitoredParameters";   title: qsTr("Monitor these parameters"); }
 	}
 
 	VariablesForm
@@ -53,10 +53,10 @@ Form
 		{
 			id:		monitoredParametersList2
 			name:	"monitoredParametersList2"
-			title:	monitorAllParameters.checked ? qsTr("Parameters in model") : qsTr("Monitored parameters")
-			source:	monitorAllParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParametersList"]
+			title:	allParameters.checked ? qsTr("Parameters in model") : qsTr("Monitored parameters")
+			source:	allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"]
 		}
-		AssignedVariablesList   { name: "parametersShown";		title: qsTr("Show results for these parameters")}
+		AssignedVariablesList   { name: "monitoredParametersShown";		title: qsTr("Show results for these parameters")}
 	}
 
 	Section
@@ -78,18 +78,18 @@ Form
 					{ label: qsTr("Gray"),				value: "gray"			}
 				]
 			}
-			CheckBox { name: "aggregateChains";	label: qsTr("Aggregate chains for densities and histograms");	checked:true	}
-			CheckBox { name: "showLegend";		label: qsTr("Show legends");									checked:true	}
-			CheckBox { name: "plotDensity";		label: qsTr("Density")															}
-			CheckBox { name: "plotHistogram";	label: qsTr("Histogram")														}
-			CheckBox { name: "plotTrace";		label: qsTr("Trace");															}
+			CheckBox { name: "aggregatedChains";	label: qsTr("Aggregate chains for densities and histograms");	checked:true	}
+			CheckBox { name: "legend";				label: qsTr("Show legends");									checked:true	}
+			CheckBox { name: "densityPlot";			label: qsTr("Density")															}
+			CheckBox { name: "histogramPlot";		label: qsTr("Histogram")														}
+			CheckBox { name: "tracePlot";			label: qsTr("Trace");															}
 		}
 		Group
 		{
-			CheckBox { label: qsTr("Autocorrelation");    name: "plotAutoCor"; id: autoCorrelation
+			CheckBox { label: qsTr("Autocorrelation");	name: "autoCorPlot"; id: autoCorrelation
 				IntegerField
 				{
-					name: "noLags"
+					name: "autoCorPlotLags"
 					label: qsTr("No. lags")
 					defaultValue: 20
 					min: 1
@@ -97,26 +97,26 @@ Form
 				}
 				RadioButtonGroup
 				{
-					name: "acfType"
+					name: "autoCorPlotType"
 					title: qsTr("Type")
-					RadioButton { value: "acfLines";  label: qsTr("line"); checked:true	}
-					RadioButton { value: "acfBars";   label: qsTr("bar")				}
+					RadioButton { value: "lines";	label: qsTr("line"); checked:true	}
+					RadioButton { value: "bars";	label: qsTr("bar")					}
 				}
 			}
-			CheckBox { label: qsTr("Bivariate scatter");  name: "plotBivarHex"; id: bivariateScatter
+			CheckBox { label: qsTr("Bivariate scatter");  name: "bivariateScatterPlot"; id: bivariateScatter
 				RadioButtonGroup
 				{
-					name: "bivariateScatterDiagType"
+					name: "bivariateScatterDiagonalType"
 					title: qsTr("Diagonal plot type")
-					RadioButton { value: "dens";  label: qsTr("Density"); checked:true	}
-					RadioButton { value: "hist";  label: qsTr("Histogram")				}
+					RadioButton { value: "density";		label: qsTr("Density"); checked:true	}
+					RadioButton { value: "histogram";	label: qsTr("Histogram")				}
 				}
 				RadioButtonGroup
 				{
-					name: "bivariateScatterOffDiagType"
+					name: "bivariateScatterOffDiagonalType"
 					title: qsTr("Off-diagonal plot type")
-					RadioButton { value: "hex";     label: qsTr("Hexagonal"); checked:true	}
-					RadioButton { value: "scatter"; label: qsTr("Contour")					}
+					RadioButton { value: "hexagon";		label: qsTr("Hexagonal"); checked:true	}
+					RadioButton { value: "contour";		label: qsTr("Contour")					}
 				}
 			}
 		}
@@ -152,8 +152,8 @@ Form
 			title: qsTr("MCMC parameters")
 			IntegerField
 			{
-				id: noSamples
-				name: "noSamples"
+				id: samples
+				name: "samples"
 				label: qsTr("No. samples")
 				defaultValue: 2e3
 				min: 10
@@ -162,7 +162,7 @@ Form
 			}
 			IntegerField
 			{
-				name: "noBurnin"
+				name: "burnin"
 				label: qsTr("No. burnin samples")
 				defaultValue: 500
 				min: 1
@@ -171,16 +171,16 @@ Form
 			}
 			IntegerField
 			{
-				name: "noThinning"
+				name: "thinning"
 				label: qsTr("Thinning")
 				defaultValue: 1
 				min: 1
-				max: Math.floor(noSamples.value / 2)
+				max: Math.floor(samples.value / 2)
 				fieldWidth: 100
 			}
 			IntegerField
 			{
-				name: "noChains"
+				name: "chains"
 				label: qsTr("No. chains")
 				defaultValue: 3
 				min: 1
@@ -191,14 +191,14 @@ Form
 
 		RadioButtonGroup
 		{
-			name: "showResultsFor"
+			name: "resultsFor"
 			title: qsTr("Show results for")
-			RadioButton { value: "monitorAllParameters";		label: qsTr("all monitored parameters"); checked: true; id: monitorAllParameters	}
-			RadioButton { value: "monitorSelectedParameters";	label: qsTr("selected parameters")													}
+			RadioButton { value: "allParameters";		label: qsTr("all monitored parameters"); checked: true; id: allParameters	}
+			RadioButton { value: "selectedParameters";	label: qsTr("selected parameters")											}
 		}
 
 		SetSeed{}
 
-		CheckBox {	name: "showDeviance";	label: qsTr("Show Deviance");	checked: false	}
+		CheckBox {	name: "deviance";	label: qsTr("Show Deviance");	checked: false	}
 	}
 }
