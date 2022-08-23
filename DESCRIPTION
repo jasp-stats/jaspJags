@@ -20,11 +20,9 @@ Imports:
   rjags,
   stringr
 Suggests:
-  jaspTools,
   testthat
 Remotes:
   jasp-stats/jaspBase,
-  jasp-stats/jaspGraphs,
-  jasp-stats/jaspTools
+  jasp-stats/jaspGraphs
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
