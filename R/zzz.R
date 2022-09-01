@@ -3,8 +3,7 @@
   # function from zzzWrappers.R inside jaspResults
   jaspResultsCalledFromJasp <- mget("jaspResultsCalledFromJasp", envir = .GlobalEnv, mode = "function", ifnotfound = NA)
 
-  if (!is.na(jaspResultsCalledFromJasp) &&
-      jaspBase::getOS() == "osx" &&
+  if (jaspBase:::getOS() == "osx" &&
       isTRUE(try(jaspResultsCalledFromJasp()))
   ) {
 
