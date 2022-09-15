@@ -374,7 +374,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   jaspGraphs::setGraphOption("palette", colorpalette)
 
   if (!(is.null(mcmcResult) || jaspResults[["mainContainer"]][["plotContainer"]]$getError()))
-    .JAGSFillPlotContainers(containerObj, options, mcmcResult)
+    .JAGSFillPlotContainers(containerObj, options, mcmcResult, params)
 
   .JAGSPlotBivariateScatter(plotContainer, options, mcmcResult, params)
 
@@ -470,9 +470,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 }
 
-.JAGSFillPlotContainers <- function(containerObj, options, mcmcResult) {
+.JAGSFillPlotContainers <- function(containerObj, options, mcmcResult, params) {
 
-  params  <- mcmcResult[["params"]]
   samples <- mcmcResult[["samples"]]
 
   baseParams <- names(params)
@@ -650,14 +649,16 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     return()
 
   jaspPlot <- plotContainer[["bivariateScatterPlot"]]
-  if (length(options[["monitoredParametersShown"]]) >= 2L) {
-    jaspPlot$width  <- sum(lengths(mcmcResult[["params"]])) * 320L
-    jaspPlot$height <- sum(lengths(mcmcResult[["params"]])) * 320L
+  nParams <- sum(lengths(params))
+  if (nParams >= 2L) {
+
+    jaspPlot$width  <- nParams * 320L
+    jaspPlot$height <- nParams * 320L
 
     if (!plotContainer$getError())
       jaspPlot$plotObject <- .JAGSPlotBivariateMatrix(options, mcmcResult, unlist(params))
 
-  } else if (length(options[["monitoredParametersShown"]]) == 1L) {
+  } else if (nParams == 1L) {
     # only show an error when some variables are selected to avoid error messages when users set the options
     jaspPlot$setError(gettext("At least two parameters need to be monitored and shown to make a bivariate scatter plot!"))
   }
@@ -673,19 +674,21 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   options[["aggregatedChains"]] <- TRUE
   options[["legend"]]      <- FALSE
 
+  # https://github.com/jasp-stats/jasp-test-release/issues/1956
+  marginAdjust <- ggplot2::theme(plot.margin = ggplot2::margin(r = 5, l = 5))
   for (j in seq_len(nParams)) {
     for (i in j:nParams) {
 
       if (i == j) {
         if (options[["bivariateScatterDiagonalType"]] == "density") {
-          plotMatrix[[i, j]] <- .JAGSPlotDensity(samples, allParams[j], options, removeAxisLabels = TRUE)
+          plotMatrix[[i, j]] <- .JAGSPlotDensity(samples, allParams[j], options, removeAxisLabels = TRUE) + marginAdjust
         } else {
-          plotMatrix[[i, j]] <- .JAGSPlotHistogram(samples, allParams[j], options, removeAxisLabels = TRUE)
+          plotMatrix[[i, j]] <- .JAGSPlotHistogram(samples, allParams[j], options, removeAxisLabels = TRUE) + marginAdjust
         }
       } else {#if (i > j) {
         plotMatrix[[i, j]] <- .JAGSPlotHexOrScatter(samples, allParams[j], allParams[i],
                                                     type = options[["bivariateScatterOffDiagonalType"]])
-        plotMatrix[[j, i]] <- plotMatrix[[i, j]] + ggplot2::coord_flip()
+        plotMatrix[[j, i]] <- plotMatrix[[i, j]] + ggplot2::coord_flip() + marginAdjust
         # } else {
         # TODO: do we want to show anything else for i > j?
       }
@@ -784,7 +787,12 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     if (!options[["deviance"]]) {
       params <- params[names(params) != "deviance"]
     }
-    return(params)
+
+    if (options[["resultsFor"]] == "selectedParameters") {
+      return(params[intersect(names(params), options[["monitoredParametersShown"]])])
+    } else {
+      return(params)
+    }
   }
 
   params <- unlist(options[["monitoredParametersShown"]])
