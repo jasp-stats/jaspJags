@@ -374,7 +374,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   jaspGraphs::setGraphOption("palette", colorpalette)
 
   if (!(is.null(mcmcResult) || jaspResults[["mainContainer"]][["plotContainer"]]$getError()))
-    .JAGSFillPlotContainers(containerObj, options, mcmcResult)
+    .JAGSFillPlotContainers(containerObj, options, mcmcResult, params)
 
   .JAGSPlotBivariateScatter(plotContainer, options, mcmcResult, params)
 
@@ -470,9 +470,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 }
 
-.JAGSFillPlotContainers <- function(containerObj, options, mcmcResult) {
+.JAGSFillPlotContainers <- function(containerObj, options, mcmcResult, params) {
 
-  params  <- mcmcResult[["params"]]
   samples <- mcmcResult[["samples"]]
 
   baseParams <- names(params)
@@ -505,17 +504,25 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     mapping <- ggplot2::aes(x = x, y = y)
     colorScale <- NULL
   }
-  if (removeAxisLabels)
-    labs <- ggplot2::labs(x = NULL, y = NULL)
-  else
-    labs <- ggplot2::labs(x = param, y = gettext("Density"))
+  if (removeAxisLabels) {
+    xName <- yName <- NULL
+  } else {
+    xName <- param
+    yName <- gettext("Density")
+  }
 
-  g <- jaspGraphs::themeJasp(
-    ggplot2::ggplot(df, mapping) +
-      ggplot2::geom_line(show.legend = !options[["aggregatedChains"]]) +
-      labs +
-      colorScale, legend.position = if (options[["legend"]]) "right" else "none"
-  )
+  xBreaks <- jaspGraphs::getPrettyAxisBreaks(df[["x"]])
+  xLimits <- range(xBreaks)
+  yBreaks <- jaspGraphs::getPrettyAxisBreaks(df[["y"]])
+  yLimits <- range(yBreaks)
+
+  g <- ggplot2::ggplot(df, mapping) +
+    ggplot2::geom_line(show.legend = !options[["aggregatedChains"]]) +
+    colorScale +
+    ggplot2::scale_x_continuous(name = xName, breaks = xBreaks, limits = xLimits) +
+    ggplot2::scale_y_continuous(name = yName, breaks = yBreaks, limits = yLimits) +
+    jaspGraphs::geom_rangeframe() +
+    jaspGraphs::themeJaspRaw(legend.position = if (options[["legend"]]) "right" else "none")
   return(g)
 }
 
@@ -564,24 +571,35 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     fillScale <- colorScale <- NULL
   }
 
-  xAxis <- NULL
-  # prevent non-discrete axis labels
-  if (isDiscrete)
-    xAxis <- ggplot2::scale_x_continuous(breaks = round(jaspGraphs::getPrettyAxisBreaks(tmpBreaks$unique)))
+  if (removeAxisLabels) {
+    xName <- yName <- NULL
+  } else {
+    xName <- param
+    yName <- gettext("Counts")
+  }
 
-  if (removeAxisLabels)
-    labs <- ggplot2::labs(x = NULL, y = NULL)
-  else
-    labs <- ggplot2::labs(x = param, y = gettext("Counts"))
+  # prevent non-discrete axis labels
+  if (isDiscrete) {
+    xAxis <- ggplot2::scale_x_continuous(name = xName, breaks = round(jaspGraphs::getPrettyAxisBreaks(tmpBreaks$unique)))
+  } else {
+    xBreaks <- jaspGraphs::getPrettyAxisBreaks(df[["x"]])
+    xLimits <- range(xBreaks)
+    xAxis <- ggplot2::scale_x_continuous(name = xName, breaks = xBreaks, limits = xLimits)
+  }
+
+  yBreaks <- jaspGraphs::getPrettyAxisBreaks(df[["y"]])
+  yLimits <- range(yBreaks)
+  yAxis <- ggplot2::scale_y_continuous(name = yName, breaks = yBreaks, limits = yLimits)
 
   # TODO: (vandenman - 29/03) from ggplot2 version 3.3.0 onwards we need to uncomment the 'orientation = "x"'
-  g <- jaspGraphs::themeJasp(
-    ggplot2::ggplot(df, mapping) +
-      ggplot2::geom_bar(show.legend = !options[["aggregatedChains"]], position = ggplot2::position_dodge(),
-                        stat = "identity") + #, orientation = "x") +
-      labs + colorScale + fillScale + xAxis,
-    legend.position = if (options[["legend"]]) "right" else "none"
-  )
+  g <- ggplot2::ggplot(df, mapping) +
+    ggplot2::geom_bar(show.legend = !options[["aggregatedChains"]], position = ggplot2::position_dodge(), stat = "identity") + #, orientation = "x") +
+    xAxis +
+    yAxis +
+    colorScale +
+    fillScale +
+    jaspGraphs::geom_rangeframe() +
+    jaspGraphs::themeJaspRaw(legend.position = if (options[["legend"]]) "right" else "none")
   return(g)
 }
 
@@ -650,14 +668,16 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     return()
 
   jaspPlot <- plotContainer[["bivariateScatterPlot"]]
-  if (length(options[["monitoredParametersShown"]]) >= 2L) {
-    jaspPlot$width  <- sum(lengths(mcmcResult[["params"]])) * 320L
-    jaspPlot$height <- sum(lengths(mcmcResult[["params"]])) * 320L
+  nParams <- sum(lengths(params))
+  if (nParams >= 2L) {
+
+    jaspPlot$width  <- nParams * 320L
+    jaspPlot$height <- nParams * 320L
 
     if (!plotContainer$getError())
       jaspPlot$plotObject <- .JAGSPlotBivariateMatrix(options, mcmcResult, unlist(params))
 
-  } else if (length(options[["monitoredParametersShown"]]) == 1L) {
+  } else if (nParams == 1L) {
     # only show an error when some variables are selected to avoid error messages when users set the options
     jaspPlot$setError(gettext("At least two parameters need to be monitored and shown to make a bivariate scatter plot!"))
   }
@@ -673,19 +693,21 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   options[["aggregatedChains"]] <- TRUE
   options[["legend"]]      <- FALSE
 
+  # https://github.com/jasp-stats/jasp-test-release/issues/1956
+  marginAdjust <- ggplot2::theme(plot.margin = ggplot2::margin(r = 5, l = 5))
   for (j in seq_len(nParams)) {
     for (i in j:nParams) {
 
       if (i == j) {
         if (options[["bivariateScatterDiagonalType"]] == "density") {
-          plotMatrix[[i, j]] <- .JAGSPlotDensity(samples, allParams[j], options, removeAxisLabels = TRUE)
+          plotMatrix[[i, j]] <- .JAGSPlotDensity(samples, allParams[j], options, removeAxisLabels = TRUE) + marginAdjust
         } else {
-          plotMatrix[[i, j]] <- .JAGSPlotHistogram(samples, allParams[j], options, removeAxisLabels = TRUE)
+          plotMatrix[[i, j]] <- .JAGSPlotHistogram(samples, allParams[j], options, removeAxisLabels = TRUE) + marginAdjust
         }
       } else {#if (i > j) {
         plotMatrix[[i, j]] <- .JAGSPlotHexOrScatter(samples, allParams[j], allParams[i],
                                                     type = options[["bivariateScatterOffDiagonalType"]])
-        plotMatrix[[j, i]] <- plotMatrix[[i, j]] + ggplot2::coord_flip()
+        plotMatrix[[j, i]] <- plotMatrix[[i, j]] + ggplot2::coord_flip() + marginAdjust
         # } else {
         # TODO: do we want to show anything else for i > j?
       }
@@ -717,7 +739,17 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (removeAxisLabels)
     labs <- ggplot2::labs(x = NULL, y = NULL)
 
-  return(jaspGraphs::themeJasp(ggplot2::ggplot(data = df, mapping = mapping) + geom + labs + scaleFill + scaleCol))
+  g <- ggplot2::ggplot(data = df, mapping = mapping) +
+    geom +
+    labs +
+    scaleFill +
+    scaleCol +
+    jaspGraphs::scale_x_continuous() +
+    jaspGraphs::scale_y_continuous() +
+    jaspGraphs::geom_rangeframe() +
+    jaspGraphs::themeJaspRaw()
+
+  return(g)
 
 }
 
@@ -784,7 +816,12 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     if (!options[["deviance"]]) {
       params <- params[names(params) != "deviance"]
     }
-    return(params)
+
+    if (options[["resultsFor"]] == "selectedParameters") {
+      return(params[intersect(names(params), options[["monitoredParametersShown"]])])
+    } else {
+      return(params)
+    }
   }
 
   params <- unlist(options[["monitoredParametersShown"]])
