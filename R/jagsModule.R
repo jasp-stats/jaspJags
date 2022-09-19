@@ -504,17 +504,25 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     mapping <- ggplot2::aes(x = x, y = y)
     colorScale <- NULL
   }
-  if (removeAxisLabels)
-    labs <- ggplot2::labs(x = NULL, y = NULL)
-  else
-    labs <- ggplot2::labs(x = param, y = gettext("Density"))
+  if (removeAxisLabels) {
+    xName <- yName <- NULL
+  } else {
+    xName <- param
+    yName <- gettext("Density")
+  }
 
-  g <- jaspGraphs::themeJasp(
-    ggplot2::ggplot(df, mapping) +
-      ggplot2::geom_line(show.legend = !options[["aggregatedChains"]]) +
-      labs +
-      colorScale, legend.position = if (options[["legend"]]) "right" else "none"
-  )
+  xBreaks <- jaspGraphs::getPrettyAxisBreaks(df[["x"]])
+  xLimits <- range(xBreaks)
+  yBreaks <- jaspGraphs::getPrettyAxisBreaks(df[["y"]])
+  yLimits <- range(yBreaks)
+
+  g <- ggplot2::ggplot(df, mapping) +
+    ggplot2::geom_line(show.legend = !options[["aggregatedChains"]]) +
+    colorScale +
+    ggplot2::scale_x_continuous(name = xName, breaks = xBreaks, limits = xLimits) +
+    ggplot2::scale_y_continuous(name = yName, breaks = yBreaks, limits = yLimits) +
+    jaspGraphs::geom_rangeframe() +
+    jaspGraphs::themeJaspRaw(legend.position = if (options[["legend"]]) "right" else "none")
   return(g)
 }
 
@@ -563,24 +571,35 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     fillScale <- colorScale <- NULL
   }
 
-  xAxis <- NULL
-  # prevent non-discrete axis labels
-  if (isDiscrete)
-    xAxis <- ggplot2::scale_x_continuous(breaks = round(jaspGraphs::getPrettyAxisBreaks(tmpBreaks$unique)))
+  if (removeAxisLabels) {
+    xName <- yName <- NULL
+  } else {
+    xName <- param
+    yName <- gettext("Counts")
+  }
 
-  if (removeAxisLabels)
-    labs <- ggplot2::labs(x = NULL, y = NULL)
-  else
-    labs <- ggplot2::labs(x = param, y = gettext("Counts"))
+  # prevent non-discrete axis labels
+  if (isDiscrete) {
+    xAxis <- ggplot2::scale_x_continuous(name = xName, breaks = round(jaspGraphs::getPrettyAxisBreaks(tmpBreaks$unique)))
+  } else {
+    xBreaks <- jaspGraphs::getPrettyAxisBreaks(df[["x"]])
+    xLimits <- range(xBreaks)
+    xAxis <- ggplot2::scale_x_continuous(name = xName, breaks = xBreaks, limits = xLimits)
+  }
+
+  yBreaks <- jaspGraphs::getPrettyAxisBreaks(df[["y"]])
+  yLimits <- range(yBreaks)
+  yAxis <- ggplot2::scale_y_continuous(name = yName, breaks = yBreaks, limits = yLimits)
 
   # TODO: (vandenman - 29/03) from ggplot2 version 3.3.0 onwards we need to uncomment the 'orientation = "x"'
-  g <- jaspGraphs::themeJasp(
-    ggplot2::ggplot(df, mapping) +
-      ggplot2::geom_bar(show.legend = !options[["aggregatedChains"]], position = ggplot2::position_dodge(),
-                        stat = "identity") + #, orientation = "x") +
-      labs + colorScale + fillScale + xAxis,
-    legend.position = if (options[["legend"]]) "right" else "none"
-  )
+  g <- ggplot2::ggplot(df, mapping) +
+    ggplot2::geom_bar(show.legend = !options[["aggregatedChains"]], position = ggplot2::position_dodge(), stat = "identity") + #, orientation = "x") +
+    xAxis +
+    yAxis +
+    colorScale +
+    fillScale +
+    jaspGraphs::geom_rangeframe() +
+    jaspGraphs::themeJaspRaw(legend.position = if (options[["legend"]]) "right" else "none")
   return(g)
 }
 
@@ -720,7 +739,17 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (removeAxisLabels)
     labs <- ggplot2::labs(x = NULL, y = NULL)
 
-  return(jaspGraphs::themeJasp(ggplot2::ggplot(data = df, mapping = mapping) + geom + labs + scaleFill + scaleCol))
+  g <- ggplot2::ggplot(data = df, mapping = mapping) +
+    geom +
+    labs +
+    scaleFill +
+    scaleCol +
+    jaspGraphs::scale_x_continuous() +
+    jaspGraphs::scale_y_continuous() +
+    jaspGraphs::geom_rangeframe() +
+    jaspGraphs::themeJaspRaw()
+
+  return(g)
 
 }
 
