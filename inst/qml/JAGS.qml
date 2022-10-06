@@ -200,5 +200,31 @@ Form
 		SetSeed{}
 
 		CheckBox {	name: "deviance";	label: qsTr("Show Deviance");	checked: false	}
+
+		FileSelector
+		{
+			name:		"exportSamplesFile"
+			label:		qsTr("Export samples:")
+			filter:		"*.csv"
+			save:		true
+		}
+
+		// Same setup as e.g., DOE in jaspProcessControl
+		// use the button to toggle a hidden checkbox that controls syncing
+		Button
+		{
+			anchors.right:		parent.right
+			anchors.bottom:		parent.bottom
+			text: 				actualExporter.checked ? qsTr("Sync Samples: On") : qsTr("Sync Samples: Off")
+			onClicked: 			actualExporter.click()
+		}
+
+		CheckBox
+		{
+			id:					actualExporter
+			name:				"actualExporter"
+			visible:			false
+		}
+
 	}
 }

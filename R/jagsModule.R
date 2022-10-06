@@ -35,8 +35,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   mcmcResult <- .JAGSrunMCMC(jaspResults, dataset, options)
 
   # create output
-  .JAGSoutputTable(jaspResults, options, mcmcResult)
-  .JAGSmcmcPlots  (jaspResults, options, mcmcResult)
+  .JAGSoutputTable  (jaspResults, options, mcmcResult)
+  .JAGSmcmcPlots    (jaspResults, options, mcmcResult)
+  .JAGSexportSamples(jaspResults, options, mcmcResult)
 
   return()
 
@@ -808,6 +809,48 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 }
 
 
+# Export to CSV ----
+.JAGSexportSamples <- function(jaspResults, options, mcmcResult) {
+
+  if (!options[["actualExporter"]] || is.null(mcmcResult) || jaspResults[["mainContainer"]]$getError())
+    return()
+
+  path <- options[["exportSamplesFile"]]
+  # some sanity checks on the path
+  if (identical(path, ""))
+    return()
+
+  # this will probably be common when opening a jasp file from someone else
+  if (!dir.exists(dirname(path))) {
+    jaspResults[["mainContainer"]][["mainTable"]]$addFootnote(
+      message = gettextf("Failed to export the samples because the directory to save them in does not exist."),
+      symbol = .JAGSWarningSymbol
+    )
+    return()
+  }
+
+  result <- try({
+
+    noIter    <- nrow(mcmcResult[["samples"]][[1L]])
+    noChains  <- length(mcmcResult[["samples"]])
+
+    samplesMatrix <- cbind(
+      chain = rep(seq_len(noChains), each = noIter),
+      do.call(rbind, mcmcResult[["samples"]])
+    )
+
+    write.csv(samplesMatrix, row.names = FALSE, file = path)
+
+  })
+
+  if (jaspBase::isTryError(result))
+    jaspResults[["mainContainer"]][["mainTable"]]$addFootnote(
+      message = gettextf("Failed to export the samples because the following error occured: %s", .extractErrorMessage(result)),
+      symbol = .JAGSWarningSymbol
+    )
+
+}
+
 # Helper functions ----
 .JAGSGetParams <- function(options, mcmcResult) {
 
@@ -877,7 +920,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   })
 
   if (isTryError(e))
-    return(gettextf("The following error occured while loading the jags modules \"glm\" and \"dic\": %s.", jaspBase::.extractErrorMessage(e)))
+    return(gettextf("The following error occured while loading the jags modules \"glm\" and \"dic\": %s.", .extractErrorMessage(e)))
 
   return(NULL)
 }
