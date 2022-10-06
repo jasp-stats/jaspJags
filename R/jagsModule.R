@@ -826,6 +826,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       message = gettextf("Failed to export the samples because the directory to save them in does not exist."),
       symbol = .JAGSWarningSymbol
     )
+    return()
   }
 
   result <- try({
