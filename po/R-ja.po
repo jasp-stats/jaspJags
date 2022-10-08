@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.1\n"
-"POT-Creation-Date: 2022-01-08 03:46\n"
+"POT-Creation-Date: 2022-10-08 04:00\n"
 "PO-Revision-Date: 2021-11-10 04:47+0000\n"
 "Last-Translator: Daiki Hojo <dhojo.bayes@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
@@ -147,6 +147,14 @@ msgstr ""
 
 msgid "Expected JAGS version 4.3.0 but found %s"
 msgstr "JAGS バージョン 4.3.0 が必要ですが、%s が見つかりました"
+
+msgid ""
+"Failed to export the samples because the directory to save them in does not "
+"exist."
+msgstr ""
+
+msgid "Failed to export the samples because the following error occured: %s"
+msgstr ""
 
 msgid ""
 "The R code for %1$s crashed with error:\n"

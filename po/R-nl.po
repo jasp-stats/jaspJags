@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 3.6.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
-"POT-Creation-Date: 2022-01-08 03:46\n"
+"POT-Creation-Date: 2022-10-08 04:00\n"
 "PO-Revision-Date: 2022-02-05 03:42+0000\n"
 "Last-Translator: Don van den Bergh <donvdbergh@hotmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/jasp/jaspjags-r/nl/"
@@ -150,6 +150,14 @@ msgstr ""
 
 msgid "Expected JAGS version 4.3.0 but found %s"
 msgstr "Verwachtte JAGS versie 4.3.0 maar vond %s"
+
+msgid ""
+"Failed to export the samples because the directory to save them in does not "
+"exist."
+msgstr ""
+
+msgid "Failed to export the samples because the following error occured: %s"
+msgstr ""
 
 msgid ""
 "The R code for %1$s crashed with error:\n"

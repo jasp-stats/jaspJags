@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: jaspJags 0.16.4\n"
-"POT-Creation-Date: 2022-08-13 03:54\n"
+"Project-Id-Version: jaspJags 0.17.0\n"
+"POT-Creation-Date: 2022-10-08 04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,6 +119,12 @@ msgid "There was a problem loading JAGS, JAGS_HOME is: '%1$s'.\nPlease contact t
 msgstr ""
 
 msgid "Expected JAGS version 4.3.0 but found %s"
+msgstr ""
+
+msgid "Failed to export the samples because the directory to save them in does not exist."
+msgstr ""
+
+msgid "Failed to export the samples because the following error occured: %s"
 msgstr ""
 
 msgid "The R code for %1$s crashed with error:\n%2$s"

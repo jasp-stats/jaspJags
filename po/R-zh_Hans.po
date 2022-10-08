@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.15\n"
-"POT-Creation-Date: 2022-01-08 03:46\n"
+"POT-Creation-Date: 2022-10-08 04:00\n"
 "PO-Revision-Date: 2022-01-29 03:42+0000\n"
 "Last-Translator: Wendy Zhao <wendy.zhao@skf.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -140,6 +140,14 @@ msgstr ""
 
 msgid "Expected JAGS version 4.3.0 but found %s"
 msgstr "预期 JAGS 版本 4.3.0，但发现 %s"
+
+msgid ""
+"Failed to export the samples because the directory to save them in does not "
+"exist."
+msgstr ""
+
+msgid "Failed to export the samples because the following error occured: %s"
+msgstr ""
 
 msgid ""
 "The R code for %1$s crashed with error:\n"
