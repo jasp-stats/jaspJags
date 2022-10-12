@@ -124,6 +124,421 @@ Form
 
 	Section
 	{
+		title: qsTr("Customizable Plots")
+
+		TabView
+		{
+			id:					customizablePlots
+			name:				"customPlots"
+			maximumItems:		10
+			newItemName:		qsTr("Plot 1")
+			optionKey:			"customPlotOptions"
+			Layout.columnSpan:	2
+
+			content: Group
+			{
+
+//				indent: true
+//				columns: 2
+				Group
+				{
+					indent: true
+					columns: 1
+
+					Group
+					{
+						columns: 2
+						Group
+						{
+							columns: 1
+							DropDown
+							{
+								label: 				qsTr("Parameter")
+								name: 				"customizablePlotsParameter"
+								fieldWidth:			200 * preferencesModel.uiScale
+								source:				allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"]
+								controlMinWidth:	200 * preferencesModel.uiScale
+							}
+
+							TextField
+							{
+								id:                     factorName
+								label:                  qsTr("Parameter subset")
+								name:                   "customizablePlotsParameterSubset"
+								placeholderText:        qsTr("Optional subset, e.g., 1:4 or 1, 3, 5:8 ")
+								fieldWidth:             200 * preferencesModel.uiScale
+								useExternalBorder:      false
+								showBorder:             true
+							}
+
+							DropDown
+							{
+								label: 				qsTr("Plot type")
+								name: 				"customizablePlotsType"
+								indexDefaultValue:	0
+								values:
+								[
+									{ label: qsTr("Stacked density"),		value: "stackedDensity"		},
+									{ label: qsTr("Density"),				value: "density"			}
+								]
+							}
+							CheckBox { name: "showResultsInTable"; label: qsTr("Show table with results"); checked: true }
+						}
+						Group
+						{
+							RadioButtonGroup
+							{
+								name: "customizablePlotsParameterOrder"
+								title: qsTr("Order parameters by")
+								RadioButton { value: "mean";		label: qsTr("Mean");	checked:true	}
+								RadioButton { value: "median";		label: qsTr("Median")					}
+								RadioButton { value: "subset";		label: qsTr("Subset")					}
+							}
+						}
+					}
+				}
+
+				Group
+				{
+					indent: true
+					columns: 2
+//					LeftMargin: jaspTheme.indentationLength
+
+
+					Group
+					{
+						title: qsTr("x-axis range")
+						FormulaField
+						{
+							id:					minX
+							label:				qsTr("min")
+							name:				"customizablePlotsMinX"
+							value:				"-Inf"
+							max:				maxX.value
+							inclusive:			JASP.None
+							useExternalBorder:	false
+							showBorder:			true
+							controlXOffset:		6 * preferencesModel.uiScale
+							fieldWidth:			40 * preferencesModel.uiScale
+						}
+						FormulaField
+						{
+							id:					maxX
+							label:				qsTr("max")
+							name:				"customizablePlotsMaxX"
+							value:				"Inf"
+							min:				minX.value
+							inclusive:			JASP.None
+							useExternalBorder:	false
+							showBorder:			true
+							controlXOffset:		6 * preferencesModel.uiScale
+							fieldWidth:			40 * preferencesModel.uiScale
+						}
+					}
+//							FormulaField
+//							{
+//								id:					minY
+//								label:				qsTr("min")
+//								name:				"customizablePlotsMinY"
+//								value:				"-Inf"
+//								max:				maxX.value
+//								inclusive:			JASP.None
+//								useExternalBorder:	false
+//								showBorder:			true
+//								controlXOffset:		6 * preferencesModel.uiScale
+//								fieldWidth:			40 * preferencesModel.uiScale
+//							}
+//							FormulaField
+//							{
+//								id:					maxY
+//								label:				qsTr("max")
+//								name:				"customizablePlotsMaxY"
+//								value:				"Inf"
+//								min:				minX.value
+//								inclusive:			JASP.None
+//								useExternalBorder:	false
+//								showBorder:			true
+//								controlXOffset:		6 * preferencesModel.uiScale
+//								fieldWidth:			40 * preferencesModel.uiScale
+//							}
+
+					Group
+					{
+						title: qsTr("Inference")
+						CheckBox
+						{
+							name:				"customizableSavageDickey"
+							label:				qsTr("Savage-Dickey")
+							childrenOnSameRow:	true
+							FormulaField
+							{
+								label:				""
+								name:				"customizableSavageDickeypoint"
+								value:				"0"
+								inclusive:			JASP.None
+								useExternalBorder:	false
+								showBorder:			true
+								fieldWidth:			40 * preferencesModel.uiScale
+								controlXOffset:		6 * preferencesModel.uiScale
+							}
+						}
+					}
+
+					Group
+					{
+						title: qsTr("Intervals")
+						CheckBox
+						{
+							name: "credibleIntervalShown"; label: qsTr("Credible Interval")
+							childrenOnSameRow: true
+							CIField { name: "credibleIntervalValue" }
+						}
+						CheckBox
+						{
+							name: "hdiShown"; label: qsTr("HDI")
+							childrenOnSameRow: true
+							CIField { name: "hdiValue" }
+						}
+						CheckBox
+						{
+							name:				"customizableShade"
+							label:				qsTr("Shade area where")
+							childrenOnSameRow:	true
+
+							DoubleField
+							{
+								id:				probTableValueLow
+								name:			"probTableValueLow"
+								label:			""
+								defaultValue:	0.0
+								fieldWidth: 	40
+								anchors
+								{
+									rightMargin: 0
+								}
+							}
+
+							Label
+							{
+								anchors
+								{
+									leftMargin: 0
+									rightMargin: 0
+								}
+								// TODO: use \theta!
+								text: qsTr("< x <")
+							}
+
+							DoubleField
+							{
+								anchors
+								{
+									leftMargin: 0
+								}
+								name:			"probTableValueHigh"
+								label:			""
+								defaultValue:	1.0
+								fieldWidth: 	40
+							}
+						}
+
+					}
+				}
+			}
+
+		}
+
+
+//		ColumnLayout
+//		{
+//			spacing:				0
+//			Layout.preferredWidth:	parent.width
+
+//			RowLayout
+//			{
+//				Label { text: qsTr("Parameter");				Layout.leftMargin: 5 * preferencesModel.uiScale;	Layout.preferredWidth: 120 * preferencesModel.uiScale	}
+//				Label { text: qsTr("Type");																			Layout.preferredWidth: 90  * preferencesModel.uiScale	}
+//				Label { text: qsTr("x-axis bounds");																Layout.preferredWidth: 100 * preferencesModel.uiScale	}
+//				Label { text: qsTr("Extra");																																}
+//			}
+//			ComponentsList
+//			{
+//				name:					"customizablePlots"
+//				defaultValues: 			[]
+//				rowComponent: 			RowLayout
+//				{
+//					Row
+//					{
+//						spacing:				4 * preferencesModel.uiScale
+//						Layout.preferredWidth:	120 * preferencesModel.uiScale
+//						DropDown
+//						{
+//							label: 				""
+//							name: 				"customizablePlotsParameter"
+//							fieldWidth:			100 * preferencesModel.uiScale
+//							source:				allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"]
+//						}
+//					}
+//					Row
+//					{
+//						spacing:				4 * preferencesModel.uiScale
+//						Layout.preferredWidth:	90 * preferencesModel.uiScale
+//						DropDown
+//						{
+//							label: 				""
+//							name: 				"customizablePlotsType"
+//							indexDefaultValue:	0
+//							values:
+//							[
+//								{ label: qsTr("Stacked density"),		value: "stackedDensity"		},
+//								{ label: qsTr("Density"),				value: "density"			}
+//							]
+//						}
+//					}
+//					Row
+//					{
+//						spacing: 4 * preferencesModel.uiScale
+//						Layout.preferredWidth: 100 * preferencesModel.uiScale
+
+//						Group
+//						{
+//							columns: 1
+//							FormulaField
+//							{
+//								id:					minX
+//								label:				qsTr("min")
+//								name:				"customizablePlotsMinX"
+//								value:				"-Inf"
+//								max:				maxX.value
+//								inclusive:			JASP.None
+//								useExternalBorder:	false
+//								showBorder:			true
+//								controlXOffset:		6 * preferencesModel.uiScale
+//								fieldWidth:			40 * preferencesModel.uiScale
+//							}
+//							FormulaField
+//							{
+//								id:					maxX
+//								label:				qsTr("max")
+//								name:				"customizablePlotsMaxX"
+//								value:				"Inf"
+//								min:				minX.value
+//								inclusive:			JASP.None
+//								useExternalBorder:	false
+//								showBorder:			true
+//								controlXOffset:		6 * preferencesModel.uiScale
+//								fieldWidth:			40 * preferencesModel.uiScale
+//							}
+////							FormulaField
+////							{
+////								id:					minY
+////								label:				qsTr("min")
+////								name:				"customizablePlotsMinY"
+////								value:				"-Inf"
+////								max:				maxX.value
+////								inclusive:			JASP.None
+////								useExternalBorder:	false
+////								showBorder:			true
+////								controlXOffset:		6 * preferencesModel.uiScale
+////								fieldWidth:			40 * preferencesModel.uiScale
+////							}
+////							FormulaField
+////							{
+////								id:					maxY
+////								label:				qsTr("max")
+////								name:				"customizablePlotsMaxY"
+////								value:				"Inf"
+////								min:				minX.value
+////								inclusive:			JASP.None
+////								useExternalBorder:	false
+////								showBorder:			true
+////								controlXOffset:		6 * preferencesModel.uiScale
+////								fieldWidth:			40 * preferencesModel.uiScale
+////							}
+//						}
+//					}
+//					Row
+//					{
+//						spacing:				4 * preferencesModel.uiScale
+//						Layout.preferredWidth:	100 * preferencesModel.uiScale
+//						Group
+//						{
+//							CheckBox
+//							{
+//								name:				"customizableSavageDickey"
+//								label:				qsTr("Savage-Dickey: ")
+//								childrenOnSameRow:	true
+//								FormulaField
+//								{
+//									label:				""
+//									name:				"customizableSavageDickeypoint"
+//									value:				"0"
+//									inclusive:			JASP.None
+//									useExternalBorder:	false
+//									showBorder:			true
+//									fieldWidth:			40 * preferencesModel.uiScale
+//									controlXOffset:		6 * preferencesModel.uiScale
+//								}
+//							}
+//							CheckBox
+//							{
+//								name:				"customizableShade"
+//								label:				qsTr("Shade:")
+//								childrenOnSameRow:	true
+
+//								RowLayout
+//								{
+//									DoubleField
+//									{
+//										id:				probTableValueLow
+//										name:			"probTableValueLow"
+//										label:			""
+//										defaultValue:	0.0
+//										fieldWidth: 	40
+//										anchors
+//										{
+//											rightMargin: 0
+//										}
+//									}
+
+//									Label
+//									{
+//										anchors
+//										{
+//											leftMargin: 0
+//											rightMargin: 0
+//										}
+//										text: qsTr("< x <")
+//									}
+
+//									DoubleField
+//									{
+//										anchors
+//										{
+//											leftMargin: 0
+//										}
+//										name:			"probTableValueHigh"
+//										label:			""
+//										defaultValue:	1.0
+//										fieldWidth: 	40
+//									}
+//								}
+//							}
+//							Group
+//							{
+//								columns: 2
+//								CheckBox{	name: "CRI";	label: qsTr("CRI")}
+//								CheckBox{	name: "HDI";	label: qsTr("HDI")}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+	}
+
+	Section
+	{
 		title: qsTr("Initial Values")
 		JagsTableView
 		{
