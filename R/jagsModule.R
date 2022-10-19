@@ -37,6 +37,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   # create output
   .JAGSoutputTable  (jaspResults, options, mcmcResult)
   .JAGSmcmcPlots    (jaspResults, options, mcmcResult)
+
+  .JAGScustomPlots  (jaspResults, options, mcmcResult)
+
   .JAGSexportSamples(jaspResults, options, mcmcResult)
 
   return()
@@ -753,6 +756,133 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   return(g)
 
 }
+
+# Custom plots ----
+.JAGScustomPlots <- function(jaspResults, options, mcmcResult) {
+
+  parameters <- vapplyChr(options[["customPlots"]], `[[`, "customizablePlotsParameter")
+
+  if (length(parameters) > 0L)
+    for (i in seq_along(parameters)) {
+
+      parameter <- parameters[i]
+
+      container <- jaspResults[["mainContainer"]][["customizablePlots"]]
+      if (is.null(container)) {
+        container <- createJaspContainer(title = gettextf("Custom output for %s", parameter), dependencies = "customPlots", initCollapsed = TRUE)
+        jaspResults[["mainContainer"]][[paste0("customizablePlots", parameter)]] <- container
+      }
+
+      customPlotOpts <- options[["customPlots"]][[i]]
+
+      if (customPlotOpts[["customizablePlotsType"]] == "stackedDensity")
+        .JAGSstackedDensityPlot(container, mcmcResult, customPlotOpts, options)
+      else {
+        # TODO
+      }
+
+      if (customPlotOpts[["showResultsInTable"]])
+        .JAGScustomTable(container, mcmcResult, customPlotOpts, options)
+
+    }
+}
+
+.JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, options) {
+
+  parameterName <- customPlotOpts[["customizablePlotsParameter"]]
+  if (!is.null(container[["parameterName"]]))
+    return()
+
+  paramsTotal <- mcmcResult$params[[parameterName]]
+  nparamsTotal <- length(paramsTotal)
+
+  subset <- .JAGScustomPlotsParameterSubset(customPlotOpts[["customizablePlotsParameterSubset"]], nparamsTotal)
+  params <- paramsTotal[subset]
+  nparams <- length(subset)
+
+  parameterOrder <- switch(customPlotOpts[["customizablePlotsParameterOrder"]],
+    "mean"   = order(vapplyNum(params, \(p)   mean(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = TRUE),
+    "median" = order(vapplyNum(params, \(p) median(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = TRUE),
+    "subset" = subset
+  )
+
+  params <- params[parameterOrder]
+
+  npoints <- 512
+
+  plotData <- data.frame(
+    x = numeric(nparams * npoints),
+    y = numeric(nparams * npoints),
+    g = rep(params, each = npoints)
+  )
+
+  yMax <- 0
+  for (i in seq_len(nparams)) {
+    iStart <- 1 + (i - 1) * npoints
+    iEnd   <- i * npoints
+    r <- iStart:iEnd
+
+    d <- density(unlist(mcmcResult[["samples"]][, params[i], ]))
+
+    plotData[["x"]][r] <- d[["x"]]
+    plotData[["y"]][r] <- d[["y"]]
+
+  }
+  maxDensities <- tapply(plotData[["y"]], plotData[["g"]], max)
+  # as a heuristic for the y-axis height allocated for each density we use the 90% quantile
+  # of the maximum densities. Using the maximum might be prone to outliers
+  yHeightPerDensity <- quantile(maxDensities, .9)
+  # normalize wrt to yHeightPerDensity and add an offset for each parameter
+  plotData[["y"]] <- plotData[["y"]] / yHeightPerDensity + yHeightPerDensity * rep(seq_len(nparams) - 1, each = npoints)
+
+  xBreaks <- jaspGraphs::getPrettyAxisBreaks(plotData[["x"]])
+  xLimits <- range(xBreaks)
+  # slightly unusual heuristic but since we do not show the y-axis we want to be closer to tha maximum density
+  yLimits <- c(0, 1.1 * max(plotData[["y"]]))
+
+  # TODO: use these options!
+  # customPlotOpts$customizablePlotsMinX
+  # customPlotOpts$customizablePlotsMaxX
+
+  dfAbline <- data.frame(
+    slope     = rep(0, nparams),
+    intercept = yHeightPerDensity * rep(seq_len(nparams) - 1, each = npoints)
+  )
+
+  plt <- ggplot2::ggplot(data = plotData, mapping = ggplot2::aes(x = x, y = y, group = g)) +
+    jaspGraphs::geom_abline2(data = dfAbline, mapping = ggplot2::aes(slope = slope, intercept = intercept),
+                             color = "grey70", alpha = .70) +
+    ggplot2::geom_line() +
+    ggplot2::scale_x_continuous(name = parameterName, breaks = xBreaks, limits = xLimits) +
+    ggplot2::scale_y_continuous(name = "Density",     breaks = yLimits, limits = yLimits) +
+    jaspGraphs::geom_rangeframe() +
+    jaspGraphs::themeJaspRaw() +
+    ggplot2::theme(axis.text.y = ggplot2::element_blank(), axis.ticks.length.y = ggplot2::unit(0, "cm"))
+
+  jaspPlot <- createJaspPlot(plot = plt, title = "Stacked density", width = 400, height = 400 + 25 * nparams)
+  # jaspPlot$dependOn() # <- TODO: how to set dependencies?
+  container[[parameterName]] <- jaspPlot
+
+}
+
+.JAGScustomPlotsParameterSubset <- function(userSubset, nparams) {
+
+  if (identical(userSubset, ""))
+    return(seq_len(nparams))
+
+  str <- trimws(strsplit(userSubset, ",", fixed = TRUE)[[1L]])
+  return(unlist(lapply(str, \(x) eval(parse(text = x)))))
+  # TODO: actually parse the numbers! but consider arrays!
+
+}
+
+.JAGScustomTable <- function(container, mcmcResult, customPlotOpts, options) {
+
+}
+
+# perhaps just use purrr::map_chr & purrr::map_dbl?
+vapplyChr <- function(x, f, ...) { vapply(x, f, FUN.VALUE = character(1L), ...) }
+vapplyNum <- function(x, f, ...) { vapply(x, f, FUN.VALUE = numeric(1L), ...) }
 
 # Errors ----
 .extractJAGSErrorMessage <- function(error) {
