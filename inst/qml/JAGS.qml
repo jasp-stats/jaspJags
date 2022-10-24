@@ -156,19 +156,29 @@ Form
 								label: 				qsTr("Parameter")
 								name: 				"customizablePlotsParameter"
 								fieldWidth:			200 * preferencesModel.uiScale
-								source:				allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"]
+								source:				{
+									let m = allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"];
+//									m.insert(0,
+//										{
+//											// TODO: I'd like this to be displayed differently as a placeholder value!
+//											label: "<i style=\"color:%1;\">%2</i>".arg(jaspTheme.textDisabled).arg(qsTr("Select a parameter")),
+//											value: ""
+//										}
+//									)
+									m
+								}
 								controlMinWidth:	200 * preferencesModel.uiScale
 							}
 
 							TextField
 							{
-								id:                     factorName
-								label:                  qsTr("Parameter subset")
-								name:                   "customizablePlotsParameterSubset"
-								placeholderText:        qsTr("Optional subset, e.g., 1:4 or 1, 3, 5:8 ")
-								fieldWidth:             200 * preferencesModel.uiScale
-								useExternalBorder:      false
-								showBorder:             true
+								id:						factorName
+								label:					qsTr("Parameter subset")
+								name:					"customizablePlotsParameterSubset"
+								placeholderText:		qsTr("Optional subset, e.g., 1:4 or 1, 3, 5:8 ")
+								fieldWidth:				200 * preferencesModel.uiScale
+								useExternalBorder:		false
+								showBorder:				true
 							}
 
 							DropDown

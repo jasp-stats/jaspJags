@@ -15,6 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# TODO: read https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-019-0666-3
+
 # This is a temporary fix
 # TODO: remove it when R will solve this problem!
 gettextf <- function(fmt, ..., domain = NULL)  {
@@ -32,7 +34,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   dataset <- .JAGSReadData(jaspResults, options)
 
   # run model or update model
-  mcmcResult <- .JAGSrunMCMC(jaspResults, dataset, options)
+  mcmcResult  <- .JAGSrunMCMC(jaspResults, dataset, options)
+  priorResult <- .JAGSrunMCMC(jaspResults, dataset, options, priorOnly = TRUE)
 
   # create output
   .JAGSoutputTable  (jaspResults, options, mcmcResult)
@@ -46,10 +49,31 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 }
 
-.JAGSrunMCMC <- function(jaspResults, dataset, options) {
+.JAGSrunMCMC <- function(jaspResults, dataset, options, priorOnly = FALSE) {
 
-  if (!is.null(jaspResults[["stateMCMC"]])) {
-    obj <- jaspResults[["stateMCMC"]]$object
+  # TODO:
+  #
+  # the option `priorOnly` does not work properly when userData
+  # specifies something that cannot be sampled from the prior.
+  # in order to do that properly, we need to parse the model and determine
+  # for each node whether it is one of
+  # - stochastic              (so sampled)
+  # - stochasticObserved      (so sampled when priorOnly = TRUE)
+  # - constant                (cannot be sampled, so data is used even when priorOnly = TRUE)
+  # - stochasticDeterministic (optional, a deterministic function of the previous three)
+  #
+  # to distinghuish between stochasticObserved and constant we probably need to
+  # figure out the DAG though...
+  # coincidentally, with the DAG we can also reconstruct a function that computes the log posterior
+  # and then we can do bridge sampling
+
+  # no need to sample the prior
+  if (priorOnly && !.JAGScustomPlotUserWantsInference(options))
+    return()
+
+  stateKey <- if (priorOnly) "stateMCMCprior" else "stateMCMC"
+  if (!is.null(jaspResults[[stateKey]])) {
+    obj <- jaspResults[[stateKey]]$object
 
     # if monitoredParametersShown changed, update objects.
     # else if parametersMonitored changed, check if we need to sample again.
@@ -81,12 +105,12 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   datList <- as.list(dataset)
 
   maybeErrorMessage <- .JAGSloadModules(jaspResults)
-  if (!is.null(maybeErrorMessage)) {
+  if (!is.null(maybeErrorMessage) && !priorOnly) {
     jaspResults[["mainContainer"]]$setError(maybeErrorMessage)
     return(NULL)
   }
 
-  if (.JAGShasData(options)) {
+  if (.JAGShasData(options) && !priorOnly) {
 
     deviance <- TRUE
     # convention: deviance is first parameter!
@@ -184,7 +208,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   })
 
   # if something went wrong, present useful error message
-  if (isTryError(e)) {
+  if (isTryError(e) && !jaspResults[["mainContainer"]]$getError()) {
     jaspResults[["mainContainer"]]$setError(.JAGSmodelError(e, options))
     return(NULL)
   }
@@ -208,7 +232,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     tmp$dependOn("monitoredParametersShown")
   else
     tmp$dependOn("monitoredParameters")
-  jaspResults[["stateMCMC"]] <- tmp
+
+  if (priorOnly) {
+    # TODO: how to do this?
+    # options$customPlots[[1]]$
+    # tmp$dependOn(c(options))
+  }
+
+  jaspResults[[stateKey]] <- tmp
 
   return(out)
 
@@ -761,6 +792,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 .JAGScustomPlots <- function(jaspResults, options, mcmcResult) {
 
   parameters <- vapplyChr(options[["customPlots"]], `[[`, "customizablePlotsParameter")
+  parameters <- parameters[parameters != ""]
 
   if (length(parameters) > 0L)
     for (i in seq_along(parameters)) {
@@ -774,6 +806,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       }
 
       customPlotOpts <- options[["customPlots"]][[i]]
+      customPlotOpts <- jaspBase:::.parseAndStoreFormulaOptions(container, customPlotOpts, c("customizablePlotsMinX", "customizablePlotsMaxX"))
 
       if (customPlotOpts[["customizablePlotsType"]] == "stackedDensity")
         .JAGSstackedDensityPlot(container, mcmcResult, customPlotOpts, options)
@@ -789,6 +822,13 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, options) {
 
+  # TODO
+  # - [ ] color for the ribbons!
+  # - [ ] separate computation from plotting so the table can easily reuse the same values
+  # - [x] add y-axis labels for parameters!
+  # - [ ] when the ribbons of different densities overlap, maybe they should not blend?
+
+
   parameterName <- customPlotOpts[["customizablePlotsParameter"]]
   if (!is.null(container[["parameterName"]]))
     return()
@@ -801,9 +841,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   nparams <- length(subset)
 
   parameterOrder <- switch(customPlotOpts[["customizablePlotsParameterOrder"]],
-    "mean"   = order(vapplyNum(params, \(p)   mean(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = TRUE),
-    "median" = order(vapplyNum(params, \(p) median(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = TRUE),
-    "subset" = subset
+    "mean"   = order(vapplyNum(params, \(p)   mean(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
+    "median" = order(vapplyNum(params, \(p) median(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
+    "subset" = seq_along(params)
   )
 
   params <- params[parameterOrder]
@@ -835,14 +875,56 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   # normalize wrt to yHeightPerDensity and add an offset for each parameter
   plotData[["y"]] <- plotData[["y"]] / yHeightPerDensity + yHeightPerDensity * rep(seq_len(nparams) - 1, each = npoints)
 
+  xMinAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMinX"]])) NULL else customPlotOpts[["customizablePlotsMinX"]]
+  xMaxAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMaxX"]])) NULL else customPlotOpts[["customizablePlotsMaxX"]]
+  xAdd <- sort(c(xMinAdd, xMaxAdd))
   xBreaks <- jaspGraphs::getPrettyAxisBreaks(plotData[["x"]])
+  if (!is.null(xAdd)) {
+    # if xMinAdd is NULL, compare to 0, otherwise to 1
+    xBreaksKeep <- findInterval(xBreaks, xAdd) == !is.null(xMinAdd)# 2L
+    xBreaks <- jaspGraphs::getPrettyAxisBreaks(c(xAdd, xBreaks[xBreaksKeep]))
+  }
+
   xLimits <- range(xBreaks)
   # slightly unusual heuristic but since we do not show the y-axis we want to be closer to tha maximum density
   yLimits <- c(0, 1.1 * max(plotData[["y"]]))
+  yBreaks <- c(seq(0, length = nparams, by = yHeightPerDensity), yLimits[2])
+  yLabels <- c(params, "") # TODO parse to unicode!
 
   # TODO: use these options!
   # customPlotOpts$customizablePlotsMinX
   # customPlotOpts$customizablePlotsMaxX
+
+  # NOTE: the xxxBounds objects below are all a matrix with column(.) == params and are 2 x length(params)
+  # this is required for .JAGSboundsToRibbon.
+  criRibbon <- NULL
+  if (customPlotOpts[["credibleIntervalShown"]]) {
+
+    criValue <- customPlotOpts[["credibleIntervalValue"]]
+    criDelta <- (1 - criValue) / 2
+    probs <- c(criDelta, 1 - criDelta)
+    cribounds <- vapply(params, \(p) stats::quantile(unlist(mcmcResult[["samples"]][, p, ][[1L]]), probs = probs), FUN.VALUE = numeric(2L))
+    criRibbon <- .JAGSboundsToRibbon(cribounds, plotData, yHeightPerDensity, npoints)
+  }
+
+  hdiRibbon <- NULL
+  if (customPlotOpts[["hdiShown"]]) {
+
+    hdiValue <- customPlotOpts[["hdiValue"]]
+    hdiBounds <- vapply(params, \(p) coda::HPDinterval(unlist(mcmcResult[["samples"]][, p, ][[1L]]), prob = hdiValue), FUN.VALUE = numeric(2L))
+    hdiRibbon <- .JAGSboundsToRibbon(hdiBounds, plotData, yHeightPerDensity, npoints)
+  }
+
+  customRibbon <- NULL
+  if (customPlotOpts[["customizableShade"]]) {
+
+    customBounds <- matrix(
+      sort(c(customPlotOpts[["probTableValueLow"]], customPlotOpts[["probTableValueHigh"]])),
+      nrow = 2L, ncol = length(params), dimnames = list(NULL, params)
+    )
+    customRibbon <- .JAGSboundsToRibbon(customBounds, plotData, yHeightPerDensity, npoints)
+
+  }
 
   dfAbline <- data.frame(
     slope     = rep(0, nparams),
@@ -852,17 +934,58 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   plt <- ggplot2::ggplot(data = plotData, mapping = ggplot2::aes(x = x, y = y, group = g)) +
     jaspGraphs::geom_abline2(data = dfAbline, mapping = ggplot2::aes(slope = slope, intercept = intercept),
                              color = "grey70", alpha = .70) +
+    criRibbon + hdiRibbon + customRibbon +
     ggplot2::geom_line() +
     ggplot2::scale_x_continuous(name = parameterName, breaks = xBreaks, limits = xLimits) +
-    ggplot2::scale_y_continuous(name = "Density",     breaks = yLimits, limits = yLimits) +
-    jaspGraphs::geom_rangeframe() +
+    ggplot2::scale_y_continuous(name = "Density",     breaks = yBreaks, limits = yLimits, labels = yLabels) +
+    jaspGraphs::geom_rangeframe(sides = "b") +
     jaspGraphs::themeJaspRaw() +
-    ggplot2::theme(axis.text.y = ggplot2::element_blank(), axis.ticks.length.y = ggplot2::unit(0, "cm"))
+    ggplot2::theme(axis.ticks.length.y = ggplot2::unit(0, "cm"), axis.line.y = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = -20)))
 
-  jaspPlot <- createJaspPlot(plot = plt, title = "Stacked density", width = 400, height = 400 + 25 * nparams)
+  jaspPlot <- createJaspPlot(plot = plt, title = gettext("Stacked density"), width = 400, height = 400 + 25 * nparams)
   # jaspPlot$dependOn() # <- TODO: how to set dependencies?
   container[[parameterName]] <- jaspPlot
 
+}
+
+.JAGSboundsToRibbon <- function(bounds, plotData, yHeightPerDensity, npoints = 512L) {
+
+  params <- colnames(bounds)
+
+  ribbonData <- data.frame(x = numeric(), ymin = numeric(), ymax = numeric(), g = character())
+  for (i in seq_along(params)) {
+    iStart <- 1 + (i - 1) * npoints
+    iEnd   <- i * npoints
+    r <- iStart:iEnd
+
+    inside <- findInterval(plotData[r, "x"], vec = bounds[, i])
+    insideIdx <- inside == 1L
+    nInside <- sum(insideIdx)
+
+    xValues <- plotData[r[insideIdx], "x"]
+    yMin    <- yHeightPerDensity * (i - 1)
+    # TODO: this might not be 100% compatible with plot editing or custom x-axis bounds!
+    # ribbonDataSubset <- data.frame(
+    #   x = c(xValues, xValues[length(xValues)], xValues[1L]),
+    #   y = c(plotData[r[insideIdx], "y"], yMin, yMin),
+    #   g = params[i]
+    # )
+    ribbonDataSubset <- data.frame(
+      x    = plotData[r[insideIdx], "x"],#xValues,
+      ymax = plotData[r[insideIdx], "y"],
+      ymin = rep(yHeightPerDensity * (i - 1), nInside),
+      g    = rep(params[i], nInside)
+    )
+    ribbonData <- rbind(ribbonData, ribbonDataSubset)
+  }
+  return(ggplot2::geom_ribbon(
+    data        = ribbonData,
+    mapping     = ggplot2::aes(x = x, ymin = ymin, ymax = ymax, group = g),
+    inherit.aes = FALSE,
+    fill        = "grey20",
+    alpha       = .5
+  ))
 }
 
 .JAGScustomPlotsParameterSubset <- function(userSubset, nparams) {
@@ -872,7 +995,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   str <- trimws(strsplit(userSubset, ",", fixed = TRUE)[[1L]])
   return(unlist(lapply(str, \(x) eval(parse(text = x)))))
-  # TODO: actually parse the numbers! but consider arrays!
 
 }
 
@@ -880,9 +1002,17 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 }
 
-# perhaps just use purrr::map_chr & purrr::map_dbl?
+# TODO: perhaps just use purrr::map_chr & purrr::map_dbl, etc.?
 vapplyChr <- function(x, f, ...) { vapply(x, f, FUN.VALUE = character(1L), ...) }
-vapplyNum <- function(x, f, ...) { vapply(x, f, FUN.VALUE = numeric(1L), ...) }
+vapplyNum <- function(x, f, ...) { vapply(x, f, FUN.VALUE = numeric(1L), ...)   }
+vapplyLgl <- function(x, f, ...) { vapply(x, f, FUN.VALUE = logical(1L), ...)   }
+
+.JAGScustomPlotUserWantsInference <- function(options) {
+  for (opt in options[["customPlots"]])
+    if (opt[["customizableSavageDickey"]])
+      return(TRUE)
+  return(FALSE)
+}
 
 # Errors ----
 .extractJAGSErrorMessage <- function(error) {
