@@ -806,13 +806,11 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
           # dependencies = "customPlots",
           initCollapsed = length(parameters) > 1L
         )
-        container$dependOn(
-          nestedOptions = list(
+        container$dependOn(nestedOptions = list(
             c("customPlots", i, "customizablePlotsParameter"),
             c("customPlots", i, "customizablePlotsParameterSubset"),
             c("customPlots", i, "customizablePlotsParameterOrder")
-          )
-        )
+        ))
         jaspResults[["mainContainer"]][[paste0("customizablePlots", parameter)]] <- container
       }
 
@@ -825,16 +823,16 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       params <- .JAGSgetCustomPlotParameters(mcmcResult, customPlotOpts)
 
       # computes all relevant information
-      object <- .JAGScomputeCustomInference(container, mcmcResult, customPlotOpts, params)
+      object <- .JAGScomputeCustomInference(container, mcmcResult, customPlotOpts, params, i)
 
-      if (customPlotOpts[["customizablePlotsType"]] == "stackedDensity")
-        .JAGSstackedDensityPlot(container, mcmcResult, customPlotOpts, object, params)
-      else {
+      if (customPlotOpts[["customizablePlotsType"]] == "stackedDensity") {
+        .JAGSstackedDensityPlot(container, mcmcResult, customPlotOpts, object, params, i)
+      } else {
         # TODO
       }
 
       if (customPlotOpts[["showResultsInTable"]])
-        .JAGScustomTable(container, mcmcResult, customPlotOpts, object, params)
+        .JAGScustomTable(container, mcmcResult, customPlotOpts, object, params, i)
 
     }
 }
@@ -873,15 +871,19 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   return(list(plotData = plotData, yHeightPerDensity = yHeightPerDensity))
 }
 
-.JAGScomputeCustomInference <- function(container, mcmcResult, customPlotOpts, params) {
+.JAGScomputeCustomInference <- function(container, mcmcResult, customPlotOpts, params, i) {
 
   npoints <- 512L
 
   plotData <- container[["statePlotData"]]
   if (is.null(plotData)) {
+    print("recomputing statePlotData")
     plotData <- .JAGScomputeStackedDensityPlotData(params, mcmcResult)
     plotDataState <- createJaspState(plotData) # TODO: dependencies!
+    plotDataState$dependOn(nestedOptions = list(c("customPlots", i, "customizablePlotsParameter")))
     container[["statePlotData"]] <- plotDataState
+  } else {
+    print("statePlotData retrieved from state")
   }
   yHeightPerDensity <- plotData[["yHeightPerDensity"]]
   plotData          <- plotData[["plotData"]]
@@ -901,6 +903,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       criPlotData <- .JAGSboundsToRibbonData(criBounds, plotData, yHeightPerDensity, npoints)
 
       stateCriPlotData <- createJaspState(list(criBounds = criBounds, criPlotData = criPlotData))
+      stateCriPlotData$dependOn(nestedOptions = list(c("customPlots", i, "credibleIntervalValue")))
       container[["stateCriPlotData"]] <- stateCriPlotData
 
     } else {
@@ -920,6 +923,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       hdiPlotData <- .JAGSboundsToRibbonData(hdiBounds, plotData, yHeightPerDensity, npoints)
 
       stateHdiPlotData <- createJaspState(list(hdiBounds = hdiBounds, hdiPlotData = hdiPlotData))
+      stateHdiPlotData$dependOn(nestedOptions = list(c("customPlots", i, "hdiValue")))
       container[["stateHdiPlotData"]] <- stateHdiPlotData
     } else {
       hdiPlotData <- tmp[["hdiPlotData"]]
@@ -939,6 +943,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       customPlotData <- .JAGSboundsToRibbonData(customBounds, plotData, yHeightPerDensity, npoints)
 
       stateCustomPlotData <- createJaspState(list(customBounds = customBounds, customPlotData = customPlotData))
+      stateHdiPlotData$dependOn(nestedOptions = list(
+        c("customPlots", i, "probTableValueLow"),
+        c("customPlots", i, "probTableValueHigh"),
+      ))
       container[["stateCustomPlotData"]] <- stateCustomPlotData
     } else {
       customPlotData <- tmp[["customPlotData"]]
@@ -958,7 +966,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   ))
 }
 
-.JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, object, params) {
+.JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, object, params, i) {
 
   # TODO
   # - [ ] color for the ribbons!
@@ -1024,7 +1032,17 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
                    axis.text.y = yTextElement)
 
   jaspPlot <- createJaspPlot(plot = plt, title = gettext("Stacked density"), width = 400, height = 400 + 25 * nparams, position = 1L)
-  # jaspPlot$dependOn() # <- TODO: how to set dependencies?
+  jaspPlot$dependOn(nestedOptions = list(
+      c("customPlots", i, "customizablePlotsMinX"),
+      c("customPlots", i, "customizablePlotsMaxX"),
+      c("customPlots", i, "credibleIntervalShown"),
+      c("customPlots", i, "credibleIntervalValue"),
+      c("customPlots", i, "hdiShown"),
+      c("customPlots", i, "hdiValue"),
+      c("customPlots", i, "customizableShade"),
+      c("customPlots", i, "probTableValueLow"),
+      c("customPlots", i, "probTableValueHigh")
+  ))
   container[[parameterName]] <- jaspPlot
 
 }
@@ -1111,13 +1129,26 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 }
 
-.JAGScustomTable <- function(container, mcmcResult, customPlotOpts, object, params) {
+.JAGScustomTable <- function(container, mcmcResult, customPlotOpts, object, params, i) {
 
   if (!is.null(container[["customTable"]]))
     return()
 
   parameterName <- customPlotOpts[["customizablePlotsParameter"]]
   tb <- createJaspTable(title = gettextf("Inference for %s", parameterName), position = 2L)
+
+  tb$dependOn(nestedOptions = list(
+    c("customPlots", i, "showResultsInTable"),
+    c("customPlots", i, "customizablePlotsMinX"),
+    c("customPlots", i, "customizablePlotsMaxX"),
+    c("customPlots", i, "credibleIntervalShown"),
+    c("customPlots", i, "credibleIntervalValue"),
+    c("customPlots", i, "hdiShown"),
+    c("customPlots", i, "hdiValue"),
+    c("customPlots", i, "customizableShade"),
+    c("customPlots", i, "probTableValueLow"),
+    c("customPlots", i, "probTableValueHigh")
+  ))
 
   overTitle <- gettext("Posterior")
   tb$addColumnInfo(name = "parameter", title = gettext("Parameter"),             type = "string")
