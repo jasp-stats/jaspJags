@@ -801,54 +801,48 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
       container <- jaspResults[["mainContainer"]][["customizablePlots"]]
       if (is.null(container)) {
-        container <- createJaspContainer(title = gettextf("Custom output for %s", parameter), dependencies = "customPlots", initCollapsed = TRUE)
+        container <- createJaspContainer(
+          title = gettextf("Custom output for %s", parameter),
+          # dependencies = "customPlots",
+          initCollapsed = length(parameters) > 1L
+        )
+        container$dependOn(
+          nestedOptions = list(
+            c("customPlots", i, "customizablePlotsParameter"),
+            c("customPlots", i, "customizablePlotsParameterSubset"),
+            c("customPlots", i, "customizablePlotsParameterOrder")
+          )
+        )
         jaspResults[["mainContainer"]][[paste0("customizablePlots", parameter)]] <- container
       }
 
       customPlotOpts <- options[["customPlots"]][[i]]
-      customPlotOpts <- jaspBase:::.parseAndStoreFormulaOptions(container, customPlotOpts, c("customizablePlotsMinX", "customizablePlotsMaxX"))
+      customPlotOpts <- jaspBase:::.parseAndStoreFormulaOptions(
+        container, customPlotOpts,
+        c("customizablePlotsMinX", "customizablePlotsMaxX", "probTableValueLow", "probTableValueHigh")
+      )
+
+      params <- .JAGSgetCustomPlotParameters(mcmcResult, customPlotOpts)
+
+      # computes all relevant information
+      object <- .JAGScomputeCustomInference(container, mcmcResult, customPlotOpts, params)
 
       if (customPlotOpts[["customizablePlotsType"]] == "stackedDensity")
-        .JAGSstackedDensityPlot(container, mcmcResult, customPlotOpts, options)
+        .JAGSstackedDensityPlot(container, mcmcResult, customPlotOpts, object, params)
       else {
         # TODO
       }
 
       if (customPlotOpts[["showResultsInTable"]])
-        .JAGScustomTable(container, mcmcResult, customPlotOpts, options)
+        .JAGScustomTable(container, mcmcResult, customPlotOpts, object, params)
 
     }
 }
 
-.JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, options) {
+.JAGScomputeStackedDensityPlotData <- function(params, mcmcResult) {
 
-  # TODO
-  # - [ ] color for the ribbons!
-  # - [ ] separate computation from plotting so the table can easily reuse the same values
-  # - [x] add y-axis labels for parameters!
-  # - [ ] when the ribbons of different densities overlap, maybe they should not blend?
-
-
-  parameterName <- customPlotOpts[["customizablePlotsParameter"]]
-  if (!is.null(container[["parameterName"]]))
-    return()
-
-  paramsTotal <- mcmcResult$params[[parameterName]]
-  nparamsTotal <- length(paramsTotal)
-
-  subset <- .JAGScustomPlotsParameterSubset(customPlotOpts[["customizablePlotsParameterSubset"]], nparamsTotal)
-  params <- paramsTotal[subset]
-  nparams <- length(subset)
-
-  parameterOrder <- switch(customPlotOpts[["customizablePlotsParameterOrder"]],
-    "mean"   = order(vapplyNum(params, \(p)   mean(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
-    "median" = order(vapplyNum(params, \(p) median(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
-    "subset" = seq_along(params)
-  )
-
-  params <- params[parameterOrder]
-
-  npoints <- 512
+  npoints <- 512L
+  nparams <- length(params)
 
   plotData <- data.frame(
     x = numeric(nparams * npoints),
@@ -856,7 +850,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     g = rep(params, each = npoints)
   )
 
-  yMax <- 0
   for (i in seq_len(nparams)) {
     iStart <- 1 + (i - 1) * npoints
     iEnd   <- i * npoints
@@ -868,12 +861,125 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     plotData[["y"]][r] <- d[["y"]]
 
   }
-  maxDensities <- tapply(plotData[["y"]], plotData[["g"]], max)
+
   # as a heuristic for the y-axis height allocated for each density we use the 90% quantile
   # of the maximum densities. Using the maximum might be prone to outliers
-  yHeightPerDensity <- quantile(maxDensities, .9)
+  maxDensities <- tapply(plotData[["y"]], plotData[["g"]], max)
+  yHeightPerDensity <- stats::quantile(maxDensities, probs = .85)
+
   # normalize wrt to yHeightPerDensity and add an offset for each parameter
   plotData[["y"]] <- plotData[["y"]] / yHeightPerDensity + yHeightPerDensity * rep(seq_len(nparams) - 1, each = npoints)
+
+  return(list(plotData = plotData, yHeightPerDensity = yHeightPerDensity))
+}
+
+.JAGScomputeCustomInference <- function(container, mcmcResult, customPlotOpts, params) {
+
+  npoints <- 512L
+
+  plotData <- container[["statePlotData"]]
+  if (is.null(plotData)) {
+    plotData <- .JAGScomputeStackedDensityPlotData(params, mcmcResult)
+    plotDataState <- createJaspState(plotData) # TODO: dependencies!
+    container[["statePlotData"]] <- plotDataState
+  }
+  yHeightPerDensity <- plotData[["yHeightPerDensity"]]
+  plotData          <- plotData[["plotData"]]
+
+  # NOTE: the xxxBounds objects below are all a matrix with column(.) == params and are 2 x length(params)
+  # this is required for .JAGSboundsToRibbon.
+  criPlotData <- criBounds <- NULL
+  if (customPlotOpts[["credibleIntervalShown"]]) {
+
+    tmp <- container[["stateCriPlotData"]]
+    if (is.null(tmp)) {
+
+      criValue <- customPlotOpts[["credibleIntervalValue"]]
+      criDelta <- (1 - criValue) / 2
+      probs <- c(criDelta, 1 - criDelta)
+      criBounds <- vapply(params, \(p) stats::quantile(unlist(mcmcResult[["samples"]][, p, ][[1L]]), probs = probs), FUN.VALUE = numeric(2L))
+      criPlotData <- .JAGSboundsToRibbonData(criBounds, plotData, yHeightPerDensity, npoints)
+
+      stateCriPlotData <- createJaspState(list(criBounds = criBounds, criPlotData = criPlotData))
+      container[["stateCriPlotData"]] <- stateCriPlotData
+
+    } else {
+      criPlotData <- tmp[["criPlotData"]]
+      criBounds   <- tmp[["criBounds"]]
+    }
+  }
+
+  hdiPlotData <- hdiBounds <- NULL
+  if (customPlotOpts[["hdiShown"]]) {
+
+    tmp <- container[["stateHdiPlotData"]]
+    if (is.null(tmp)) {
+
+      hdiValue <- customPlotOpts[["hdiValue"]]
+      hdiBounds <- vapply(params, \(p) coda::HPDinterval(unlist(mcmcResult[["samples"]][, p, ][[1L]]), prob = hdiValue), FUN.VALUE = numeric(2L))
+      hdiPlotData <- .JAGSboundsToRibbonData(hdiBounds, plotData, yHeightPerDensity, npoints)
+
+      stateHdiPlotData <- createJaspState(list(hdiBounds = hdiBounds, hdiPlotData = hdiPlotData))
+      container[["stateHdiPlotData"]] <- stateHdiPlotData
+    } else {
+      hdiPlotData <- tmp[["hdiPlotData"]]
+      hdiBounds   <- tmp[["hdiBounds"]]
+    }
+  }
+
+  customPlotData <- customBounds <- NULL
+  if (customPlotOpts[["customizableShade"]]) {
+
+    tmp <- container[["stateCustomPlotData"]]
+    if (is.null(tmp)) {
+      customBounds <- matrix(
+        sort(c(customPlotOpts[["probTableValueLow"]], customPlotOpts[["probTableValueHigh"]])),
+        nrow = 2L, ncol = length(params), dimnames = list(NULL, params)
+      )
+      customPlotData <- .JAGSboundsToRibbonData(customBounds, plotData, yHeightPerDensity, npoints)
+
+      stateCustomPlotData <- createJaspState(list(customBounds = customBounds, customPlotData = customPlotData))
+      container[["stateCustomPlotData"]] <- stateCustomPlotData
+    } else {
+      customPlotData <- tmp[["customPlotData"]]
+      customBounds   <- tmp[["customBounds"]]
+    }
+  }
+
+  return(list(
+    plotData          = plotData,
+    criPlotData       = criPlotData,
+    hdiPlotData       = hdiPlotData,
+    customPlotData    = customPlotData,
+    criBounds         = criBounds,
+    hdiBounds         = hdiBounds,
+    customBounds      = customBounds,
+    yHeightPerDensity = yHeightPerDensity
+  ))
+}
+
+.JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, object, params) {
+
+  # TODO
+  # - [ ] color for the ribbons!
+  # - [ ] separate computation from plotting so the table can easily reuse the same values
+  # - [x] add y-axis labels for parameters!
+  # - [ ] when the ribbons of different densities overlap, maybe they should not blend?
+  # - [ ] rename HDI to HDP Interval?
+
+
+  parameterName <- customPlotOpts[["customizablePlotsParameter"]]
+  if (!is.null(container[[parameterName]]))
+    return()
+
+  npoints           <- 512L
+  nparams           <- length(params)
+  plotData          <- object[["plotData"]]
+  yHeightPerDensity <- object[["yHeightPerDensity"]]
+
+  criRibbon    <- .JAGSRibbonDataToRibbon(object[["criPlotData"]])
+  hdiRibbon    <- .JAGSRibbonDataToRibbon(object[["hdiPlotData"]])
+  customRibbon <- .JAGSRibbonDataToRibbon(object[["customPlotData"]])
 
   xMinAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMinX"]])) NULL else customPlotOpts[["customizablePlotsMinX"]]
   xMaxAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMaxX"]])) NULL else customPlotOpts[["customizablePlotsMaxX"]]
@@ -886,44 +992,18 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   xLimits <- range(xBreaks)
+
   # slightly unusual heuristic but since we do not show the y-axis we want to be closer to tha maximum density
-  yLimits <- c(0, 1.1 * max(plotData[["y"]]))
+  yLimits <- c(0, 0.1 * yHeightPerDensity + max(plotData[["y"]]))
   yBreaks <- c(seq(0, length = nparams, by = yHeightPerDensity), yLimits[2])
-  yLabels <- c(params, "") # TODO parse to unicode!
-
-  # TODO: use these options!
-  # customPlotOpts$customizablePlotsMinX
-  # customPlotOpts$customizablePlotsMaxX
-
-  # NOTE: the xxxBounds objects below are all a matrix with column(.) == params and are 2 x length(params)
-  # this is required for .JAGSboundsToRibbon.
-  criRibbon <- NULL
-  if (customPlotOpts[["credibleIntervalShown"]]) {
-
-    criValue <- customPlotOpts[["credibleIntervalValue"]]
-    criDelta <- (1 - criValue) / 2
-    probs <- c(criDelta, 1 - criDelta)
-    cribounds <- vapply(params, \(p) stats::quantile(unlist(mcmcResult[["samples"]][, p, ][[1L]]), probs = probs), FUN.VALUE = numeric(2L))
-    criRibbon <- .JAGSboundsToRibbon(cribounds, plotData, yHeightPerDensity, npoints)
-  }
-
-  hdiRibbon <- NULL
-  if (customPlotOpts[["hdiShown"]]) {
-
-    hdiValue <- customPlotOpts[["hdiValue"]]
-    hdiBounds <- vapply(params, \(p) coda::HPDinterval(unlist(mcmcResult[["samples"]][, p, ][[1L]]), prob = hdiValue), FUN.VALUE = numeric(2L))
-    hdiRibbon <- .JAGSboundsToRibbon(hdiBounds, plotData, yHeightPerDensity, npoints)
-  }
-
-  customRibbon <- NULL
-  if (customPlotOpts[["customizableShade"]]) {
-
-    customBounds <- matrix(
-      sort(c(customPlotOpts[["probTableValueLow"]], customPlotOpts[["probTableValueHigh"]])),
-      nrow = 2L, ncol = length(params), dimnames = list(NULL, params)
-    )
-    customRibbon <- .JAGSboundsToRibbon(customBounds, plotData, yHeightPerDensity, npoints)
-
+  if (any(grepl("[", params, fixed = TRUE))) {
+    # for a plot with 100 parameters/ subscripts, using ggtext is about 1.5 times slower (.467 to .666 seconds for total plotting time, measured with ggplot2::benchplot)
+    # but it is much more pretty
+    yLabels      <- c(.JAGSParameterToHTML(params), "")
+    yTextElement <- ggtext::element_markdown(halign = 1, align_widths = TRUE, margin = ggplot2::margin(r = -15))
+  } else {
+    yLabels      <- c(params, "")
+    yTextElement <- ggplot2::element_text(margin = ggplot2::margin(r = -15))
   }
 
   dfAbline <- data.frame(
@@ -941,15 +1021,15 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     jaspGraphs::geom_rangeframe(sides = "b") +
     jaspGraphs::themeJaspRaw() +
     ggplot2::theme(axis.ticks.length.y = ggplot2::unit(0, "cm"), axis.line.y = ggplot2::element_blank(),
-                   axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = -20)))
+                   axis.text.y = yTextElement)
 
-  jaspPlot <- createJaspPlot(plot = plt, title = gettext("Stacked density"), width = 400, height = 400 + 25 * nparams)
+  jaspPlot <- createJaspPlot(plot = plt, title = gettext("Stacked density"), width = 400, height = 400 + 25 * nparams, position = 1L)
   # jaspPlot$dependOn() # <- TODO: how to set dependencies?
   container[[parameterName]] <- jaspPlot
 
 }
 
-.JAGSboundsToRibbon <- function(bounds, plotData, yHeightPerDensity, npoints = 512L) {
+.JAGSboundsToRibbonData <- function(bounds, plotData, yHeightPerDensity, npoints = 512L) {
 
   params <- colnames(bounds)
 
@@ -979,6 +1059,20 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     )
     ribbonData <- rbind(ribbonData, ribbonDataSubset)
   }
+  return(ribbonData)
+  # return(ggplot2::geom_ribbon(
+  #   data        = ribbonData,
+  #   mapping     = ggplot2::aes(x = x, ymin = ymin, ymax = ymax, group = g),
+  #   inherit.aes = FALSE,
+  #   fill        = "grey20",
+  #   alpha       = .5
+  # ))
+}
+
+.JAGSRibbonDataToRibbon <- function(ribbonData) {
+  if (is.null(ribbonData))
+    return(NULL)
+
   return(ggplot2::geom_ribbon(
     data        = ribbonData,
     mapping     = ggplot2::aes(x = x, ymin = ymin, ymax = ymax, group = g),
@@ -986,6 +1080,25 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     fill        = "grey20",
     alpha       = .5
   ))
+}
+
+.JAGSgetCustomPlotParameters <- function(mcmcResult, customPlotOpts) {
+
+  parameterName <- customPlotOpts[["customizablePlotsParameter"]]
+  paramsTotal <- mcmcResult$params[[parameterName]]
+  nparamsTotal <- length(paramsTotal)
+
+  subset <- .JAGScustomPlotsParameterSubset(customPlotOpts[["customizablePlotsParameterSubset"]], nparamsTotal)
+  params <- paramsTotal[subset]
+  nparams <- length(subset)
+
+  parameterOrder <- switch(customPlotOpts[["customizablePlotsParameterOrder"]],
+                           "mean"   = order(vapplyNum(params, \(p)   mean(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
+                           "median" = order(vapplyNum(params, \(p) median(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
+                           "subset" = seq_along(params)
+  )
+
+  params <- params[parameterOrder]
 }
 
 .JAGScustomPlotsParameterSubset <- function(userSubset, nparams) {
@@ -998,8 +1111,84 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 }
 
-.JAGScustomTable <- function(container, mcmcResult, customPlotOpts, options) {
+.JAGScustomTable <- function(container, mcmcResult, customPlotOpts, object, params) {
 
+  if (!is.null(container[["customTable"]]))
+    return()
+
+  parameterName <- customPlotOpts[["customizablePlotsParameter"]]
+  tb <- createJaspTable(title = gettextf("Inference for %s", parameterName), position = 2L)
+
+  overTitle <- gettext("Posterior")
+  tb$addColumnInfo(name = "parameter", title = gettext("Parameter"),             type = "string")
+  tb$addColumnInfo(name = "Mean",      title = gettext("Mean"),                  type = "number", overtitle = overTitle)
+  tb$addColumnInfo(name = "50%",       title = gettext("Median"),                type = "number", overtitle = overTitle)
+  tb$addColumnInfo(name = "SD",        title = gettext("SD"),                    type = "number", overtitle = overTitle)
+
+  if (customPlotOpts[["credibleIntervalShown"]]) {
+    overTitle <- gettextf("%s%% Credible Interval", 100 * customPlotOpts[["credibleIntervalValue"]])
+    tb$addColumnInfo(name = "criLower",     title = gettext("Lower"),                 type = "number", overtitle = overTitle)
+    tb$addColumnInfo(name = "criHigher",    title = gettext("Upper"),                 type = "number", overtitle = overTitle)
+  }
+
+  if (customPlotOpts[["hdiShown"]]) {
+    overTitle <- gettextf("%s%% HDI", 100 * customPlotOpts[["hdiValue"]])
+    tb$addColumnInfo(name = "hdiLower",     title = gettext("Lower"),                 type = "number", overtitle = overTitle)
+    tb$addColumnInfo(name = "hdiHigher",    title = gettext("Upper"),                 type = "number", overtitle = overTitle)
+  }
+
+  if (customPlotOpts[["customizableShade"]]) {
+    overTitle <- gettextf("%1$s < x < %2$s", customPlotOpts[["probTableValueLow"]], customPlotOpts[["probTableValueHigh"]])
+    tb$addColumnInfo(name = "customLower",  title = gettext("Lower"),                 type = "number", overtitle = overTitle)
+    tb$addColumnInfo(name = "customHigher", title = gettext("Upper"),                 type = "number", overtitle = overTitle)
+  }
+
+  # Not sure if it is meaningful to compute these on a subset of the parameters...
+  # overTitle <- gettext("Rhat")
+  # tb$addColumnInfo(name = "rhatPoint", title = gettext("Point est."),            type = "number", overtitle = overTitle)
+  # tb$addColumnInfo(name = "rhatCI",    title = gettext("Upper CI"),              type = "number", overtitle = overTitle)
+
+  tb$addColumnInfo(name = "neff",      title = gettext("Effective Sample Size"), type = "integer")
+
+  container[["customTable"]] <- tb
+  # TODO: check if we can actually show data, otherwise return
+
+  df <- cbind(data.frame(parameter = params),
+              as.data.frame(mcmcResult[["BUGSoutput"]][["summary"]][params, c("Mean", "50%", "SD")]))
+  if (customPlotOpts[["credibleIntervalShown"]])
+    df <- cbind(df,
+                criLower  = object[["criBounds"]][1L, ],
+                criHigher = object[["criBounds"]][2L, ])
+
+  if (customPlotOpts[["hdiShown"]])
+    df <- cbind(df,
+                hdiLower  = object[["hdiBounds"]][1L, ],
+                hdiHigher = object[["hdiBounds"]][2L, ])
+
+  if (customPlotOpts[["customizableShade"]])
+    df <- cbind(df,
+                customLower  = object[["customBounds"]][1L, ],
+                customHigher = object[["customBounds"]][2L, ])
+
+  df[["neff"]] <- as.integer(mcmcResult[["BUGSoutput"]][["summary"]][params, "neff"])
+
+  tb$setData(df)
+
+
+}
+
+.JAGSParameterToHTML <- function(x) {
+  x <- gsub("[", "<sub>", x, fixed = TRUE)
+  x <- gsub("]", "</sub>", x, fixed = TRUE)
+  x
+  # The code below convert to unicode, but there is no subscript so it doesn't display arrays nicely
+  # hasIndex <- grepl("[", x, fixed = TRUE)
+  # xsplit <- strsplit(x, "(\\[|,|\\])")
+  # newx <- vapplyChr(xsplit, \(s) {
+  #   s <- trimws(s)
+  #   paste0(s[1L], paste0("\\u208", s[-1L], collapse = ", "))
+  # })
+  # stringi::stri_unescape_unicode(newx)
 }
 
 # TODO: perhaps just use purrr::map_chr & purrr::map_dbl, etc.?

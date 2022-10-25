@@ -14,6 +14,7 @@ Depends:
 Imports:
   coda,
   ggplot2,
+  ggtext,
   hexbin,
   jaspBase,
   jaspGraphs,

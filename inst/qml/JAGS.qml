@@ -16,8 +16,9 @@
 // <http://www.gnu.org/licenses/>.
 //
 
-import QtQuick.Layouts	1.3
 import QtQuick			2.8
+import QtQuick.Layouts	1.3
+
 
 import JASP.Widgets		1.0
 import JASP.Controls	1.0
@@ -310,7 +311,7 @@ Form
 									indexDefaultValue:	0
 									values:
 									[
-										{ label: qsTr("Normal kernal"),		value: "normalKernel"		},
+										{ label: qsTr("Normal kernel"),		value: "normalKernel"		},
 										{ label: qsTr("Splines"),			value: "splines"			}
 									]
 								}
@@ -356,36 +357,40 @@ Form
 							label:				qsTr("Shade area where")
 							childrenOnSameRow:	true
 
-							DoubleField
+							FormulaField
 							{
 								id:				probTableValueLow
 								name:			"probTableValueLow"
 								label:			""
 								defaultValue:	0.0
 								fieldWidth: 	40
-								anchors
-								{
-									rightMargin: 0
-								}
+								Layout.rightMargin: 0
+//								anchors
+//								{
+//									rightMargin: 0
+//								}
 							}
 
 							Label
 							{
-								anchors
-								{
-									leftMargin: 0
-									rightMargin: 0
-								}
+								Layout.leftMargin:	0
+								Layout.rightMargin: 0
+//								anchors
+//								{
+//									leftMargin: 0
+//									rightMargin: 0
+//								}
 								// TODO: use \theta!
-								text: qsTr("< x <")
+								text: qsTr("< \u03B8 <")
 							}
 
-							DoubleField
+							FormulaField
 							{
-								anchors
-								{
-									leftMargin: 0
-								}
+								Layout.leftMargin:	0
+//								anchors
+//								{
+//									leftMargin: 0
+//								}
 								name:			"probTableValueHigh"
 								label:			""
 								defaultValue:	1.0
