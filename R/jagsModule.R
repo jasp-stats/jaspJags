@@ -940,17 +940,20 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
         sort(c(customPlotOpts[["probTableValueLow"]], customPlotOpts[["probTableValueHigh"]])),
         nrow = 2L, ncol = length(params), dimnames = list(NULL, params)
       )
-      customPlotData <- .JAGSboundsToRibbonData(customBounds, plotData, yHeightPerDensity, npoints)
 
-      stateCustomPlotData <- createJaspState(list(customBounds = customBounds, customPlotData = customPlotData))
-      stateHdiPlotData$dependOn(nestedOptions = list(
+      customPlotData <- .JAGSboundsToRibbonData(customBounds, plotData, yHeightPerDensity, npoints)
+      customArea     <- vapply(params, \(p) .JAGScomputeArea(unlist(mcmcResult[["samples"]][, p, ][[1L]]), customBounds[, 1L]), FUN.VALUE = numeric(1L))
+
+      stateCustomPlotData <- createJaspState(list(customBounds = customBounds, customPlotData = customPlotData, customArea = customArea))
+      stateCustomPlotData$dependOn(nestedOptions = list(
         c("customPlots", i, "probTableValueLow"),
-        c("customPlots", i, "probTableValueHigh"),
+        c("customPlots", i, "probTableValueHigh")
       ))
       container[["stateCustomPlotData"]] <- stateCustomPlotData
     } else {
       customPlotData <- tmp[["customPlotData"]]
       customBounds   <- tmp[["customBounds"]]
+      customArea     <- tmp[["customArea"]]
     }
   }
 
@@ -962,8 +965,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     criBounds         = criBounds,
     hdiBounds         = hdiBounds,
     customBounds      = customBounds,
+    customArea        = customArea,
     yHeightPerDensity = yHeightPerDensity
   ))
+}
+
+.JAGScomputeArea <- function(x, bounds) {
+  # mean(findInterval(sort(x), bounds) == 1L) # is not better nor faster
+  mean(x > bounds[1L] & x < bounds[2L])
 }
 
 .JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, object, params, i) {
@@ -1078,13 +1087,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     ribbonData <- rbind(ribbonData, ribbonDataSubset)
   }
   return(ribbonData)
-  # return(ggplot2::geom_ribbon(
-  #   data        = ribbonData,
-  #   mapping     = ggplot2::aes(x = x, ymin = ymin, ymax = ymax, group = g),
-  #   inherit.aes = FALSE,
-  #   fill        = "grey20",
-  #   alpha       = .5
-  # ))
 }
 
 .JAGSRibbonDataToRibbon <- function(ribbonData) {
@@ -1169,9 +1171,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   if (customPlotOpts[["customizableShade"]]) {
-    overTitle <- gettextf("%1$s < x < %2$s", customPlotOpts[["probTableValueLow"]], customPlotOpts[["probTableValueHigh"]])
-    tb$addColumnInfo(name = "customLower",  title = gettext("Lower"),                 type = "number", overtitle = overTitle)
-    tb$addColumnInfo(name = "customHigher", title = gettext("Upper"),                 type = "number", overtitle = overTitle)
+    title <- gettextf("p(%1$s < %2$s < %3$s)", customPlotOpts[["probTableValueLow"]], "\u03B8", customPlotOpts[["probTableValueHigh"]])
+    tb$addColumnInfo(name = "customArea",   title = title, type = "number")
   }
 
   # Not sure if it is meaningful to compute these on a subset of the parameters...
@@ -1197,9 +1198,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
                 hdiHigher = object[["hdiBounds"]][2L, ])
 
   if (customPlotOpts[["customizableShade"]])
-    df <- cbind(df,
-                customLower  = object[["customBounds"]][1L, ],
-                customHigher = object[["customBounds"]][2L, ])
+    df <- cbind(df, customArea  = object[["customArea"]])
 
   df[["neff"]] <- as.integer(mcmcResult[["BUGSoutput"]][["summary"]][params, "neff"])
 
