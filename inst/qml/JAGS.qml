@@ -125,7 +125,7 @@ Form
 
 	Section
 	{
-		title: qsTr("Customizable Plots")
+		title: qsTr("Customizable Inference")
 
 		TabView
 		{
@@ -139,26 +139,23 @@ Form
 			content: Group
 			{
 
-//				indent: true
-//				columns: 2
-				Group
+				Group // Parameter selection
 				{
 					indent: true
 					columns: 1
 
 					Group
 					{
-						columns: 2
-						Group
+						columns: 1
+						title: qsTr("Parameter selection")
+
+						DropDown
 						{
-							columns: 1
-							DropDown
-							{
-								label: 				qsTr("Parameter")
-								name: 				"customizablePlotsParameter"
-								fieldWidth:			200 * preferencesModel.uiScale
-								source:				{
-									let m = allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"];
+							label: 				qsTr("Parameter")
+							name: 				"customizablePlotsParameter"
+							fieldWidth:			200 * preferencesModel.uiScale
+							source:				{
+								let m = allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"];
 //									m.insert(0,
 //										{
 //											// TODO: I'd like this to be displayed differently as a placeholder value!
@@ -166,116 +163,257 @@ Form
 //											value: ""
 //										}
 //									)
-									m
-								}
-								controlMinWidth:	200 * preferencesModel.uiScale
+								m
 							}
-
-							TextField
-							{
-								id:						factorName
-								label:					qsTr("Parameter subset")
-								name:					"customizablePlotsParameterSubset"
-								placeholderText:		qsTr("Optional subset, e.g., 1:4 or 1, 3, 5:8 ")
-								fieldWidth:				200 * preferencesModel.uiScale
-								useExternalBorder:		false
-								showBorder:				true
-							}
-
-							DropDown
-							{
-								label: 				qsTr("Plot type")
-								name: 				"customizablePlotsType"
-								indexDefaultValue:	0
-								values:
-								[
-									{ label: qsTr("Stacked density"),		value: "stackedDensity"		},
-									{ label: qsTr("Density"),				value: "density"			}
-								]
-							}
-							CheckBox { name: "showResultsInTable"; label: qsTr("Show table with results"); checked: true }
+							controlMinWidth:	200 * preferencesModel.uiScale
 						}
+
+						TextField
+						{
+							id:						factorName
+							label:					qsTr("Parameter subset")
+							name:					"customizablePlotsParameterSubset"
+							placeholderText:		qsTr("Optional subset, e.g., 1:4 or 1, 3, 5:8 ")
+							fieldWidth:				200 * preferencesModel.uiScale
+							useExternalBorder:		false
+							showBorder:				true
+						}
+
+
+						// TODO: this should just always be true
+						CheckBox { name: "showResultsInTable"; label: qsTr("Show table with results"); checked: true }
+					}
+				}
+
+				Group // Plots
+				{
+					indent: true
+					columns: 1
+
+					Group
+					{
+						title: qsTr("Plots")
+						columns: 1
+
+						DropDown
+						{
+							label: 				qsTr("Plot type")
+							name: 				"customizablePlotsType"
+							indexDefaultValue:	0
+							values:
+							[
+								{ label: qsTr("Stacked density"),		value: "stackedDensity"		},
+								{ label: qsTr("Density"),				value: "density"			}
+							]
+						}
+
 						Group
 						{
+							columns: 2
+
 							RadioButtonGroup
 							{
 								name: "customizablePlotsParameterOrder"
 								title: qsTr("Order parameters by")
-								RadioButton { value: "mean";		label: qsTr("Mean");	checked:true	}
-								RadioButton { value: "median";		label: qsTr("Median")					}
-								RadioButton { value: "subset";		label: qsTr("Subset")					}
+								RadioButton { value: "orderMean";		label: qsTr("Mean");	checked:true	}
+								RadioButton { value: "orderMedian";		label: qsTr("Median")					}
+								RadioButton { value: "orderSubset";		label: qsTr("Subset")					}
+							}
+
+							RadioButtonGroup
+							{
+								title: qsTr("Intervals")
+								name: "customizablePlotsParameterInterval"
+								RadioButton
+								{
+									value: "credibleIntervalShown"; label: qsTr("Credible Interval")
+									childrenOnSameRow: true
+									CIField { name: "credibleIntervalValue" }
+								}
+								RadioButton
+								{
+									value: "hdiShown"; label: qsTr("HDI")
+									childrenOnSameRow: true
+									CIField { name: "hdiValue" }
+								}
+								RadioButton
+								{
+									name:				"customizableShade"
+									label:				qsTr("Shade area where")
+									childrenOnSameRow:	true
+
+									FormulaField
+									{
+										id:				probTableValueLow
+										name:			"probTableValueLow"
+										label:			""
+										defaultValue:	0.0
+										fieldWidth: 	40
+	//									Layout.rightMargin: 0
+										anchors.rightMargin: jaspTheme.labelSpacing
+		//								anchors
+		//								{
+		//									rightMargin: 0
+		//								}
+									}
+
+									Label
+									{
+										Layout.leftMargin:	0
+										Layout.rightMargin: 0
+		//								anchors
+		//								{
+		//									leftMargin: 0
+		//									rightMargin: 0
+		//								}
+										// TODO: use \theta!
+										text: qsTr("< \u03B8 <")
+									}
+
+									FormulaField
+									{
+										Layout.leftMargin:	0
+		//								anchors
+		//								{
+		//									leftMargin: 0
+		//								}
+										name:			"probTableValueHigh"
+										label:			""
+										defaultValue:	1.0
+										fieldWidth: 	40
+									}
+								}
+							}
+						}
+
+						Group
+						{
+							title: qsTr("x-axis range")
+							FormulaField
+							{
+								id:					minX
+								label:				qsTr("min")
+								name:				"customizablePlotsMinX"
+								value:				"-Inf"
+								max:				maxX.value
+								inclusive:			JASP.None
+								useExternalBorder:	false
+								showBorder:			true
+								controlXOffset:		6 * preferencesModel.uiScale
+								fieldWidth:			40 * preferencesModel.uiScale
+							}
+							FormulaField
+							{
+								id:					maxX
+								label:				qsTr("max")
+								name:				"customizablePlotsMaxX"
+								value:				"Inf"
+								min:				minX.value
+								inclusive:			JASP.None
+								useExternalBorder:	false
+								showBorder:			true
+								controlXOffset:		6 * preferencesModel.uiScale
+								fieldWidth:			40 * preferencesModel.uiScale
 							}
 						}
 					}
 				}
 
-				Group
+				Group // Estimation
 				{
 					indent: true
-					columns: 2
-//					LeftMargin: jaspTheme.indentationLength
-
+					columns: 1
 
 					Group
 					{
-						title: qsTr("x-axis range")
-						FormulaField
+						title: qsTr("Estimation")
+						columns: 2
+
+						Group
 						{
-							id:					minX
-							label:				qsTr("min")
-							name:				"customizablePlotsMinX"
-							value:				"-Inf"
-							max:				maxX.value
-							inclusive:			JASP.None
-							useExternalBorder:	false
-							showBorder:			true
-							controlXOffset:		6 * preferencesModel.uiScale
-							fieldWidth:			40 * preferencesModel.uiScale
+							title: qsTr("Summary statistics")
+							CheckBox { name: "mean";	label: qsTr("Mean");	checked: true	}
+							CheckBox { name: "median";	label: qsTr("Median");	checked: true	}
+							CheckBox { name: "sd";		label: qsTr("SD");		checked: true	}
+
 						}
-						FormulaField
+
+						Group
 						{
-							id:					maxX
-							label:				qsTr("max")
-							name:				"customizablePlotsMaxX"
-							value:				"Inf"
-							min:				minX.value
-							inclusive:			JASP.None
-							useExternalBorder:	false
-							showBorder:			true
-							controlXOffset:		6 * preferencesModel.uiScale
-							fieldWidth:			40 * preferencesModel.uiScale
+							title: qsTr("Intervals")
+							CheckBox
+							{
+								name: "inferenceCredibleIntervalShown"; label: qsTr("Credible Interval")
+								childrenOnSameRow: true
+								CIField { name: "inferenceCredibleIntervalValue" }
+							}
+							CheckBox
+							{
+								name: "inferenceHdiShown"; label: qsTr("HDI")
+								childrenOnSameRow: true
+								CIField { name: "inferenceHdiValue" }
+							}
+							CheckBox
+							{
+								name:				"inferenceCustomizableShade"
+								label:				qsTr("Shade area where")
+								childrenOnSameRow:	true
+
+								FormulaField
+								{
+									id:				inferenceCustomLow
+									name:			"inferenceCustomLow"
+									label:			""
+									defaultValue:	0.0
+									fieldWidth: 	40
+									Layout.rightMargin: 0
+	//								anchors
+	//								{
+	//									rightMargin: 0
+	//								}
+								}
+
+								Label
+								{
+									Layout.leftMargin:	0
+									Layout.rightMargin: 0
+	//								anchors
+	//								{
+	//									leftMargin: 0
+	//									rightMargin: 0
+	//								}
+									// TODO: use \theta!
+									text: qsTr("< \u03B8 <")
+								}
+
+								FormulaField
+								{
+									Layout.leftMargin:	0
+	//								anchors
+	//								{
+	//									leftMargin: 0
+	//								}
+									name:			"inferenceCustomHigh"
+									label:			""
+									defaultValue:	1.0
+									fieldWidth: 	40
+								}
+							}
 						}
+
 					}
-//							FormulaField
-//							{
-//								id:					minY
-//								label:				qsTr("min")
-//								name:				"customizablePlotsMinY"
-//								value:				"-Inf"
-//								max:				maxX.value
-//								inclusive:			JASP.None
-//								useExternalBorder:	false
-//								showBorder:			true
-//								controlXOffset:		6 * preferencesModel.uiScale
-//								fieldWidth:			40 * preferencesModel.uiScale
-//							}
-//							FormulaField
-//							{
-//								id:					maxY
-//								label:				qsTr("max")
-//								name:				"customizablePlotsMaxY"
-//								value:				"Inf"
-//								min:				minX.value
-//								inclusive:			JASP.None
-//								useExternalBorder:	false
-//								showBorder:			true
-//								controlXOffset:		6 * preferencesModel.uiScale
-//								fieldWidth:			40 * preferencesModel.uiScale
-//							}
+				}
+
+				Group // Testing
+				{
+					indent: true
+					columns: 1
 
 					Group
 					{
-						title: qsTr("Inference")
+						title: qsTr("Testing")
+						columns: 1
+
 						CheckBox
 						{
 							id:					customizableSavageDickey
@@ -299,7 +437,24 @@ Form
 						{
 							enabled: customizableSavageDickey.checked
 							name: "customizableSavageDickeyPriorMethod"
-							title: qsTr("Determine prior point via")
+							title: qsTr("Determine prior height with")
+							// TODO: figure out if we can do without this!
+//							RadioButton
+//							{
+//								value: "sampledParameter";		label: qsTr("Parameter");	checked:true
+//								childrenOnSameRow:	true
+//								DropDown
+//								{
+//									label: 				""
+//									name: 				"customizableSavageDickeySamplingType"
+//									indexDefaultValue:	0
+//									values:
+//									[
+//										{ label: qsTr("Normal kernel"),		value: "normalKernel"		},
+//										{ label: qsTr("Splines"),			value: "splines"			}
+//									]
+//								}
+//							}
 							RadioButton
 							{
 								value: "sampling";		label: qsTr("Sampling");	checked:true
@@ -334,78 +489,35 @@ Form
 							}
 						}
 
-					}
-
-					Group
-					{
-						title: qsTr("Intervals")
-						CheckBox
+						RadioButtonGroup
 						{
-							name: "credibleIntervalShown"; label: qsTr("Credible Interval")
-							childrenOnSameRow: true
-							CIField { name: "credibleIntervalValue" }
-						}
-						CheckBox
-						{
-							name: "hdiShown"; label: qsTr("HDI")
-							childrenOnSameRow: true
-							CIField { name: "hdiValue" }
-						}
-						CheckBox
-						{
-							name:				"customizableShade"
-							label:				qsTr("Shade area where")
-							childrenOnSameRow:	true
-
-							FormulaField
+							enabled: customizableSavageDickey.checked
+							name: "customizableSavageDickeyPosteriorMethod"
+							title: qsTr("Determine posterior height with")
+							RadioButton
 							{
-								id:				probTableValueLow
-								name:			"probTableValueLow"
-								label:			""
-								defaultValue:	0.0
-								fieldWidth: 	40
-								Layout.rightMargin: 0
-//								anchors
-//								{
-//									rightMargin: 0
-//								}
+								value: "samplingPosteriorPoint";		label: qsTr("Sampling");	checked:true
+								childrenOnSameRow:	true
+								DropDown
+								{
+									label: 				""
+									name: 				"customizableSavageDickeyPosteriorSamplingType"
+									indexDefaultValue:	0
+									values:
+									[
+										{ label: qsTr("Normal kernel"),		value: "normalKernel"		},
+										{ label: qsTr("Splines"),			value: "splines"			}
+									]
+								}
 							}
-
-							Label
-							{
-								Layout.leftMargin:	0
-								Layout.rightMargin: 0
-//								anchors
-//								{
-//									leftMargin: 0
-//									rightMargin: 0
-//								}
-								// TODO: use \theta!
-								text: qsTr("< \u03B8 <")
-							}
-
-							FormulaField
-							{
-								Layout.leftMargin:	0
-//								anchors
-//								{
-//									leftMargin: 0
-//								}
-								name:			"probTableValueHigh"
-								label:			""
-								defaultValue:	1.0
-								fieldWidth: 	40
-							}
+							RadioButton { value: "normalApproximation";		label: qsTr("Normal approximation") }
 						}
+
 
 					}
 				}
 			}
-
 		}
-
-
-
 	}
 
 	Section
