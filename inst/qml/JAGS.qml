@@ -19,9 +19,9 @@
 import QtQuick			2.8
 import QtQuick.Layouts	1.3
 
-
 import JASP.Widgets		1.0
 import JASP.Controls	1.0
+import "./common" as Common
 
 Form
 {
@@ -146,42 +146,63 @@ Form
 
 					Group
 					{
-						columns: 1
-						title: qsTr("Parameter selection")
-
-						DropDown
+						columns: 2
+						Group
 						{
-							label: 				qsTr("Parameter")
-							name: 				"customizablePlotsParameter"
-							fieldWidth:			200 * preferencesModel.uiScale
-							source:				{
-								let m = allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"];
-//									m.insert(0,
-//										{
-//											// TODO: I'd like this to be displayed differently as a placeholder value!
-//											label: "<i style=\"color:%1;\">%2</i>".arg(jaspTheme.textDisabled).arg(qsTr("Select a parameter")),
-//											value: ""
-//										}
-//									)
-								m
+							title: qsTr("Parameter selection")
+
+							DropDown
+							{
+								label: 				qsTr("Parameter")
+								name: 				"customizablePlotsParameter"
+								fieldWidth:			200 * preferencesModel.uiScale
+								source:				allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"];
+								controlMinWidth:	200 * preferencesModel.uiScale
+								addEmptyValue: 		true
+								placeholderText: 	qsTr("Select a parameter")
 							}
-							controlMinWidth:	200 * preferencesModel.uiScale
+
+							TextField
+							{
+								id:						factorName
+								label:					qsTr("Parameter subset")
+								name:					"customizablePlotsParameterSubset"
+								placeholderText:		qsTr("Optional subset, e.g., 1:4 or 1, 3, 5:8 ")
+								fieldWidth:				200 * preferencesModel.uiScale
+								useExternalBorder:		false
+								showBorder:				true
+							}
 						}
 
-						TextField
+						Group
 						{
-							id:						factorName
-							label:					qsTr("Parameter subset")
-							name:					"customizablePlotsParameterSubset"
-							placeholderText:		qsTr("Optional subset, e.g., 1:4 or 1, 3, 5:8 ")
-							fieldWidth:				200 * preferencesModel.uiScale
-							useExternalBorder:		false
-							showBorder:				true
+
+							enabled: mainWindow.dataAvailable
+							title: qsTr("Superimpose data")
+
+							DropDown
+							{
+								label:					qsTr("Data")
+								name:					"customizablePlotsData"
+								fieldWidth:				200 * preferencesModel.uiScale
+								controlMinWidth:		200 * preferencesModel.uiScale
+								showVariableTypeIcon: 	true
+								addEmptyValue: 			true
+								placeholderText: 		qsTr("None")
+							}
+
+							DropDown
+							{
+								label:					qsTr("Split by")
+								name:					"customizablePlotsDataSplit"
+								fieldWidth:				200 * preferencesModel.uiScale
+								controlMinWidth:		200 * preferencesModel.uiScale
+								showVariableTypeIcon: 	true
+								addEmptyValue: 			true
+								placeholderText: 		qsTr("None")
+							}
 						}
 
-
-						// TODO: this should just always be true
-						CheckBox { name: "showResultsInTable"; label: qsTr("Show table with results"); checked: true }
 					}
 				}
 
@@ -286,36 +307,36 @@ Form
 							}
 						}
 
-						Group
-						{
-							title: qsTr("x-axis range")
-							FormulaField
-							{
-								id:					minX
-								label:				qsTr("min")
-								name:				"customizablePlotsMinX"
-								value:				"-Inf"
-								max:				maxX.value
-								inclusive:			JASP.None
-								useExternalBorder:	false
-								showBorder:			true
-								controlXOffset:		6 * preferencesModel.uiScale
-								fieldWidth:			40 * preferencesModel.uiScale
-							}
-							FormulaField
-							{
-								id:					maxX
-								label:				qsTr("max")
-								name:				"customizablePlotsMaxX"
-								value:				"Inf"
-								min:				minX.value
-								inclusive:			JASP.None
-								useExternalBorder:	false
-								showBorder:			true
-								controlXOffset:		6 * preferencesModel.uiScale
-								fieldWidth:			40 * preferencesModel.uiScale
-							}
-						}
+//						Group
+//						{
+//							title: qsTr("x-axis range")
+//							FormulaField
+//							{
+//								id:					minX
+//								label:				qsTr("min")
+//								name:				"customizablePlotsMinX"
+//								value:				"-Inf"
+//								max:				maxX.value
+//								inclusive:			JASP.None
+//								useExternalBorder:	false
+//								showBorder:			true
+//								controlXOffset:		6 * preferencesModel.uiScale
+//								fieldWidth:			40 * preferencesModel.uiScale
+//							}
+//							FormulaField
+//							{
+//								id:					maxX
+//								label:				qsTr("max")
+//								name:				"customizablePlotsMaxX"
+//								value:				"Inf"
+//								min:				minX.value
+//								inclusive:			JASP.None
+//								useExternalBorder:	false
+//								showBorder:			true
+//								controlXOffset:		6 * preferencesModel.uiScale
+//								fieldWidth:			40 * preferencesModel.uiScale
+//							}
+//						}
 					}
 				}
 
@@ -353,11 +374,22 @@ Form
 								childrenOnSameRow: true
 								CIField { name: "inferenceHdiValue" }
 							}
+
 							CheckBox
 							{
 								name:				"inferenceCustomizableShade"
 								label:				qsTr("Shade area where")
 								childrenOnSameRow:	true
+
+								Common.TwoInputField
+								{
+									name1:			"inferenceCustomLowN"
+									name2:			"inferenceCustomHighN"
+									inputType:		"formula"
+									leftLabel:		""
+									middleLabel:	qsTr("< \u03B8 <")
+									rightLabel:		""
+								}
 
 								FormulaField
 								{

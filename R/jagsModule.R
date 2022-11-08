@@ -829,7 +829,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       customPlotOpts <- options[["customPlots"]][[i]]
       customPlotOpts <- jaspBase:::.parseAndStoreFormulaOptions(
         container, customPlotOpts,
-        c("customizablePlotsMinX", "customizablePlotsMaxX", "probTableValueLow", "probTableValueHigh")
+        c("probTableValueLow", "probTableValueHigh")
       )
 
       params <- .JAGSgetCustomPlotParameters(mcmcResult, customPlotOpts)
@@ -843,8 +843,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
         # TODO
       }
 
-      if (customPlotOpts[["showResultsInTable"]])
-        .JAGScustomTable(container, mcmcResult, customPlotOpts, object, params, i)
+      # if (customPlotOpts[["showResultsInTable"]])
+      .JAGScustomTable(container, mcmcResult, customPlotOpts, object, params, i)
 
     }
 }
@@ -1043,15 +1043,15 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   hdiRibbon    <- .JAGSRibbonDataToRibbon(object[["hdiPlotData"]])
   customRibbon <- .JAGSRibbonDataToRibbon(object[["customPlotData"]])
 
-  xMinAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMinX"]])) NULL else customPlotOpts[["customizablePlotsMinX"]]
-  xMaxAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMaxX"]])) NULL else customPlotOpts[["customizablePlotsMaxX"]]
-  xAdd <- sort(c(xMinAdd, xMaxAdd))
+  # xMinAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMinX"]])) NULL else customPlotOpts[["customizablePlotsMinX"]]
+  # xMaxAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMaxX"]])) NULL else customPlotOpts[["customizablePlotsMaxX"]]
+  # xAdd <- sort(c(xMinAdd, xMaxAdd))
   xBreaks <- jaspGraphs::getPrettyAxisBreaks(plotData[["x"]])
-  if (!is.null(xAdd)) {
-    # if xMinAdd is NULL, compare to 0, otherwise to 1
-    xBreaksKeep <- findInterval(xBreaks, xAdd) == !is.null(xMinAdd)# 2L
-    xBreaks <- jaspGraphs::getPrettyAxisBreaks(c(xAdd, xBreaks[xBreaksKeep]))
-  }
+  # if (!is.null(xAdd)) {
+  #   # if xMinAdd is NULL, compare to 0, otherwise to 1
+  #   xBreaksKeep <- findInterval(xBreaks, xAdd) == !is.null(xMinAdd)# 2L
+  #   xBreaks <- jaspGraphs::getPrettyAxisBreaks(c(xAdd, xBreaks[xBreaksKeep]))
+  # }
 
   xLimits <- range(xBreaks)
 
@@ -1087,8 +1087,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   jaspPlot <- createJaspPlot(plot = plt, title = gettext("Stacked density"), width = 400, height = 400 + 25 * nparams, position = 1L)
   jaspPlot$dependOn(nestedOptions = list(
-      c("customPlots", i, "customizablePlotsMinX"),
-      c("customPlots", i, "customizablePlotsMaxX"),
+      # c("customPlots", i, "customizablePlotsMinX"),
+      # c("customPlots", i, "customizablePlotsMaxX"),
       c("customPlots", i, "customizablePlotsParameterInterval"),
       c("customPlots", i, "credibleIntervalValue"),
       # c("customPlots", i, "hdiShown"),
@@ -1186,9 +1186,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   tb <- createJaspTable(title = gettextf("Inference for %s", parameterName), position = 2L)
 
   tb$dependOn(nestedOptions = list(
-    c("customPlots", i, "showResultsInTable"),
-    c("customPlots", i, "customizablePlotsMinX"),
-    c("customPlots", i, "customizablePlotsMaxX"),
+    # c("customPlots", i, "showResultsInTable"),
+    # c("customPlots", i, "customizablePlotsMinX"),
+    # c("customPlots", i, "customizablePlotsMaxX"),
     c("customPlots", i, "inferenceCredibleIntervalShown"),
     c("customPlots", i, "inferenceCredibleIntervalValue"),
     c("customPlots", i, "inferenceHdiShown"),
