@@ -10,7 +10,7 @@ jobs:
   generate-translations:
     runs-on: ubuntu-18.04
     env:
-      GITHUB_TOKEN: ${{ secrets.REPO_KEY }}
+      REPO_KEY: ${{ secrets.REPOS_KEY }}
       WEBLATE_KEY: ${{ secrets.WEBLATE_KEY }}
       QML_REPO: jaspjags-qml
       R_REPO: jaspjags-r
