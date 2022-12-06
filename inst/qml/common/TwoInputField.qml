@@ -28,12 +28,16 @@ Group
 	property	alias	leftLabel:		leftInput.label;
 	property	alias	middleLabel:	leftInput.afterLabel;
 	property	alias	rightLabel:		rightInput.afterLabel;
+
 	property	string	inputType:		"formula";
+	property	int		fieldWidth:		.5 * jaspTheme.textFieldWidth / 2 // .5 * default of FormulaField
+
+	id: twoInputField
 
 	indent: false
 	columns: 1
 
-	TextField
+	FormulaField
 	{
 		id:					leftInput
 
@@ -45,9 +49,10 @@ Group
 		min:				-Infinity
 		max:				Infinity
 		inclusive:			JASP.MinMax
+		fieldWidth:			twoInputField.fieldWidth
 	}
 
-	TextField
+	FormulaField
 	{
 		id:					rightInput
 		anchors.left:		leftInput.right
@@ -55,11 +60,12 @@ Group
 
 		inputType:			inputType
 
-		defaultValue:		"0"
-		realValue:			0
+		defaultValue:		"1"
+		realValue:			1
 		realValues:			[]
 		min:				-Infinity
 		max:				Infinity
 		inclusive:			JASP.MinMax
+		fieldWidth:			twoInputField.fieldWidth
 	}
 }
