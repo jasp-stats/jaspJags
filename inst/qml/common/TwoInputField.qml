@@ -18,10 +18,12 @@
 
 import QtQuick			2.8
 import QtQuick.Layouts	1.3
+import JASP				1.0
 import JASP.Widgets		1.0
 import JASP.Controls	1.0
 
-Group
+//Group
+Item
 {
 	property	alias	name1:			leftInput.name;
 	property	alias	name2:			rightInput.name;
@@ -29,26 +31,23 @@ Group
 	property	alias	middleLabel:	leftInput.afterLabel;
 	property	alias	rightLabel:		rightInput.afterLabel;
 
-	property	string	inputType:		"formula";
 	property	int		fieldWidth:		.5 * jaspTheme.textFieldWidth / 2 // .5 * default of FormulaField
 
 	id: twoInputField
 
-	indent: false
-	columns: 1
+//	indent: false
+//	columns: 1
 
 	FormulaField
 	{
 		id:					leftInput
 
-		inputType:			inputType
-
 		defaultValue:		"0"
-		realValue:			0
-		realValues:			[]
+		value:				"0"
 		min:				-Infinity
-		max:				Infinity
-		inclusive:			JASP.MinMax
+		max:				rightInput.value
+		// default validator for FormulaField does not seem to reset the value if it's incorrect?
+		validator:			JASPDoubleValidator { id: doubleValidatorLeft; bottom: leftInput.min; top: leftInput.max ; decimals: 50; notation: DoubleValidator.StandardNotation }
 		fieldWidth:			twoInputField.fieldWidth
 	}
 
@@ -58,14 +57,11 @@ Group
 		anchors.left:		leftInput.right
 		anchors.top:		leftInput.top
 
-		inputType:			inputType
-
 		defaultValue:		"1"
-		realValue:			1
-		realValues:			[]
-		min:				-Infinity
+		value:				"1"
+		min:				leftInput.value
 		max:				Infinity
-		inclusive:			JASP.MinMax
+		validator:			JASPDoubleValidator { id: doubleValidatorRight; bottom: rightInput.min; top: rightInput.max ; decimals: 50; notation: DoubleValidator.StandardNotation }
 		fieldWidth:			twoInputField.fieldWidth
 	}
 }

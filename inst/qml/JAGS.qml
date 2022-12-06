@@ -272,7 +272,6 @@ Form
 										{
 											name1:			"customInferencePlotCustomLow"
 											name2:			"customInferencePlotCustomHigh"
-											inputType:		"formula"
 											leftLabel:		""
 											middleLabel:	qsTr("< \u03B8 < ")
 											rightLabel:		""
@@ -331,7 +330,6 @@ Form
 								{
 									name1:			"inferenceCustomLow"
 									name2:			"inferenceCustomHigh"
-									inputType:		"formula"
 									leftLabel:		""
 									middleLabel:	qsTr("< \u03B8 < ")
 									rightLabel:		""

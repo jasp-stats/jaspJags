@@ -918,8 +918,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       ),
       "customizableShade" = .JAGScomputeCustomArea(
         customPlotOpts, params, plotData, yHeightPerDensity, npoints, mcmcResult, i, container,
-        valueKeyLow  = "customLow",
-        valueKeyHigh = "customHigh",
+        valueKeyLow  = "customInferencePlotCustomLow",
+        valueKeyHigh = "customInferencePlotCustomHigh",
         stateKey     = "statePlotRibbonData"
       )
     )
@@ -927,14 +927,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   plotRibbonBounds <- tmp[[1L]]
   plotRibbonData   <- tmp[[2L]]
 
-  # ensure we also depend on the selected radiobutton value
+  # ensure plotRibbonData also depends on the selected radiobutton value
   if (!is.null(container[["statePlotRibbonData"]]))
     container[["statePlotRibbonData"]]$dependOn(nestedOptions = c("customInference", i, "customInferencePlotInterval"))
 
-  # with zeallot::`%<-%` this could become:
-  # c(criPlotData, criBounds) %<-% (container[["stateInfCriPlotData"]] %||% .JAGScomputeCRI(
-  #   container, customPlotOpts, params, mcmcResult, plotData, yHeightPerDensity, npoints, i
-  # ))
   tmp <- if (customPlotOpts[["inferenceCredibleIntervalShown"]]) {
     .JAGScomputCustomCri(
       customPlotOpts, params, mcmcResult, plotData, yHeightPerDensity, npoints, i, container,
@@ -1280,8 +1276,12 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   # the last row shows smallest/ most negative value and the first row shows the largest/ most positive value
   params <- rev(params)
 
-  df <- cbind(data.frame(parameter = .JAGSParameterToUnicode(params)),
-              as.data.frame(mcmcResult[["BUGSoutput"]][["summary"]][params, c("Mean", "50%", "SD")]))
+  df <- data.frame(parameter = .JAGSParameterToUnicode(params))
+
+  summarySubset <- c("Mean", "50%", "SD")[unlist(customPlotOpts[c("mean", "median", "sd")], use.names = FALSE)]
+  if (length(summarySubset) > 0L)
+    df <- cbind(df,
+                as.data.frame(mcmcResult[["BUGSoutput"]][["summary"]][params, summarySubset, drop = FALSE]))
   if (customPlotOpts[["inferenceCredibleIntervalShown"]])
     df <- cbind(df,
                 criLower  = object[["criBounds"]][1L, ],
@@ -1497,6 +1497,11 @@ vapplyLgl <- function(x, f, ...) { vapply(x, f, FUN.VALUE = logical(1L), ...)   
 }
 
 .JAGSloadModules <- function(jaspResults) {
+
+  print(sprintf("before jags.moddir = %s", options("jags.moddir")))
+  options(jags.moddir = "/usr/lib/JAGS/modules-4")
+  print(sprintf("after jags.moddir = %s", options("jags.moddir")))
+
   # just like R2jags, we just always load the modules
   e <- try({
     for (m in c("glm", "dic")) # allow users to add custom modules?
