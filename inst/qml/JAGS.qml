@@ -182,6 +182,7 @@ Form
 
 							DropDown
 							{
+								id:						customInferenceData
 								label:					qsTr("Data")
 								name:					"customInferenceData"
 								fieldWidth:				200 * preferencesModel.uiScale
@@ -276,6 +277,39 @@ Form
 											middleLabel:	qsTr("< \u03B8 < ")
 											rightLabel:		""
 										}
+									}
+								}
+							}
+							RadioButtonGroup
+							{
+								enabled:	customInferenceData.currentValue !== ""
+								title:		qsTr("Plot type for superimposed data")
+								name:		"customInferenceOverlayGeomType"
+								RadioButton { value: "density"; label: qsTr("Density")	}
+								RadioButton {
+									value: "histogram"
+									label: qsTr("Histogram")
+									DropDown {
+										name: "customInferenceOverlayHistogramBinWidthType"
+										label: qsTr("Bin width type")
+										indexDefaultValue: 0
+										values: [
+											{ label: qsTr("Sturges"),				value: "sturges"	},
+											{ label: qsTr("Scott"),					value: "scott"		},
+											{ label: qsTr("Doane"),					value: "doane"		},
+											{ label: qsTr("Freedman-Diaconis"),		value: "fd"			},
+											{ label: qsTr("Manual"),				value: "manual"		}
+										]
+										id: binWidthType
+									}
+									IntegerField
+									{
+										name:			"customInferenceOverlayHistogramManualNumberOfBins"
+										label:			qsTr("Number of bins")
+										defaultValue:	30
+										min:			3;
+										max:			10000;
+										enabled:		binWidthType.currentValue === "manual"
 									}
 								}
 							}
