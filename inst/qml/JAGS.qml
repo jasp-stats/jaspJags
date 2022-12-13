@@ -224,9 +224,12 @@ Form
 							indexDefaultValue:	0
 							values:
 							[
-								{ label: qsTr("Stacked density"),		value: "stackedDensity"		},
-								{ label: qsTr("Density"),				value: "density"			}
+								{ label: qsTr("Stacked density"),		value: "stackedDensity"		}//,
+								// TODO: more options
+//								{ label: qsTr("Density"),				value: "density"			}
 							]
+							addEmptyValue: true
+							placeholderText: 		qsTr("None")
 						}
 
 						Group
@@ -356,6 +359,7 @@ Form
 
 							CheckBox
 							{
+//								id:					inferenceCustomizableShade
 								name:				"inferenceCustomizableShade"
 								label:				qsTr("Probability of")
 								childrenOnSameRow:	true
@@ -367,6 +371,8 @@ Form
 									leftLabel:		""
 									middleLabel:	qsTr("< \u03B8 < ")
 									rightLabel:		""
+//									anchors.top:	inferenceCustomizableShade.top
+//									anchors.alignWhenCentered:
 								}
 							}
 						}
@@ -376,8 +382,12 @@ Form
 
 				Group // Testing
 				{
+					// This part is not functional yet and therefore hidden and disabled
+					visible: false
+					enabled: false
+
 					indent: true
-					columns: 1
+					columns: 1				
 
 					Group
 					{

@@ -9,7 +9,7 @@ Description
 	version:		"0.17.0"
 	author:			"Don van den Bergh"
 	maintainer:		"Don van den Bergh <d.vandenBergh@jasp-stats.com>"
-	website:		"https://github.com/vandenman/BayesianReliability"
+	website:		"https://github.com/jasp-stats/jaspJags"
 	license:		"GPL (>= 2)"
 	icon:     		"analysis-JAGS.svg"
 	requiresData: 	false

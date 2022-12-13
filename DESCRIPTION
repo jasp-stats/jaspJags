@@ -19,6 +19,7 @@ Imports:
   jaspBase,
   jaspGraphs,
   rjags,
+  scales,
   stringr
 Suggests:
   testthat

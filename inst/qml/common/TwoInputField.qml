@@ -22,7 +22,6 @@ import JASP				1.0
 import JASP.Widgets		1.0
 import JASP.Controls	1.0
 
-//Group
 Item
 {
 	property	alias	name1:			leftInput.name;
@@ -33,10 +32,8 @@ Item
 
 	property	int		fieldWidth:		.5 * jaspTheme.textFieldWidth / 2 // .5 * default of FormulaField
 
-	id: twoInputField
 
-//	indent: false
-//	columns: 1
+	id: twoInputField
 
 	FormulaField
 	{
@@ -49,6 +46,15 @@ Item
 		// default validator for FormulaField does not seem to reset the value if it's incorrect?
 		validator:			JASPDoubleValidator { id: doubleValidatorLeft; bottom: leftInput.min; top: leftInput.max ; decimals: 50; notation: DoubleValidator.StandardNotation }
 		fieldWidth:			twoInputField.fieldWidth
+
+		// NOTE: this is not ideal, but seems necessary for childrenOnSameRow
+		anchors
+		{
+			top:		parent.top
+			topMargin:	parent.topMargin
+			left:		parent.left
+			leftMargin: parent.leftMargin
+		}
 	}
 
 	FormulaField

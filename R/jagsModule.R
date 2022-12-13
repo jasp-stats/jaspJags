@@ -222,7 +222,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     DIC                = deviance,
     samples            = samples,
     hasUserData        = !is.null(userData),
-    params             = params
+    params             = params,
+    rhat               = try(coda::gelman.diag(samples))
   )
 
   tmp <- createJaspState(object = out)
@@ -356,7 +357,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
     if (options[["chains"]] > 1L) {
 
-      rhat <- try(coda::gelman.diag(mcmcResult[["samples"]]))
+      rhat <- mcmcResult[["rhat"]]
       if (isTryError(rhat)) {
         tb$addFootnote(message = gettext("Failed to compute the Rhat statistic. This is expected if the model contains discrete parameters."),
                        colNames = c("rhatPoint", "rhatCI"))
@@ -807,7 +808,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     }
     container <- jaspResults[["mainContainer"]][[containerKey]]
     if (is.null(container)) {
-      print(sprintf("recomputing customContainer %s", containerKey))
       container <- createJaspContainer(
         title = gettextf("Custom output for %s", parameter),
         initCollapsed = length(parameters) > 1L,
@@ -818,8 +818,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
         deps = c("customInferenceParameter", "customInferenceParameterSubset", "customInferenceParameterOrder")
       ))
       jaspResults[["mainContainer"]][[containerKey]] <- container
-    } else {
-      print(sprintf("customContainer %s retrieved from state", containerKey))
     }
 
     customPlotOpts <- options[["customInference"]][[i]]
@@ -836,7 +834,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     if (customPlotOpts[["customInferencePlotsType"]] == "stackedDensity") {
       .JAGSstackedDensityPlot(container, mcmcResult, customPlotOpts, object, params, i)
     } else {
-      # TODO
+      # TODO more plots in the future
     }
 
     .JAGScustomTable(container, mcmcResult, customPlotOpts, object, params, i)
@@ -886,15 +884,18 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 }
 
 .JAGScomputeOverlayData <- function(customPlotOpts, params, plotData, yHeightPerDensity, npoints) {
+
   dataVar <- customPlotOpts[["customInferenceData"]]
   splitVar <- customPlotOpts[["customInferenceDataSplit"]]
   vars2read <- c(dataVar, splitVar)
   vars2read <- vars2read[vars2read != ""]
+
+  # TODO: JASP should encode this by default, but it does not...
   vars2read2 <- jaspBase::encodeColNames(vars2read)
-  print(sprintf("vars2read = %s\n", toString(vars2read)))
+  print(sprintf("vars2read = %s\n",  toString(vars2read)))
   print(sprintf("vars2read2 = %s\n", toString(vars2read2)))
   overlayRawData <- .readDataSetToEnd(columns = vars2read2)
-  print(head(overlayRawData))
+
   if (!identical(vars2read, vars2read2)) {
     dataVar <- vars2read2[[1L]]
     splitVar <- if (splitVar != "") vars2read2[2L]
@@ -936,14 +937,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   } else {
 
-    # TODO: fail gracefully if length(parameterOrder) > length(levels(factor(overlayRawData[[2L]])))!
-    levelsToKeep <- levels(factor(overlayRawData[[splitVar]]))[parameterOrder]
+    levelsInData <- if (is.factor(overlayRawData[[splitVar]])) levels(droplevels(overlayRawData[[splitVar]])) else levels(factor(overlayRawData[[splitVar]]))
+    if (length(levelsInData) < length(parameterOrder))
+      return(gettextf("Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than in the parameter or parameter subset (%3$d levels)",
+                      customPlotOpts[["customInferenceDataSplit"]], length(levelsInData), length(parameterOrder)))
+
+    levelsToKeep <- levelsInData[parameterOrder]
 
     rowIdx <- which(overlayRawData[[splitVar]] %in% levelsToKeep)
-    print(head(rowIdx))
-    print(class(rowIdx))
-    str(dataVar)
-    str(splitVar)
 
     if (customPlotOpts[["customInferenceOverlayGeomType"]] == "histogram") {
 
@@ -957,11 +958,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       h0 <- graphics::hist(overlayRawData[rowIdx, dataVar], plot = FALSE, breaks = breaks0)
       breaks <- h0$breaks
       nbars <- length(breaks) - 1L
-      print(sprintf("nbars = %s", nbars))
 
       groupData <- if (is.factor(overlayRawData[[splitVar]])) droplevels(overlayRawData[rowIdx, splitVar]) else overlayRawData[rowIdx, splitVar]
       hs <- tapply(overlayRawData[rowIdx, dataVar], groupData, hist, breaks = breaks, plot = FALSE)
-      print(lengths(hs))
 
       overlayData <- data.frame(
         x    = c(vapply(hs, `[[`, "mids",    FUN.VALUE = numeric(nbars))),
@@ -1111,6 +1110,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   criDelta <- (1 - criValue) / 2
   probs <- c(criDelta, 1 - criDelta)
   criBounds <- vapply(params, \(p) stats::quantile(unlist(mcmcResult[["samples"]][, p, ][[1L]]), probs = probs), FUN.VALUE = numeric(2L))
+  colnames(criBounds) <- params
   criPlotData <- .JAGSboundsToRibbonData(criBounds, plotData, yHeightPerDensity, npoints)
 
   result <- list(criBounds = criBounds, criPlotData = criPlotData)
@@ -1129,6 +1129,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   hdiValue <- customPlotOpts[[valueKey]]
   hdiBounds <- vapply(params, \(p) coda::HPDinterval(unlist(mcmcResult[["samples"]][, p, ][[1L]]), prob = hdiValue), FUN.VALUE = numeric(2L))
+  colnames(hdiBounds) <- params
   hdiPlotData <- .JAGSboundsToRibbonData(hdiBounds, plotData, yHeightPerDensity, npoints)
 
   result <- list(hdiBounds = hdiBounds, hdiPlotData = hdiPlotData)
@@ -1186,35 +1187,25 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   yHeightPerDensity <- object[["yHeightPerDensity"]]
 
   ribbon <- .JAGSRibbonDataToRibbon(object[["plotRibbonData"]])
-  histogram <- .JAGSoverlayDataToGeom(object[["overlayPlotData"]])
+  overlayGeomOrLabs <- .JAGSoverlayDataToGeom(object[["overlayPlotData"]])
 
-  # xMinAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMinX"]])) NULL else customPlotOpts[["customizablePlotsMinX"]]
-  # xMaxAdd <- if (is.infinite(customPlotOpts[["customizablePlotsMaxX"]])) NULL else customPlotOpts[["customizablePlotsMaxX"]]
-  # xAdd <- c(xMinAdd, xMaxAdd)
-  xAdd <- NULL
   xBreaks <- jaspGraphs::getPrettyAxisBreaks(plotData[["x"]])
-  # TODO: xBreaks should look at the overlayPlotData if it's there!
 
-  #
-  # if (!is.null(xAdd)) {
-  #   # ensures they both have are non-null
-  #   xMinAdd <- max(xMinAdd, xBreaks[1L])
-  #   xMaxAdd <- min(xMaxAdd, xBreaks[length(xBreaks)])
-  #   xAdd    <- sort(c(xMinAdd, xMaxAdd))
-  #   # keep everything inside of xAdd
-  #   xBreaks <- xBreaks[findInterval(xBreaks, xAdd) == 1L]
-  #   # edge case: xBreaks may be empty so we recompute it
-  #   if (length(xBreaks) == 0L) {
-  #     xBreaks <- jaspGraphs::getPrettyAxisBreaks(c(xBreaks, xMinAdd, xMaxAdd))
-  #     # edge case: recomputing the breaks may reintroduce values outside of xAdd so discard those values again
-  #     xBreaks <- xBreaks[findInterval(xBreaks, xAdd) == 1L]
-  #   }
-  # }
+  if (is.data.frame(object[["overlayPlotData"]])) {
+    width <- attr(object[["overlayPlotData"]], "width")
+    if (is.null(width)) { # density
+      xBreaks <- jaspGraphs::getPrettyAxisBreaks(c(xBreaks, object[["overlayPlotData"]][["x"]]))
+    } else { # histogram
+      extrema <- range(object[["overlayPlotData"]][["x"]])
+      extrema <- extrema + c(-width, width)
+      xBreaks <- jaspGraphs::getPrettyAxisBreaks(c(xBreaks, extrema))
+    }
+  }
 
-  xLimits <- range(xBreaks, xAdd)
+  xLimits <- range(xBreaks)
 
 
-  # slightly unusual heuristic but since we do not show the y-axis we want to be closer to tha maximum density
+  # slightly unusual heuristic but since we do not show the y-axis we want to be closer to the maximum density
   yLimits <- c(0, 0.1 * yHeightPerDensity + max(plotData[["y"]]))
   yBreaks <- c(seq(0, length = nparams, by = yHeightPerDensity), yLimits[2])
   if (any(grepl("[", params, fixed = TRUE))) {
@@ -1237,19 +1228,28 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     jaspGraphs::geom_abline2(data = dfAbline, mapping = ggplot2::aes(slope = slope, intercept = intercept),
                              color = "grey70", alpha = .70) +
     ribbon +
-    histogram +
+    overlayGeomOrLabs +
     ggplot2::geom_line() +
     ggplot2::scale_x_continuous(name = parameterName, breaks = xBreaks, limits = xLimits) +
     ggplot2::scale_y_continuous(name = "Density",     breaks = yBreaks, limits = yLimits, labels = yLabels) +
     jaspGraphs::geom_rangeframe(sides = "b") +
     jaspGraphs::themeJaspRaw() +
-    ggplot2::theme(axis.ticks.length.y = ggplot2::unit(0, "cm"), axis.line.y = ggplot2::element_blank(),
-                   axis.text.y = yTextElement)
+    ggplot2::theme(
+      axis.ticks.length.y = ggplot2::unit(0, "cm"),
+      axis.line.y         = ggplot2::element_blank(),
+      axis.text.y         = yTextElement,
+      plot.caption        = ggplot2::element_text(hjust = 0)
+    )
 
   jaspPlot <- createJaspPlot(plot = plt, title = gettext("Stacked density"), width = 400, height = 400 + 25 * nparams, position = 1L)
   jaspPlot$dependOn(optionsFromObject = container[["statePlotRibbonData"]], nestedOptions = .JAGSnestedDepsWithBase(
     base = c("customInference", i),
-    deps = c("shadeIntervalInPlot", "customInferencePlotInterval")
+    deps = c("customInferencePlotsType",
+             "shadeIntervalInPlot", "customInferencePlotInterval",
+             "customInferenceData", "customInferenceDataSplit",
+             "customInferenceOverlayGeomType",
+             "customInferenceOverlayHistogramBinWidthType",
+             "customInferenceOverlayHistogramManualNumberOfBins")
   ))
   container[[parameterName]] <- jaspPlot
 
@@ -1308,15 +1308,20 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 .JAGSoverlayDataToGeom <- function(overlayData) {
   if (is.null(overlayData))
     return(NULL)
+  if (is.character(overlayData)) # shown as a warning
+    return(ggplot2::labs(caption = paste(strwrap(overlayData, width = 55), collapse = "\n")))
   width <- attr(overlayData, "width")
   if (!is.null(width)) { # histogram
     return(ggplot2::geom_rect(
       mapping     = ggplot2::aes(xmin = x - width, xmax = x + width, ymin = ymin, ymax = ymax, group = g),
       data        = overlayData,
-      inherit.aes = FALSE
+      inherit.aes = FALSE,
+      fill        = scales::alpha("gray", .55),
+      color       = scales::alpha("black", .75)
     ))
-  } else { # density
-    return(ggplot2::geom_line(mapping = ggplot2::aes(x = x, y = y, group = g), data = overlayData, inherit.aes = FALSE))
+  } else { # density line (no shaded region under the curve since that may clash with the interval shown)
+    return(ggplot2::geom_line(mapping = ggplot2::aes(x = x, y = y, group = g), data = overlayData, inherit.aes = FALSE,
+                              color = "black", linetype = "dashed"))
   }
 }
 
@@ -1330,11 +1335,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   params <- paramsTotal[subset]
   nparams <- length(subset)
 
-  print(sprintf('customPlotOpts[["customInferenceParameterOrder"]] = %s', customPlotOpts[["customInferenceParameterOrder"]]))
   parameterOrder <- switch(customPlotOpts[["customInferenceParameterOrder"]],
                            "orderMean"   = order(vapplyNum(params, \(p)   mean(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
                            "orderMedian" = order(vapplyNum(params, \(p) median(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
-                           "orderSubset" = seq_along(params)
+                           "orderSubset" = rev(seq_along(params)) # so we show 3, 2, 1 when a user puts in 1:3
   )
 
   params <- params[parameterOrder]
@@ -1404,11 +1408,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   # Not sure if it is meaningful to compute these on a subset of the parameters... but we could show it computed on the total!
-  # overTitle <- gettext("Rhat")
-  # tb$addColumnInfo(name = "rhatPoint", title = gettext("Point est."),            type = "number", overtitle = overTitle)
-  # tb$addColumnInfo(name = "rhatCI",    title = gettext("Upper CI"),              type = "number", overtitle = overTitle)
+  if (customPlotOpts[["rhat"]]) {
+    overTitle <- gettext("Rhat")
+    tb$addColumnInfo(name = "rhatPoint", title = gettext("Point est."),            type = "number", overtitle = overTitle)
+    tb$addColumnInfo(name = "rhatCI",    title = gettext("Upper CI"),              type = "number", overtitle = overTitle)
+  }
 
-  tb$addColumnInfo(name = "neff",      title = gettext("Effective Sample Size"), type = "integer")
+  if (customPlotOpts[["ess"]])
+    tb$addColumnInfo(name = "neff",      title = gettext("Effective Sample Size"), type = "integer")
 
   container[["customTable"]] <- tb
   # TODO: check if we can actually show data, otherwise return
@@ -1436,7 +1443,13 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (customPlotOpts[["inferenceCustomizableShade"]])
     df <- cbind(df, customArea  = object[["customArea"]])
 
-  df[["neff"]] <- as.integer(mcmcResult[["BUGSoutput"]][["summary"]][params, "neff"])
+  if (customPlotOpts[["rhat"]])
+    df <- cbind(df,
+                rhatPoint = mcmcResult[["rhat"]][["psrf"]][params, 1L],
+                rhatCI    = mcmcResult[["rhat"]][["psrf"]][params, 2L])
+
+  if (customPlotOpts[["ess"]])
+    df[["neff"]] <- as.integer(mcmcResult[["BUGSoutput"]][["summary"]][params, "neff"])
 
   tb$setData(df)
 
@@ -1639,9 +1652,11 @@ vapplyLgl <- function(x, f, ...) { vapply(x, f, FUN.VALUE = logical(1L), ...)   
 
 .JAGSloadModules <- function(jaspResults) {
 
+  # TODO: fix this!
   print(sprintf("before jags.moddir = %s", options("jags.moddir")))
-  # options(jags.moddir = "/usr/lib/JAGS/modules-4")
-  # print(sprintf("after jags.moddir = %s", options("jags.moddir")))
+  if (is.null(getOption("jags.moddir")))
+    options(jags.moddir = "/usr/lib/JAGS/modules-4")
+  print(sprintf("after jags.moddir = %s", options("jags.moddir")))
 
   # just like R2jags, we just always load the modules
   e <- try({
