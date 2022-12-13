@@ -15,8 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# TODO: read https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-019-0666-3
-
 # This is a temporary fix
 # TODO: remove it when R will solve this problem!
 gettextf <- function(fmt, ..., domain = NULL)  {
@@ -35,7 +33,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # run model or update model
   mcmcResult  <- .JAGSrunMCMC(jaspResults, dataset, options)
-  #priorResult <- .JAGSrunMCMC(jaspResults, dataset, options, priorOnly = TRUE)
 
   # create output
   .JAGSoutputTable  (jaspResults, options, mcmcResult)
@@ -51,7 +48,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSrunMCMC <- function(jaspResults, dataset, options, priorOnly = FALSE) {
 
-  # TODO:
+  # TODO for inference:
   #
   # the option `priorOnly` does not work properly when userData
   # specifies something that cannot be sampled from the prior.
@@ -235,7 +232,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     tmp$dependOn("monitoredParameters")
 
   if (priorOnly) {
-    # TODO: how to do this?
+    # TODO for inference: how to do this?
     # options$customInference[[1]]$
     # tmp$dependOn(c(options))
   }
@@ -800,7 +797,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     parameter <- parameters[i]
     containerKey <- paste0("customInference", parameter)
 
-    # TODO: sometimes a tab contains invalid options... in that case we skip the list
+    # TODO: sometimes a tab contains invalid options... in that case we skip it and show an error
     if (.JAGSinvalidCustomOptions(options[["customInference"]][[i]])) {
       jaspResults[["mainContainer"]][[containerKey]] <-
         createJaspHtml(text = sprintf("options[[\"customInference\"]][[%d]] is invalid!", i), position = i + 1L)
@@ -982,7 +979,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
         iEnd <- i * npoints
         r <- iStart:iEnd
 
-        # TODO: maybe this should be hist?
         d <- stats::density(overlayRawDataSplit[[i]])
 
         overlayData[["x"]][r]    <- d[["x"]]
@@ -1021,7 +1017,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     )
   }
 
-  # TODO: something with the state goes wrong!
   tmp <- if (customPlotOpts[["shadeIntervalInPlot"]]) {
     switch(
       customPlotOpts[["customInferencePlotInterval"]],
@@ -1169,14 +1164,6 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, object, params, i) {
 
-  # TODO
-  # - [ ] color for the ribbons!
-  # - [ ] separate computation from plotting so the table can easily reuse the same values
-  # - [x] add y-axis labels for parameters!
-  # - [ ] when the ribbons of different densities overlap, maybe they should not blend?
-  # - [ ] rename HDI to HDP Interval?
-
-
   parameterName <- customPlotOpts[["customInferenceParameter"]]
   if (!is.null(container[[parameterName]]))
     return()
@@ -1275,14 +1262,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
     xValues <- plotData[r[insideIdx], "x"]
     yMin    <- yHeightPerDensity * (i - 1)
+
     # TODO: this might not be 100% compatible with plot editing or custom x-axis bounds!
-    # ribbonDataSubset <- data.frame(
-    #   x = c(xValues, xValues[length(xValues)], xValues[1L]),
-    #   y = c(plotData[r[insideIdx], "y"], yMin, yMin),
-    #   g = params[i]
-    # )
     ribbonDataSubset <- data.frame(
-      x    = plotData[r[insideIdx], "x"],#xValues,
+      x    = plotData[r[insideIdx], "x"],
       ymax = plotData[r[insideIdx], "y"],
       ymin = rep(yHeightPerDensity * (i - 1), nInside),
       g    = rep(params[i], nInside)
@@ -1418,7 +1401,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     tb$addColumnInfo(name = "neff",      title = gettext("Effective Sample Size"), type = "integer")
 
   container[["customTable"]] <- tb
-  # TODO: check if we can actually show data, otherwise return
+  if (is.null(mcmcResult) || container$getError())
+    return()
 
   # flip the params so that the order in the table matches that in the plot
   # the last row shows smallest/ most negative value and the first row shows the largest/ most positive value
@@ -1482,12 +1466,10 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 # TODO: perhaps just use purrr::map_chr & purrr::map_dbl, etc.?
 vapplyChr <- function(x, f, ...) { vapply(x, f, FUN.VALUE = character(1L), ...) }
 vapplyNum <- function(x, f, ...) { vapply(x, f, FUN.VALUE = numeric(1L), ...)   }
-vapplyLgl <- function(x, f, ...) { vapply(x, f, FUN.VALUE = logical(1L), ...)   }
-`%||%` <- function(a, b) { if (is.null(a)) b else a } # or just import from rlang
 
 .JAGScustomPlotUserWantsInference <- function(options) {
   for (opt in options[["customInference"]])
-    if (isTRUE(opt[["customInferenceSavageDickey"]])) # TODO: sometimes the list is longer than it should be!
+    if (isTRUE(opt[["customInferenceSavageDickey"]]))
       return(TRUE)
   return(FALSE)
 }
@@ -1679,7 +1661,8 @@ vapplyLgl <- function(x, f, ...) { vapply(x, f, FUN.VALUE = logical(1L), ...)   
       options$initialValues[[2L]]$values
     )
   )
-  # TODO: this is only defined in jasp, but not jaspBase!
+  # TODO: this is only defined in jasp & jaspTools, but not jaspBase!
+  # it should be added to jaspBase, because now jaspBase:::.allColumnNamesDataset fails
   allColumnNames <- .allColumnNamesDataset()
   columnsFound <- c()
   if (length(allColumnNames) > 0L)
