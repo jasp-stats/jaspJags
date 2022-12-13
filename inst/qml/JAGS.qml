@@ -156,7 +156,7 @@ Form
 								label: 				qsTr("Parameter")
 								name: 				"customInferenceParameter"
 								fieldWidth:			200 * preferencesModel.uiScale
-								source:             allParameters.checked ? ["monitoredParametersShown"] : ["monitoredParameters"]
+								source:				allParameters.checked ? ["monitoredParametersShown"] : ["monitoredParameters"]
 								controlMinWidth:	200 * preferencesModel.uiScale
 								addEmptyValue: 		true
 								placeholderText: 	qsTr("Select a parameter")
