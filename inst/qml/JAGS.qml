@@ -156,7 +156,7 @@ Form
 								label: 				qsTr("Parameter")
 								name: 				"customInferenceParameter"
 								fieldWidth:			200 * preferencesModel.uiScale
-								source:				allParameters.checked ? [{ name: "model", discard: { name: "userData", use: "Parameter"}}] : ["monitoredParameters"];
+								source:             allParameters.checked ? ["monitoredParametersShown"] : ["monitoredParameters"]
 								controlMinWidth:	200 * preferencesModel.uiScale
 								addEmptyValue: 		true
 								placeholderText: 	qsTr("Select a parameter")
@@ -333,10 +333,9 @@ Form
 						Group
 						{
 							title: qsTr("Summary statistics")
-							CheckBox { name: "mean";	label: qsTr("Mean");	checked: true	}
-							CheckBox { name: "median";	label: qsTr("Median");	checked: true	}
-							CheckBox { name: "sd";		label: qsTr("SD");		checked: true	}
-							// Could go under some tab called convergence? Don't really belong to estimation though...
+							CheckBox { name: "mean";	label: qsTr("Mean");					checked: true	}
+							CheckBox { name: "median";	label: qsTr("Median");					checked: true	}
+							CheckBox { name: "sd";		label: qsTr("SD");						checked: true	}
 							CheckBox { name: "rhat";	label: qsTr("R-hat");					checked: true	}
 							CheckBox { name: "ess";		label: qsTr("Effective sample size");	checked: true	}
 						}
@@ -359,7 +358,6 @@ Form
 
 							CheckBox
 							{
-//								id:					inferenceCustomizableShade
 								name:				"inferenceCustomizableShade"
 								label:				qsTr("Probability of")
 								childrenOnSameRow:	true
@@ -371,8 +369,6 @@ Form
 									leftLabel:		""
 									middleLabel:	qsTr("< \u03B8 < ")
 									rightLabel:		""
-//									anchors.top:	inferenceCustomizableShade.top
-//									anchors.alignWhenCentered:
 								}
 							}
 						}
@@ -418,7 +414,7 @@ Form
 							enabled: customInferenceSavageDickey.checked
 							name: "customInferenceSavageDickeyPriorMethod"
 							title: qsTr("Determine prior height with")
-							// TODO: figure out if we can do without this!
+							// TODO for inference: figure out if we can do without this!
 //							RadioButton
 //							{
 //								value: "sampledParameter";		label: qsTr("Parameter");	checked:true

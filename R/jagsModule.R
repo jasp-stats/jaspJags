@@ -905,9 +905,9 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     if (customPlotOpts[["customInferenceOverlayGeomType"]] == "histogram") {
 
       breaks <- if (customPlotOpts[["customInferenceOverlayHistogramBinWidthType"]] == "manual") {
-        options[["customInferenceOverlayHistogramManualNumberOfBins"]]
+        customPlotOpts[["customInferenceOverlayHistogramManualNumberOfBins"]]
       } else {
-        options[["customInferenceOverlayHistogramBinWidthType"]]
+        customPlotOpts[["customInferenceOverlayHistogramBinWidthType"]]
       }
       h <- graphics::hist(overlayRawData[[dataVar]], plot = FALSE, breaks = breaks)
       breaks <- h$breaks
