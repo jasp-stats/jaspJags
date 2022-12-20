@@ -133,7 +133,7 @@ Form
 			name:				"customInference"
 			maximumItems:		10
 			newItemName:		qsTr("Plot 1")
-			optionKey:			"customInferenceOptions"
+			optionKey:			"name"
 			Layout.columnSpan:	2
 
 			content: Group
@@ -154,7 +154,7 @@ Form
 							DropDown
 							{
 								label: 				qsTr("Parameter")
-								name: 				"customInferenceParameter"
+								name: 				"parameter"
 								fieldWidth:			200 * preferencesModel.uiScale
 								source:				allParameters.checked ? ["monitoredParametersShown"] : ["monitoredParameters"]
 								controlMinWidth:	200 * preferencesModel.uiScale
@@ -166,7 +166,7 @@ Form
 							{
 								id:						factorName
 								label:					qsTr("Parameter subset")
-								name:					"customInferenceParameterSubset"
+								name:					"parameterSubset"
 								placeholderText:		qsTr("Optional subset, e.g., 1:4 or 1, 3, 5:8 ")
 								fieldWidth:				200 * preferencesModel.uiScale
 								useExternalBorder:		false
@@ -184,7 +184,7 @@ Form
 							{
 								id:						customInferenceData
 								label:					qsTr("Data")
-								name:					"customInferenceData"
+								name:					"data"
 								fieldWidth:				200 * preferencesModel.uiScale
 								controlMinWidth:		200 * preferencesModel.uiScale
 								showVariableTypeIcon: 	true
@@ -195,7 +195,7 @@ Form
 							DropDown
 							{
 								label:					qsTr("Split by")
-								name:					"customInferenceDataSplit"
+								name:					"dataSplit"
 								fieldWidth:				200 * preferencesModel.uiScale
 								controlMinWidth:		200 * preferencesModel.uiScale
 								showVariableTypeIcon: 	true
@@ -220,7 +220,7 @@ Form
 						DropDown
 						{
 							label: 				qsTr("Plot type")
-							name: 				"customInferencePlotsType"
+							name: 				"plotsType"
 							indexDefaultValue:	0
 							values:
 							[
@@ -238,7 +238,7 @@ Form
 
 							RadioButtonGroup
 							{
-								name: "customInferenceParameterOrder"
+								name: "parameterOrder"
 								title: qsTr("Order parameters by")
 								RadioButton { value: "orderMean";		label: qsTr("Mean");	checked:true	}
 								RadioButton { value: "orderMedian";		label: qsTr("Median")					}
@@ -253,7 +253,7 @@ Form
 								RadioButtonGroup
 								{
 									title: qsTr("Intervals")
-									name: "customInferencePlotInterval"
+									name: "plotInterval"
 									RadioButton
 									{
 										value: "credibleIntervalShown"; label: qsTr("Credible Interval")
@@ -274,8 +274,8 @@ Form
 
 										Common.TwoInputField
 										{
-											name1:			"customInferencePlotCustomLow"
-											name2:			"customInferencePlotCustomHigh"
+											name1:			"plotCustomLow"
+											name2:			"plotCustomHigh"
 											leftLabel:		""
 											middleLabel:	qsTr("< \u03B8 < ")
 											rightLabel:		""
@@ -287,13 +287,13 @@ Form
 							{
 								enabled:	customInferenceData.currentValue !== ""
 								title:		qsTr("Plot type for superimposed data")
-								name:		"customInferenceOverlayGeomType"
+								name:		"overlayGeomType"
 								RadioButton { value: "density"; label: qsTr("Density")	}
 								RadioButton {
 									value: "histogram"
 									label: qsTr("Histogram")
 									DropDown {
-										name: "customInferenceOverlayHistogramBinWidthType"
+										name: "overlayHistogramBinWidthType"
 										label: qsTr("Bin width type")
 										indexDefaultValue: 0
 										values: [
@@ -307,7 +307,7 @@ Form
 									}
 									IntegerField
 									{
-										name:			"customInferenceOverlayHistogramManualNumberOfBins"
+										name:			"overlayHistogramManualNumberOfBins"
 										label:			qsTr("Number of bins")
 										defaultValue:	30
 										min:			3;
@@ -383,7 +383,7 @@ Form
 					enabled: false
 
 					indent: true
-					columns: 1				
+					columns: 1
 
 					Group
 					{
@@ -393,13 +393,13 @@ Form
 						CheckBox
 						{
 							id:					customInferenceSavageDickey
-							name:				"customInferenceSavageDickey"
+							name:				"savageDickeyavageDickey"
 							label:				qsTr("Savage-Dickey")
 							childrenOnSameRow:	true
 							FormulaField
 							{
 								label:				""
-								name:				"customInferenceSavageDickeyPoint"
+								name:				"savageDickeyavageDickeyPoint"
 								value:				"0"
 								inclusive:			JASP.None
 								useExternalBorder:	false
@@ -412,7 +412,7 @@ Form
 						RadioButtonGroup
 						{
 							enabled: customInferenceSavageDickey.checked
-							name: "customInferenceSavageDickeyPriorMethod"
+							name: "savageDickeyavageDickeyPriorMethod"
 							title: qsTr("Determine prior height with")
 							// TODO for inference: figure out if we can do without this!
 //							RadioButton
@@ -422,7 +422,7 @@ Form
 //								DropDown
 //								{
 //									label: 				""
-//									name: 				"customInferenceSavageDickeySamplingType"
+//									name: 				"savageDickeyavageDickeySamplingType"
 //									indexDefaultValue:	0
 //									values:
 //									[
@@ -438,7 +438,7 @@ Form
 								DropDown
 								{
 									label: 				""
-									name: 				"customInferenceSavageDickeySamplingType"
+									name: 				"savageDickeyavageDickeySamplingType"
 									indexDefaultValue:	0
 									values:
 									[
@@ -454,7 +454,7 @@ Form
 								FormulaField
 								{
 									label:				""
-									name:				"customInferenceSavageDickeyPriorHeight"
+									name:				"savageDickeyavageDickeyPriorHeight"
 									value:				"0"
 									inclusive:			JASP.None
 									useExternalBorder:	false
@@ -467,8 +467,8 @@ Form
 
 						RadioButtonGroup
 						{
-							enabled: customInferenceSavageDickey.checked
-							name: "customInferenceSavageDickeyPosteriorMethod"
+							enabled: savageDickeyavageDickey.checked
+							name: "savageDickeyavageDickeyPosteriorMethod"
 							title: qsTr("Determine posterior height with")
 							RadioButton
 							{
@@ -477,7 +477,7 @@ Form
 								DropDown
 								{
 									label: 				""
-									name: 				"customInferenceSavageDickeyPosteriorSamplingType"
+									name: 				"savageDickeyavageDickeyPosteriorSamplingType"
 									indexDefaultValue:	0
 									values:
 									[

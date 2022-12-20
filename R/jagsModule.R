@@ -789,7 +789,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 # Custom inference ----
 .JAGScustomInference <- function(jaspResults, options, mcmcResult) {
 
-  parameters <- vapplyChr(options[["customInference"]], `[[`, "customInferenceParameter")
+  parameters <- vapplyChr(options[["customInference"]], `[[`, "parameter")
   parameters <- parameters[parameters != ""]
 
   for (i in seq_along(parameters)) {
@@ -812,7 +812,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       )
       container$dependOn(nestedOptions = .JAGSnestedDepsWithBase(
         base = c("customInference", i),
-        deps = c("customInferenceParameter", "customInferenceParameterSubset", "customInferenceParameterOrder")
+        deps = c("parameter", "parameterSubset", "parameterOrder")
       ))
       jaspResults[["mainContainer"]][[containerKey]] <- container
     }
@@ -820,7 +820,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     customPlotOpts <- options[["customInference"]][[i]]
     customPlotOpts <- jaspBase::.parseAndStoreFormulaOptions(
       container, customPlotOpts,
-      c("customInferencePlotCustomLow", "customInferencePlotCustomHigh", "inferenceCustomLow", "inferenceCustomHigh")
+      c("plotCustomLow", "plotCustomHigh", "inferenceCustomLow", "inferenceCustomHigh")
     )
 
     params <- .JAGSgetCustomPlotParameters(mcmcResult, customPlotOpts)
@@ -828,7 +828,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     # computes all relevant information
     object <- .JAGScomputeCustomInference(container, mcmcResult, customPlotOpts, params, i)
 
-    if (customPlotOpts[["customInferencePlotsType"]] == "stackedDensity") {
+    if (customPlotOpts[["plotsType"]] == "stackedDensity") {
       .JAGSstackedDensityPlot(container, mcmcResult, customPlotOpts, object, params, i)
     } else {
       # TODO more plots in the future
@@ -841,7 +841,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSinvalidCustomOptions <- function(opts) {
   !is.list(opts) || !all(
-    c("customInferenceParameter", "customInferenceParameterSubset", "customInferenceParameterOrder")
+    c("parameter", "parameterSubset", "parameterOrder")
     %in% names(opts)
   )
 }
@@ -882,8 +882,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGScomputeOverlayData <- function(customPlotOpts, params, plotData, yHeightPerDensity, npoints) {
 
-  dataVar <- customPlotOpts[["customInferenceData"]]
-  splitVar <- customPlotOpts[["customInferenceDataSplit"]]
+  dataVar <- customPlotOpts[["data"]]
+  splitVar <- customPlotOpts[["dataSplit"]]
   vars2read <- c(dataVar, splitVar)
   vars2read <- vars2read[vars2read != ""]
 
@@ -900,14 +900,14 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   parameterOrder <- attr(params, "order")
   ngroups <- length(parameterOrder)
 
-  if (customPlotOpts[["customInferenceDataSplit"]] == "") {
+  if (customPlotOpts[["dataSplit"]] == "") {
 
-    if (customPlotOpts[["customInferenceOverlayGeomType"]] == "histogram") {
+    if (customPlotOpts[["overlayGeomType"]] == "histogram") {
 
-      breaks <- if (customPlotOpts[["customInferenceOverlayHistogramBinWidthType"]] == "manual") {
-        customPlotOpts[["customInferenceOverlayHistogramManualNumberOfBins"]]
+      breaks <- if (customPlotOpts[["overlayHistogramBinWidthType"]] == "manual") {
+        customPlotOpts[["overlayHistogramManualNumberOfBins"]]
       } else {
-        customPlotOpts[["customInferenceOverlayHistogramBinWidthType"]]
+        customPlotOpts[["overlayHistogramBinWidthType"]]
       }
       h <- graphics::hist(overlayRawData[[dataVar]], plot = FALSE, breaks = breaks)
       breaks <- h$breaks
@@ -937,19 +937,19 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
     levelsInData <- if (is.factor(overlayRawData[[splitVar]])) levels(droplevels(overlayRawData[[splitVar]])) else levels(factor(overlayRawData[[splitVar]]))
     if (length(levelsInData) < length(parameterOrder))
       return(gettextf("Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than in the parameter or parameter subset (%3$d levels)",
-                      customPlotOpts[["customInferenceDataSplit"]], length(levelsInData), length(parameterOrder)))
+                      customPlotOpts[["dataSplit"]], length(levelsInData), length(parameterOrder)))
 
     levelsToKeep <- levelsInData[parameterOrder]
 
     rowIdx <- which(overlayRawData[[splitVar]] %in% levelsToKeep)
 
-    if (customPlotOpts[["customInferenceOverlayGeomType"]] == "histogram") {
+    if (customPlotOpts[["overlayGeomType"]] == "histogram") {
 
       # first compute the histogram on all the data to obtain the breaks
-      breaks0 <- if (customPlotOpts[["customInferenceOverlayHistogramBinWidthType"]] == "manual") {
-        customPlotOpts[["customInferenceOverlayHistogramManualNumberOfBins"]]
+      breaks0 <- if (customPlotOpts[["overlayHistogramBinWidthType"]] == "manual") {
+        customPlotOpts[["overlayHistogramManualNumberOfBins"]]
       } else {
-        customPlotOpts[["customInferenceOverlayHistogramBinWidthType"]]
+        customPlotOpts[["overlayHistogramBinWidthType"]]
       }
 
       h0 <- graphics::hist(overlayRawData[rowIdx, dataVar], plot = FALSE, breaks = breaks0)
@@ -996,21 +996,21 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   plotData <- container[["statePlotData"]] %setOrRetrieve% (
     .JAGScomputeStackedDensityPlotData(params, mcmcResult) |>
-      createJaspState(jaspDeps(nestedOptions = list(c("customInference", i, "customInferenceParameter"))))
+      createJaspState(jaspDeps(nestedOptions = list(c("customInference", i, "parameter"))))
   )
   yHeightPerDensity <- plotData[["yHeightPerDensity"]]
   plotData          <- plotData[["plotData"]]
 
-  overlayPlotData <- if (customPlotOpts[["customInferenceData"]] != "") {
+  overlayPlotData <- if (customPlotOpts[["data"]] != "") {
     container[["stateOverlayPlotData"]] %setOrRetrieve% (
       .JAGScomputeOverlayData(customPlotOpts, params, plotData, yHeightPerDensity, npoints) |>
         createJaspState(jaspDeps(
           nestedOptions = .JAGSnestedDepsWithBase(
             base = c("customInference", i),
-            deps = c("customInferenceData", "customInferenceDataSplit",
-                     "customInferenceOverlayGeomType",
-                     "customInferenceOverlayHistogramBinWidthType",
-                     "customInferenceOverlayHistogramManualNumberOfBins")
+            deps = c("data", "dataSplit",
+                     "overlayGeomType",
+                     "overlayHistogramBinWidthType",
+                     "overlayHistogramManualNumberOfBins")
           ),
           optionsFromObject = container[["statePlotData"]]
         ))
@@ -1019,7 +1019,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   tmp <- if (customPlotOpts[["shadeIntervalInPlot"]]) {
     switch(
-      customPlotOpts[["customInferencePlotInterval"]],
+      customPlotOpts[["plotInterval"]],
       "credibleIntervalShown" = .JAGScomputCustomCri(
         customPlotOpts, params, mcmcResult, plotData, yHeightPerDensity, npoints, i, container,
         valueKey = "credibleIntervalValue",
@@ -1032,8 +1032,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
       ),
       "customizableShade" = .JAGScomputeCustomArea(
         customPlotOpts, params, plotData, yHeightPerDensity, npoints, mcmcResult, i, container,
-        valueKeyLow  = "customInferencePlotCustomLow",
-        valueKeyHigh = "customInferencePlotCustomHigh",
+        valueKeyLow  = "plotCustomLow",
+        valueKeyHigh = "plotCustomHigh",
         stateKey     = "statePlotRibbonData"
       )
     )
@@ -1043,7 +1043,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   # ensure plotRibbonData also depends on the selected radiobutton value
   if (!is.null(container[["statePlotRibbonData"]]))
-    container[["statePlotRibbonData"]]$dependOn(nestedOptions = c("customInference", i, "customInferencePlotInterval"))
+    container[["statePlotRibbonData"]]$dependOn(nestedOptions = c("customInference", i, "plotInterval"))
 
   tmp <- if (customPlotOpts[["inferenceCredibleIntervalShown"]]) {
     .JAGScomputCustomCri(
@@ -1164,7 +1164,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSstackedDensityPlot <- function(container, mcmcResult, customPlotOpts, object, params, i) {
 
-  parameterName <- customPlotOpts[["customInferenceParameter"]]
+  parameterName <- customPlotOpts[["parameter"]]
   if (!is.null(container[[parameterName]]))
     return()
 
@@ -1231,12 +1231,12 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   jaspPlot <- createJaspPlot(plot = plt, title = gettext("Stacked density"), width = 400, height = 400 + 25 * nparams, position = 1L)
   jaspPlot$dependOn(optionsFromObject = container[["statePlotRibbonData"]], nestedOptions = .JAGSnestedDepsWithBase(
     base = c("customInference", i),
-    deps = c("customInferencePlotsType",
-             "shadeIntervalInPlot", "customInferencePlotInterval",
-             "customInferenceData", "customInferenceDataSplit",
-             "customInferenceOverlayGeomType",
-             "customInferenceOverlayHistogramBinWidthType",
-             "customInferenceOverlayHistogramManualNumberOfBins")
+    deps = c("plotsType",
+             "shadeIntervalInPlot", "plotInterval",
+             "data", "dataSplit",
+             "overlayGeomType",
+             "overlayHistogramBinWidthType",
+             "overlayHistogramManualNumberOfBins")
   ))
   container[[parameterName]] <- jaspPlot
 
@@ -1310,15 +1310,15 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGSgetCustomPlotParameters <- function(mcmcResult, customPlotOpts) {
 
-  parameterName <- customPlotOpts[["customInferenceParameter"]]
+  parameterName <- customPlotOpts[["parameter"]]
   paramsTotal <- mcmcResult$params[[parameterName]]
   nparamsTotal <- length(paramsTotal)
 
-  subset <- .JAGScustomInferenceParameterSubset(customPlotOpts[["customInferenceParameterSubset"]], nparamsTotal)
+  subset <- .JAGSparameterSubset(customPlotOpts[["parameterSubset"]], nparamsTotal)
   params <- paramsTotal[subset]
   nparams <- length(subset)
 
-  parameterOrder <- switch(customPlotOpts[["customInferenceParameterOrder"]],
+  parameterOrder <- switch(customPlotOpts[["parameterOrder"]],
                            "orderMean"   = order(vapplyNum(params, \(p)   mean(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
                            "orderMedian" = order(vapplyNum(params, \(p) median(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
                            "orderSubset" = rev(seq_along(params)) # so we show 3, 2, 1 when a user puts in 1:3
@@ -1329,7 +1329,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   return(params)
 }
 
-.JAGScustomInferenceParameterSubset <- function(userSubset, nparams) {
+.JAGSparameterSubset <- function(userSubset, nparams) {
 
   if (identical(userSubset, ""))
     return(seq_len(nparams))
@@ -1353,7 +1353,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (!any(unlist(customPlotOpts[enablingOptions], use.names = FALSE)))
     return()
 
-  parameterName <- customPlotOpts[["customInferenceParameter"]]
+  parameterName <- customPlotOpts[["parameter"]]
   tb <- createJaspTable(title = gettextf("Inference for %s", parameterName), position = 2L)
 
   tb$dependOn(nestedOptions = .JAGSnestedDepsWithBase(
@@ -1469,7 +1469,7 @@ vapplyNum <- function(x, f, ...) { vapply(x, f, FUN.VALUE = numeric(1L), ...)   
 
 .JAGScustomPlotUserWantsInference <- function(options) {
   for (opt in options[["customInference"]])
-    if (isTRUE(opt[["customInferenceSavageDickey"]]))
+    if (isTRUE(opt[["savageDickeyavageDickey"]]))
       return(TRUE)
   return(FALSE)
 }
