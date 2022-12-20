@@ -1020,17 +1020,17 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   tmp <- if (customPlotOpts[["shadeIntervalInPlot"]]) {
     switch(
       customPlotOpts[["plotInterval"]],
-      "credibleIntervalShown" = .JAGScomputCustomCri(
+      "ci" = .JAGScomputCustomCri(
         customPlotOpts, params, mcmcResult, plotData, yHeightPerDensity, npoints, i, container,
-        valueKey = "credibleIntervalValue",
+        valueKey = "ciLevel",
         stateKey = "statePlotRibbonData"
       ),
-      "hdiShown" = .JAGScomputCustomHdi(
+      "hdi" = .JAGScomputCustomHdi(
         customPlotOpts, params, mcmcResult, plotData, yHeightPerDensity, npoints, i, container,
-        valueKey = "hdiValue",
+        valueKey = "hdiLevel",
         stateKey = "statePlotRibbonData"
       ),
-      "customizableShade" = .JAGScomputeCustomArea(
+      "manual" = .JAGScomputeCustomArea(
         customPlotOpts, params, plotData, yHeightPerDensity, npoints, mcmcResult, i, container,
         valueKeyLow  = "plotCustomLow",
         valueKeyHigh = "plotCustomHigh",
@@ -1045,27 +1045,27 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (!is.null(container[["statePlotRibbonData"]]))
     container[["statePlotRibbonData"]]$dependOn(nestedOptions = c("customInference", i, "plotInterval"))
 
-  tmp <- if (customPlotOpts[["inferenceCredibleIntervalShown"]]) {
+  tmp <- if (customPlotOpts[["inferenceCi"]]) {
     .JAGScomputCustomCri(
       customPlotOpts, params, mcmcResult, plotData, yHeightPerDensity, npoints, i, container,
-      valueKey = "inferenceCredibleIntervalValue",
+      valueKey = "inferenceCiLevel",
       stateKey = "stateInfCriPlotData"
     )
   }
   criBounds   <- tmp[["criBounds"]]
   criPlotData <- tmp[["criPlotData"]]
 
-  tmp <- if (customPlotOpts[["inferenceHdiShown"]]) {
+  tmp <- if (customPlotOpts[["inferenceHdi"]]) {
     .JAGScomputCustomHdi(
       customPlotOpts, params, mcmcResult, plotData, yHeightPerDensity, npoints, i, container,
-      valueKey = "inferenceHdiValue",
+      valueKey = "inferenceHdiLevel",
       stateKey = "stateInfHdiPlotData"
     )
   }
   hdiPlotData <- tmp[["hdiPlotData"]]
   hdiBounds   <- tmp[["hdiBounds"]]
 
-  tmp <- if (customPlotOpts[["inferenceCustomizableShade"]]) {
+  tmp <- if (customPlotOpts[["inferenceManual"]]) {
     .JAGScomputeCustomArea(
       customPlotOpts, params, plotData, yHeightPerDensity, npoints, mcmcResult, i, container,
       valueKeyLow  = "inferenceCustomLow",
@@ -1122,8 +1122,8 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (!is.null(container[[stateKey]]))
     return(container[[stateKey]]$object)
 
-  hdiValue <- customPlotOpts[[valueKey]]
-  hdiBounds <- vapply(params, \(p) coda::HPDinterval(unlist(mcmcResult[["samples"]][, p, ][[1L]]), prob = hdiValue), FUN.VALUE = numeric(2L))
+  hdiLevel <- customPlotOpts[[valueKey]]
+  hdiBounds <- vapply(params, \(p) coda::HPDinterval(unlist(mcmcResult[["samples"]][, p, ][[1L]]), prob = hdiLevel), FUN.VALUE = numeric(2L))
   colnames(hdiBounds) <- params
   hdiPlotData <- .JAGSboundsToRibbonData(hdiBounds, plotData, yHeightPerDensity, npoints)
 
@@ -1346,7 +1346,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   enablingOptions <- c(
     "mean", "median", "sd", "rhat",
-    "inferenceCredibleIntervalShown", "inferenceHdiShown", "inferenceCustomizableShade"
+    "inferenceCi", "inferenceHdi", "inferenceManual"
   )
 
   # hide table if no option is checked
@@ -1358,7 +1358,7 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
 
   tb$dependOn(nestedOptions = .JAGSnestedDepsWithBase(
     base = c("customInference", i),
-    deps = c(enablingOptions, "inferenceCredibleIntervalValue", "inferenceHdiValue",
+    deps = c(enablingOptions, "inferenceCiLevel", "inferenceHdiLevel",
              "inferenceCustomLow", "inferenceCustomHigh")
   ))
 
@@ -1369,19 +1369,19 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (customPlotOpts[["median"]]) tb$addColumnInfo(name = "50%",       title = gettext("Median"),                type = "number", overtitle = overTitle)
   if (customPlotOpts[["sd"]])     tb$addColumnInfo(name = "SD",        title = gettext("SD"),                    type = "number", overtitle = overTitle)
 
-  if (customPlotOpts[["inferenceCredibleIntervalShown"]]) {
-    overTitle <- gettextf("%s%% Credible Interval", 100 * customPlotOpts[["credibleIntervalValue"]])
+  if (customPlotOpts[["inferenceCi"]]) {
+    overTitle <- gettextf("%s%% Credible Interval", 100 * customPlotOpts[["ciLevel"]])
     tb$addColumnInfo(name = "criLower",     title = gettext("Lower"),                 type = "number", overtitle = overTitle)
     tb$addColumnInfo(name = "criHigher",    title = gettext("Upper"),                 type = "number", overtitle = overTitle)
   }
 
-  if (customPlotOpts[["inferenceHdiShown"]]) {
-    overTitle <- gettextf("%s%% HDI", 100 * customPlotOpts[["hdiValue"]])
+  if (customPlotOpts[["inferenceHdi"]]) {
+    overTitle <- gettextf("%s%% HDI", 100 * customPlotOpts[["hdiLevel"]])
     tb$addColumnInfo(name = "hdiLower",     title = gettext("Lower"),                 type = "number", overtitle = overTitle)
     tb$addColumnInfo(name = "hdiHigher",    title = gettext("Upper"),                 type = "number", overtitle = overTitle)
   }
 
-  if (customPlotOpts[["inferenceCustomizableShade"]]) {
+  if (customPlotOpts[["inferenceManual"]]) {
     title <- gettextf("%1$s(%2$s < %3$s < %4$s)",
                       "\u2119", # fancy P
                       customPlotOpts[["inferenceCustomLow"]],
@@ -1414,17 +1414,17 @@ JAGS <- function(jaspResults, dataset, options, state = NULL) {
   if (length(summarySubset) > 0L)
     df <- cbind(df,
                 as.data.frame(mcmcResult[["BUGSoutput"]][["summary"]][params, summarySubset, drop = FALSE]))
-  if (customPlotOpts[["inferenceCredibleIntervalShown"]])
+  if (customPlotOpts[["inferenceCi"]])
     df <- cbind(df,
                 criLower  = object[["criBounds"]][1L, ],
                 criHigher = object[["criBounds"]][2L, ])
 
-  if (customPlotOpts[["inferenceHdiShown"]])
+  if (customPlotOpts[["inferenceHdi"]])
     df <- cbind(df,
                 hdiLower  = object[["hdiBounds"]][1L, ],
                 hdiHigher = object[["hdiBounds"]][2L, ])
 
-  if (customPlotOpts[["inferenceCustomizableShade"]])
+  if (customPlotOpts[["inferenceManual"]])
     df <- cbind(df, customArea  = object[["customArea"]])
 
   if (customPlotOpts[["rhat"]])

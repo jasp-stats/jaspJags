@@ -256,19 +256,19 @@ Form
 									name: "plotInterval"
 									RadioButton
 									{
-										value: "credibleIntervalShown"; label: qsTr("Credible Interval")
+										value: "ci"; label: qsTr("Credible Interval")
 										childrenOnSameRow: true
-										CIField { name: "credibleIntervalValue" }
+										CIField { name: "ciLevel" }
 									}
 									RadioButton
 									{
-										value: "hdiShown"; label: qsTr("HDI")
+										value: "hdi"; label: qsTr("HDI")
 										childrenOnSameRow: true
-										CIField { name: "hdiValue" }
+										CIField { name: "hdiLevel" }
 									}
 									RadioButton
 									{
-										name:				"customizableShade"
+										name:				"manual"
 										label:				qsTr("Area where")
 										childrenOnSameRow:	true
 
@@ -345,20 +345,20 @@ Form
 							title: qsTr("Intervals")
 							CheckBox
 							{
-								name: "inferenceCredibleIntervalShown"; label: qsTr("Credible Interval")
+								name: "inferenceCi"; label: qsTr("Credible Interval")
 								childrenOnSameRow: true
-								CIField { name: "inferenceCredibleIntervalValue" }
+								CIField { name: "inferenceCiLevel" }
 							}
 							CheckBox
 							{
-								name: "inferenceHdiShown"; label: qsTr("HDI")
+								name: "inferenceHdi"; label: qsTr("HDI")
 								childrenOnSameRow: true
-								CIField { name: "inferenceHdiValue" }
+								CIField { name: "inferenceHdiLevel" }
 							}
 
 							CheckBox
 							{
-								name:				"inferenceCustomizableShade"
+								name:				"inferenceManual"
 								label:				qsTr("Probability of")
 								childrenOnSameRow:	true
 

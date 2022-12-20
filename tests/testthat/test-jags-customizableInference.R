@@ -1,23 +1,23 @@
 options <- analysisOptions("JAGS")
-options$customInference <- list(list(credibleIntervalValue = 0.95, data = "contNormal",
+options$customInference <- list(list(ciLevel = 0.95, data = "contNormal",
                                      dataSplit = "facFive", name = "Plot 1",
                                      overlayGeomType = "histogram", overlayHistogramBinWidthType = "manual",
                                      overlayHistogramManualNumberOfBins = 30, parameter = "mu",
                                      parameterOrder = "orderMean", parameterSubset = "",
                                      plotCustomHigh = "1", plotCustomLow = "0",
-                                     plotInterval = "hdiShown", plotsType = "stackedDensity",
+                                     plotInterval = "hdi", plotsType = "stackedDensity",
                                      savageDickeyavageDickey = FALSE, savageDickeyavageDickeyPoint = "0",
                                      savageDickeyavageDickeyPosteriorMethod = "samplingPosteriorPoint",
                                      savageDickeyavageDickeyPosteriorSamplingType = "normalKernel",
                                      savageDickeyavageDickeyPriorHeight = "0", savageDickeyavageDickeyPriorMethod = "sampling",
                                      savageDickeyavageDickeySamplingType = "normalKernel",
-                                     ess = TRUE, hdiValue = 0.95, inferenceCredibleIntervalShown = TRUE,
-                                     inferenceCredibleIntervalValue = 0.95, inferenceCustomHigh = "1",
-                                     inferenceCustomLow = "0", inferenceCustomizableShade = TRUE,
-                                     inferenceHdiShown = TRUE, inferenceHdiValue = 0.95, mean = TRUE,
+                                     ess = TRUE, hdiLevel = 0.95, inferenceCi = TRUE,
+                                     inferenceCiLevel = 0.95, inferenceCustomHigh = "1",
+                                     inferenceCustomLow = "0", inferenceManual = TRUE,
+                                     inferenceHdi = TRUE, inferenceHdiLevel = 0.95, mean = TRUE,
                                      median = TRUE, rhat = TRUE, sd = TRUE, shadeIntervalInPlot = TRUE))
 options$overlayGeomType <- "density"
-options$plotInterval <- "credibleIntervalShown"
+options$plotInterval <- "ci"
 options$deviance <- FALSE
 options$exportSamplesFile <- ""
 options$initialValues <- list(list(levels = c("Row 1", "Row 2"), name = "Parameter", values = c("tau",
@@ -105,42 +105,42 @@ test_that("Stacked density plot with incorrect split by matches", {
 
 
 options <- analysisOptions("JAGS")
-options$customInference <- list(list(credibleIntervalValue = 0.95, data = "",
+options$customInference <- list(list(ciLevel = 0.95, data = "",
                                      dataSplit = "", name = "Plot 1",
                                      overlayGeomType = "histogram", overlayHistogramBinWidthType = "manual",
                                      overlayHistogramManualNumberOfBins = 30, parameter = "mu",
                                      parameterOrder = "orderMean", parameterSubset = "1:10",
                                      plotCustomHigh = "1", plotCustomLow = "0",
-                                     plotInterval = "hdiShown", plotsType = "stackedDensity",
+                                     plotInterval = "hdi", plotsType = "stackedDensity",
                                      savageDickeyavageDickey = FALSE, savageDickeyavageDickeyPoint = "0",
                                      savageDickeyavageDickeyPosteriorMethod = "samplingPosteriorPoint",
                                      savageDickeyavageDickeyPosteriorSamplingType = "normalKernel",
                                      savageDickeyavageDickeyPriorHeight = "0", savageDickeyavageDickeyPriorMethod = "sampling",
                                      savageDickeyavageDickeySamplingType = "normalKernel",
-                                     ess = TRUE, hdiValue = 0.95, inferenceCredibleIntervalShown = TRUE,
-                                     inferenceCredibleIntervalValue = 0.95, inferenceCustomHigh = "1",
-                                     inferenceCustomLow = "0", inferenceCustomizableShade = TRUE,
-                                     inferenceHdiShown = TRUE, inferenceHdiValue = 0.95, mean = TRUE,
+                                     ess = TRUE, hdiLevel = 0.95, inferenceCi = TRUE,
+                                     inferenceCiLevel = 0.95, inferenceCustomHigh = "1",
+                                     inferenceCustomLow = "0", inferenceManual = TRUE,
+                                     inferenceHdi = TRUE, inferenceHdiLevel = 0.95, mean = TRUE,
                                      median = TRUE, rhat = TRUE, sd = TRUE, shadeIntervalInPlot = TRUE),
-                                list(credibleIntervalValue = 0.95, data = "",
+                                list(ciLevel = 0.95, data = "",
                                      dataSplit = "", name = "Plot 2",
                                      overlayGeomType = "density", overlayHistogramBinWidthType = "sturges",
                                      overlayHistogramManualNumberOfBins = 30,
                                      parameter = "tau", parameterOrder = "orderMean",
                                      parameterSubset = "1:9", plotCustomHigh = "1",
-                                     plotCustomLow = "0", plotInterval = "customizableShade",
+                                     plotCustomLow = "0", plotInterval = "manual",
                                      plotsType = "stackedDensity", savageDickeyavageDickey = FALSE,
                                      savageDickeyavageDickeyPoint = "0", savageDickeyavageDickeyPosteriorMethod = "samplingPosteriorPoint",
                                      savageDickeyavageDickeyPosteriorSamplingType = "normalKernel",
                                      savageDickeyavageDickeyPriorHeight = "0", savageDickeyavageDickeyPriorMethod = "sampling",
                                      savageDickeyavageDickeySamplingType = "normalKernel",
-                                     ess = TRUE, hdiValue = 0.95, inferenceCredibleIntervalShown = FALSE,
-                                     inferenceCredibleIntervalValue = 0.95, inferenceCustomHigh = "1",
-                                     inferenceCustomLow = "0", inferenceCustomizableShade = FALSE,
-                                     inferenceHdiShown = FALSE, inferenceHdiValue = 0.95,
+                                     ess = TRUE, hdiLevel = 0.95, inferenceCi = FALSE,
+                                     inferenceCiLevel = 0.95, inferenceCustomHigh = "1",
+                                     inferenceCustomLow = "0", inferenceManual = FALSE,
+                                     inferenceHdi = FALSE, inferenceHdiLevel = 0.95,
                                      mean = TRUE, median = TRUE, rhat = TRUE, sd = TRUE, shadeIntervalInPlot = TRUE))
 options$overlayGeomType <- "density"
-options$plotInterval <- "credibleIntervalShown"
+options$plotInterval <- "ci"
 options$deviance <- FALSE
 options$exportSamplesFile <- ""
 options$initialValues <- list(list(levels = c("Row 1", "Row 2", "Row 3", "Row 4", "Row 5",
