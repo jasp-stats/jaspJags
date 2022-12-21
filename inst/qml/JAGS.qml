@@ -393,13 +393,13 @@ Form
 						CheckBox
 						{
 							id:					customInferenceSavageDickey
-							name:				"savageDickeyavageDickey"
+							name:				"savageDickey"
 							label:				qsTr("Savage-Dickey")
 							childrenOnSameRow:	true
 							FormulaField
 							{
 								label:				""
-								name:				"savageDickeyavageDickeyPoint"
+								name:				"savageDickeyPoint"
 								value:				"0"
 								inclusive:			JASP.None
 								useExternalBorder:	false
@@ -412,7 +412,7 @@ Form
 						RadioButtonGroup
 						{
 							enabled: customInferenceSavageDickey.checked
-							name: "savageDickeyavageDickeyPriorMethod"
+							name: "savageDickeyPriorMethod"
 							title: qsTr("Determine prior height with")
 							// TODO for inference: figure out if we can do without this!
 //							RadioButton
@@ -422,7 +422,7 @@ Form
 //								DropDown
 //								{
 //									label: 				""
-//									name: 				"savageDickeyavageDickeySamplingType"
+//									name: 				"savageDickeySamplingType"
 //									indexDefaultValue:	0
 //									values:
 //									[
@@ -438,7 +438,7 @@ Form
 								DropDown
 								{
 									label: 				""
-									name: 				"savageDickeyavageDickeySamplingType"
+									name: 				"savageDickeySamplingType"
 									indexDefaultValue:	0
 									values:
 									[
@@ -449,12 +449,12 @@ Form
 							}
 							RadioButton
 							{
-								value: "manual";		label: qsTr("Manual value")
+								value: "manualSavageDickey";		label: qsTr("Manual value")
 								childrenOnSameRow:	true
 								FormulaField
 								{
 									label:				""
-									name:				"savageDickeyavageDickeyPriorHeight"
+									name:				"savageDickeyPriorHeight"
 									value:				"0"
 									inclusive:			JASP.None
 									useExternalBorder:	false
@@ -467,8 +467,8 @@ Form
 
 						RadioButtonGroup
 						{
-							enabled: savageDickeyavageDickey.checked
-							name: "savageDickeyavageDickeyPosteriorMethod"
+							enabled: customInferenceSavageDickey.checked
+							name: "savageDickeyPosteriorMethod"
 							title: qsTr("Determine posterior height with")
 							RadioButton
 							{
@@ -477,7 +477,7 @@ Form
 								DropDown
 								{
 									label: 				""
-									name: 				"savageDickeyavageDickeyPosteriorSamplingType"
+									name: 				"savageDickeyPosteriorSamplingType"
 									indexDefaultValue:	0
 									values:
 									[
