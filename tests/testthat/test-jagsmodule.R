@@ -25,15 +25,7 @@ options$userData <- list(list(
 options$parameters <- c("\"theta\"", "\"mu\"")
 
 
-old.coda.samples <- rjags::coda.samples
-new.coda.samples <- function(...) {
-  candidates <- c("jags-test-model.rds", file.path("tests", "testthat", "jags-test-model.rds"))
-  testFile <- Filter(file.exists, candidates)
-  return(readRDS(testFile))
-}
-
-jaspTools:::replaceFn("coda.samples", new.coda.samples, "rjags")
-on.exit({jaspTools:::replaceFn("coda.samples", old.coda.samples, "rjags")})
+options(JASP_JAGS_UNITTEST_DATAFILE = "jags-test-model.rds")
 
 set.seed(1)
 results <- jaspTools::runAnalysis("JAGS", "debug.csv", options)

@@ -14,10 +14,12 @@ Depends:
 Imports:
   coda,
   ggplot2,
+  ggtext,
   hexbin,
   jaspBase,
   jaspGraphs,
   rjags,
+  scales,
   stringr
 Suggests:
   testthat
@@ -25,4 +27,4 @@ Remotes:
   jasp-stats/jaspBase,
   jasp-stats/jaspGraphs
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
