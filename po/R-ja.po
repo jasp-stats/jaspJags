@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.1\n"
-"POT-Creation-Date: 2022-10-08 04:00\n"
+"POT-Creation-Date: 2022-12-24 03:42\n"
 "PO-Revision-Date: 2021-11-10 04:47+0000\n"
 "Last-Translator: Daiki Hojo <dhojo.bayes@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
@@ -129,6 +129,34 @@ msgid ""
 msgstr ""
 "2変量散布図を作成するには、少なくとも 2 つのパラメータをモニターして表示する"
 "必要があります!"
+
+msgid "Custom output for %s"
+msgstr ""
+
+msgid ""
+"Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than "
+"in the parameter or parameter subset (%3$d levels)"
+msgstr ""
+
+msgid "Stacked density"
+msgstr ""
+
+msgid "Inference for %s"
+msgstr ""
+
+msgid "Statistic"
+msgstr ""
+
+#, fuzzy
+msgid "%s%% Credible Interval"
+msgstr "95%% 信用区間"
+
+msgid "%s%% HDI"
+msgstr ""
+
+#, fuzzy
+msgid "%1$s(%2$s < %3$s < %4$s)"
+msgstr "%1$s%2$s に加えて:%3$s%4$s"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
 msgstr "%1$s%2$s に加えて:%3$s%4$s"

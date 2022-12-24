@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.15\n"
-"POT-Creation-Date: 2022-10-08 04:00\n"
+"POT-Creation-Date: 2022-12-24 03:42\n"
 "PO-Revision-Date: 2022-12-15 07:48+0000\n"
 "Last-Translator: Shun Wang <shuonwang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -122,6 +122,34 @@ msgid ""
 "At least two parameters need to be monitored and shown to make a bivariate "
 "scatter plot!"
 msgstr "至少需要监控和显示两个参数才能制作二变量散点图！"
+
+msgid "Custom output for %s"
+msgstr ""
+
+msgid ""
+"Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than "
+"in the parameter or parameter subset (%3$d levels)"
+msgstr ""
+
+msgid "Stacked density"
+msgstr ""
+
+msgid "Inference for %s"
+msgstr ""
+
+msgid "Statistic"
+msgstr ""
+
+#, fuzzy
+msgid "%s%% Credible Interval"
+msgstr "95%% 可信区间"
+
+msgid "%s%% HDI"
+msgstr ""
+
+#, fuzzy
+msgid "%1$s(%2$s < %3$s < %4$s)"
+msgstr "%1$s%2$sIn addition:%3$s%4$s"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
 msgstr "%1$s%2$sIn addition:%3$s%4$s"

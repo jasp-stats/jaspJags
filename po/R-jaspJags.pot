@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.17.0\n"
-"POT-Creation-Date: 2022-11-30 10:29\n"
+"POT-Creation-Date: 2022-12-24 03:42\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -107,6 +107,30 @@ msgid "Lag"
 msgstr ""
 
 msgid "At least two parameters need to be monitored and shown to make a bivariate scatter plot!"
+msgstr ""
+
+msgid "Custom output for %s"
+msgstr ""
+
+msgid "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than in the parameter or parameter subset (%3$d levels)"
+msgstr ""
+
+msgid "Stacked density"
+msgstr ""
+
+msgid "Inference for %s"
+msgstr ""
+
+msgid "Statistic"
+msgstr ""
+
+msgid "%s%% Credible Interval"
+msgstr ""
+
+msgid "%s%% HDI"
+msgstr ""
+
+msgid "%1$s(%2$s < %3$s < %4$s)"
 msgstr ""
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
