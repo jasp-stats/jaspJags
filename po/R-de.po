@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: R 3.6.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
 "POT-Creation-Date: 2022-12-24 03:42\n"
-"PO-Revision-Date: 2022-12-24 17:50+0000\n"
+"PO-Revision-Date: 2022-12-26 11:50+0000\n"
 "Last-Translator: Johannes Keyser <joke@fsfe.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
 "de/>\n"
@@ -141,26 +141,26 @@ msgid ""
 "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than "
 "in the parameter or parameter subset (%3$d levels)"
 msgstr ""
+"Warnung. Es gibt weniger Stufen in \"Aufteilung\" (%1$s hat %2$d Stufen) als "
+"in dem Parameter oder der Parameteruntermenge (%3$d Stufen)"
 
 msgid "Stacked density"
-msgstr ""
+msgstr "Gestapelte Dichte"
 
 msgid "Inference for %s"
-msgstr ""
+msgstr "Inferenz für %s"
 
 msgid "Statistic"
-msgstr ""
+msgstr "Statistik"
 
-#, fuzzy
 msgid "%s%% Credible Interval"
-msgstr "95%% Glaubwürdigkeitsintervall"
+msgstr "%s%% Glaubwürdigkeitsintervall"
 
 msgid "%s%% HDI"
-msgstr ""
+msgstr "%s%% HDI"
 
-#, fuzzy
 msgid "%1$s(%2$s < %3$s < %4$s)"
-msgstr "%1$s%2$sZusätzlich:%3$s%4$s"
+msgstr "%1$s(%2$s < %3$s < %4$s)"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
 msgstr "%1$s%2$sZusätzlich:%3$s%4$s"
