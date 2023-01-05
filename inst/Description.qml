@@ -13,6 +13,7 @@ Description
 	license:		"GPL (>= 2)"
 	icon:     		"analysis-JAGS.svg"
 	requiresData: 	false
+	hasWrappers:	true
 
 	Analysis
 	{

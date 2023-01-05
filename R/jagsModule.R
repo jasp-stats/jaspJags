@@ -25,7 +25,7 @@ gettextf <- function(fmt, ..., domain = NULL)  {
 #' %setOrRetrieve% encodeColNames .extractErrorMessage .hasErrors isTryError .readDataSetToEnd
 
 #' @export
-JAGS <- function(jaspResults, dataset, options, state = NULL) {
+JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 
   # check model
   .JAGSInit(jaspResults, options)
