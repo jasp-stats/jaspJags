@@ -882,7 +882,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 
 .JAGScomputeOverlayData <- function(customPlotOpts, params, plotData, yHeightPerDensity, npoints) {
 
-  dataVar <- customPlotOpts[["data"]]
+  dataVar <- customPlotOpts[["inferenceData"]]
   splitVar <- customPlotOpts[["dataSplit"]]
   vars2read <- c(dataVar, splitVar)
   vars2read <- vars2read[vars2read != ""]
@@ -1001,13 +1001,13 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   yHeightPerDensity <- plotData[["yHeightPerDensity"]]
   plotData          <- plotData[["plotData"]]
 
-  overlayPlotData <- if (customPlotOpts[["data"]] != "") {
+  overlayPlotData <- if (customPlotOpts[["inferenceData"]] != "") {
     container[["stateOverlayPlotData"]] %setOrRetrieve% (
       .JAGScomputeOverlayData(customPlotOpts, params, plotData, yHeightPerDensity, npoints) |>
         createJaspState(jaspDeps(
           nestedOptions = .JAGSnestedDepsWithBase(
             base = c("customInference", i),
-            deps = c("data", "dataSplit",
+            deps = c("inferenceData", "dataSplit",
                      "overlayGeomType",
                      "overlayHistogramBinWidthType",
                      "overlayHistogramManualNumberOfBins")
@@ -1233,7 +1233,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     base = c("customInference", i),
     deps = c("plotsType",
              "shadeIntervalInPlot", "plotInterval",
-             "data", "dataSplit",
+             "inferenceData", "dataSplit",
              "overlayGeomType",
              "overlayHistogramBinWidthType",
              "overlayHistogramManualNumberOfBins")
