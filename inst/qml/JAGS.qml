@@ -183,7 +183,7 @@ Form
 							{
 								id:						customInferenceData
 								label:					qsTr("Data")
-								name:					"data"
+								name:					"inferenceData"
 								fieldWidth:				200 * preferencesModel.uiScale
 								controlMinWidth:		200 * preferencesModel.uiScale
 								showVariableTypeIcon: 	true

@@ -1,5 +1,5 @@
 options <- analysisOptions("JAGS")
-options$customInference <- list(list(ciLevel = 0.95, data = "contNormal",
+options$customInference <- list(list(ciLevel = 0.95, inferenceData = "contNormal",
                                      dataSplit = "facFive", name = "Plot 1",
                                      overlayGeomType = "histogram", overlayHistogramBinWidthType = "manual",
                                      overlayHistogramManualNumberOfBins = 30, parameter = "mu",
@@ -105,7 +105,7 @@ test_that("Stacked density plot with incorrect split by matches", {
 
 
 options <- analysisOptions("JAGS")
-options$customInference <- list(list(ciLevel = 0.95, data = "",
+options$customInference <- list(list(ciLevel = 0.95, inferenceData = "",
                                      dataSplit = "", name = "Plot 1",
                                      overlayGeomType = "histogram", overlayHistogramBinWidthType = "manual",
                                      overlayHistogramManualNumberOfBins = 30, parameter = "mu",
@@ -122,7 +122,7 @@ options$customInference <- list(list(ciLevel = 0.95, data = "",
                                      inferenceCustomLow = "0", inferenceManual = TRUE,
                                      inferenceHdi = TRUE, inferenceHdiLevel = 0.95, mean = TRUE,
                                      median = TRUE, rhat = TRUE, sd = TRUE, shadeIntervalInPlot = TRUE),
-                                list(ciLevel = 0.95, data = "",
+                                list(ciLevel = 0.95, inferenceData = "",
                                      dataSplit = "", name = "Plot 2",
                                      overlayGeomType = "density", overlayHistogramBinWidthType = "sturges",
                                      overlayHistogramManualNumberOfBins = 30,
