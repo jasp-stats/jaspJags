@@ -1634,12 +1634,6 @@ vapplyNum <- function(x, f, ...) { vapply(x, f, FUN.VALUE = numeric(1L), ...)   
 
 .JAGSloadModules <- function(jaspResults) {
 
-  # TODO: fix this!
-  print(sprintf("before jags.moddir = %s", options("jags.moddir")))
-  if (is.null(getOption("jags.moddir")))
-    options(jags.moddir = "/usr/lib/JAGS/modules-4")
-  print(sprintf("after jags.moddir = %s", options("jags.moddir")))
-
   # just like R2jags, we just always load the modules
   e <- try({
     for (m in c("glm", "dic")) # allow users to add custom modules?
