@@ -1,16 +1,10 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-10-12 19:54+0000\n"
-"Last-Translator: Cécile Mazon <cecile.mazon@inria.fr>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/jasp/jaspjags-qml/"
-"fr/>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Language: fr\n"
-"X-Generator: Weblate 4.15-dev\n"
 "X-Qt-Contexts: true\n"
 
 msgctxt "Description|"
@@ -177,4 +171,200 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Show Deviance"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Customizable Inference"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Plot 1"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Parameter selection"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Parameter"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Select a parameter"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Parameter subset"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Optional subset, e.g., 1:4 or 1, 3, 5:8 "
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Superimpose data"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Data"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "None"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Split by"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Plot type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Stacked density"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Order parameters by"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Mean"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Median"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Subset"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Shade interval"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Intervals"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Credible Interval"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "HDI"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Area where"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "< θ < "
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Plot type for superimposed data"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Bin width type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sturges"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Scott"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Doane"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Freedman-Diaconis"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Manual"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Number of bins"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Estimation"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Summary statistics"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "SD"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "R-hat"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Effective sample size"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Probability of"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Testing"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Savage-Dickey"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Determine prior height with"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sampling"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Normal kernel"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Splines"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Manual value"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Determine posterior height with"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Normal approximation"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Export samples:"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sync Samples: On"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sync Samples: Off"
 msgstr ""
