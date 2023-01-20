@@ -58,6 +58,15 @@ Form
 		}
 		AssignedVariablesList   { name: "monitoredParametersShown";		title: qsTr("Show results for these parameters")}
 	}
+	
+	Section
+	{
+		title: qsTr("Observed Values")
+		JagsTableView
+		{
+			name		:	"userData"
+		}
+	}
 
 	Section
 	{
@@ -504,15 +513,6 @@ Form
 			isFirstColEditable	:	false
 			showButtons			:	false
 			source				:	[{ name: "model", discard: { name: "userData", use: "Parameter"}}]
-		}
-	}
-
-	Section
-	{
-		title: qsTr("Observed Values")
-		JagsTableView
-		{
-			name		:	"userData"
 		}
 	}
 
