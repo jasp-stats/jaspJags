@@ -1,23 +1,29 @@
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2023-02-01 03:03+0000\n"
+"Last-Translator: Ünal Halit ÖZDEN <uozden@ticaret.edu.tr>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/jasp/"
+"jaspjags-qml/tr/>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.16-dev\n"
 "X-Language: tr\n"
 "X-Qt-Contexts: true\n"
 
 msgctxt "Description|"
 msgid "JAGS"
-msgstr ""
+msgstr "JAGS"
 
 msgctxt "JAGS|"
 msgid "Enter JAGS model below"
-msgstr ""
+msgstr "JAGS modelini aşağıya girin"
 
 msgctxt "JAGS|"
 msgid "Parameters in model"
-msgstr ""
+msgstr "Modeldeki parametreler"
 
 msgctxt "JAGS|"
 msgid "Monitor these parameters"
@@ -29,19 +35,19 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Show results for these parameters"
-msgstr ""
+msgstr "Bu parametreler için sonuçları göster"
 
 msgctxt "JAGS|"
 msgid "Plots"
-msgstr ""
+msgstr "Grafikler"
 
 msgctxt "JAGS|"
 msgid "Color scheme for plots:"
-msgstr ""
+msgstr "Grafikler için renk şeması:"
 
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr ""
+msgstr "Renk körü"
 
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
@@ -49,7 +55,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr ""
+msgstr "Viridis"
 
 msgctxt "JAGS|"
 msgid "Blue"
@@ -57,7 +63,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Gray"
-msgstr ""
+msgstr "Gri"
 
 msgctxt "JAGS|"
 msgid "Aggregate chains for densities and histograms"
@@ -69,11 +75,11 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Density"
-msgstr ""
+msgstr "Yoğunluk"
 
 msgctxt "JAGS|"
 msgid "Histogram"
-msgstr ""
+msgstr "Histogram"
 
 msgctxt "JAGS|"
 msgid "Trace"
@@ -81,7 +87,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr ""
+msgstr "otokorelasyon"
 
 msgctxt "JAGS|"
 msgid "No. lags"
@@ -97,7 +103,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "bar"
-msgstr ""
+msgstr "çubuk"
 
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
@@ -125,7 +131,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Observed Values"
-msgstr ""
+msgstr "Gözlemlenen Değerler"
 
 msgctxt "JAGS|"
 msgid "Advanced"
