@@ -19,7 +19,7 @@
 
 JAGS <- function(
           data = NULL,
-          version = "0.17",
+          version = "0.17.1",
           actualExporter = FALSE,
           aggregatedChains = TRUE,
           autoCorPlot = FALSE,
