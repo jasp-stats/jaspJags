@@ -1,10 +1,16 @@
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2023-04-14 21:51+0000\n"
+"Last-Translator: Tomasz Misiuro <tomaszmisiuro@gmail.com>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/jasp/jaspjags-qml/"
+"pl/>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.17-dev\n"
 "X-Language: pl\n"
 "X-Qt-Contexts: true\n"
 
@@ -14,7 +20,7 @@ msgstr "JAGS"
 
 msgctxt "JAGS|"
 msgid "Enter JAGS model below"
-msgstr ""
+msgstr "Wprowadź poniżej model JAGS"
 
 msgctxt "JAGS|"
 msgid "Parameters in model"
@@ -22,43 +28,43 @@ msgstr "Parametry w modelu"
 
 msgctxt "JAGS|"
 msgid "Monitor these parameters"
-msgstr ""
+msgstr "Monitoruj te parametry"
 
 msgctxt "JAGS|"
 msgid "Monitored parameters"
-msgstr ""
+msgstr "Monitorowane parametry"
 
 msgctxt "JAGS|"
 msgid "Show results for these parameters"
-msgstr ""
+msgstr "Pokaż wyniki dla tych parametrów"
 
 msgctxt "JAGS|"
 msgid "Plots"
-msgstr ""
+msgstr "Wykresy"
 
 msgctxt "JAGS|"
 msgid "Color scheme for plots:"
-msgstr ""
+msgstr "Schemat kolorów dla wykresów:"
 
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr ""
+msgstr "Colorblind"
 
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
-msgstr ""
+msgstr "Colorblind 2"
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr ""
+msgstr "Viridis"
 
 msgctxt "JAGS|"
 msgid "Blue"
-msgstr ""
+msgstr "Niebieski"
 
 msgctxt "JAGS|"
 msgid "Gray"
-msgstr ""
+msgstr "Szary"
 
 msgctxt "JAGS|"
 msgid "Aggregate chains for densities and histograms"
@@ -66,23 +72,23 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Show legends"
-msgstr ""
+msgstr "Pokaż legendę"
 
 msgctxt "JAGS|"
 msgid "Density"
-msgstr ""
+msgstr "Gęstość"
 
 msgctxt "JAGS|"
 msgid "Histogram"
-msgstr ""
+msgstr "Histogram"
 
 msgctxt "JAGS|"
 msgid "Trace"
-msgstr ""
+msgstr "Ślad"
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr ""
+msgstr "Autokorelacja"
 
 msgctxt "JAGS|"
 msgid "No. lags"
@@ -90,11 +96,11 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 msgctxt "JAGS|"
 msgid "line"
-msgstr ""
+msgstr "linia"
 
 msgctxt "JAGS|"
 msgid "bar"
@@ -122,23 +128,23 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Initial Values"
-msgstr ""
+msgstr "Wartości początkowe"
 
 msgctxt "JAGS|"
 msgid "Observed Values"
-msgstr ""
+msgstr "Wartości obserwowane"
 
 msgctxt "JAGS|"
 msgid "Advanced"
-msgstr ""
+msgstr "Zaawansowane"
 
 msgctxt "JAGS|"
 msgid "MCMC parameters"
-msgstr ""
+msgstr "Parametry MCMC"
 
 msgctxt "JAGS|"
 msgid "No. samples"
-msgstr ""
+msgstr "Liczba próbek"
 
 msgctxt "JAGS|"
 msgid "No. burnin samples"
@@ -150,23 +156,23 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "No. chains"
-msgstr ""
+msgstr "Liczba łańcuchów"
 
 msgctxt "JAGS|"
 msgid "Show results for"
-msgstr ""
+msgstr "Pokaż wyniki dla"
 
 msgctxt "JAGS|"
 msgid "all monitored parameters"
-msgstr ""
+msgstr "wszystkie monitorowane parametry"
 
 msgctxt "JAGS|"
 msgid "selected parameters"
-msgstr ""
+msgstr "wybrane parametry"
 
 msgctxt "JAGS|"
 msgid "Show Deviance"
-msgstr ""
+msgstr "Pokaż odchylenie"
 
 msgctxt "Description|"
 msgid ""
@@ -180,47 +186,47 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Plot 1"
-msgstr ""
+msgstr "Wykres 1"
 
 msgctxt "JAGS|"
 msgid "Parameter selection"
-msgstr ""
+msgstr "Wybór parametrów"
 
 msgctxt "JAGS|"
 msgid "Parameter"
-msgstr ""
+msgstr "Parametr"
 
 msgctxt "JAGS|"
 msgid "Select a parameter"
-msgstr ""
+msgstr "Wybierz parametr"
 
 msgctxt "JAGS|"
 msgid "Parameter subset"
-msgstr ""
+msgstr "Podzbiór parametrów"
 
 msgctxt "JAGS|"
 msgid "Optional subset, e.g., 1:4 or 1, 3, 5:8 "
-msgstr ""
+msgstr "Podzbiór opcjonalny, np. 1:4 lub 1, 3, 5:8 "
 
 msgctxt "JAGS|"
 msgid "Superimpose data"
-msgstr ""
+msgstr "Nałóż dane"
 
 msgctxt "JAGS|"
 msgid "Data"
-msgstr ""
+msgstr "Dane"
 
 msgctxt "JAGS|"
 msgid "None"
-msgstr ""
+msgstr "Brak"
 
 msgctxt "JAGS|"
 msgid "Split by"
-msgstr ""
+msgstr "Podziel według"
 
 msgctxt "JAGS|"
 msgid "Plot type"
-msgstr ""
+msgstr "Typ wykresu"
 
 msgctxt "JAGS|"
 msgid "Stacked density"
@@ -228,19 +234,19 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Order parameters by"
-msgstr ""
+msgstr "Uporządkuj parametry wg"
 
 msgctxt "JAGS|"
 msgid "Mean"
-msgstr ""
+msgstr "Średnia"
 
 msgctxt "JAGS|"
 msgid "Median"
-msgstr ""
+msgstr "Mediana"
 
 msgctxt "JAGS|"
 msgid "Subset"
-msgstr ""
+msgstr "Podzbiór"
 
 msgctxt "JAGS|"
 msgid "Shade interval"
@@ -248,35 +254,35 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Intervals"
-msgstr ""
+msgstr "Przedziały"
 
 msgctxt "JAGS|"
 msgid "Credible Interval"
-msgstr ""
+msgstr "Przedział wiarygodności"
 
 msgctxt "JAGS|"
 msgid "HDI"
-msgstr ""
+msgstr "HDI"
 
 msgctxt "JAGS|"
 msgid "Area where"
-msgstr ""
+msgstr "Obszar, w którym"
 
 msgctxt "JAGS|"
 msgid "< θ < "
-msgstr ""
+msgstr "< θ < "
 
 msgctxt "JAGS|"
 msgid "Plot type for superimposed data"
-msgstr ""
+msgstr "Typ wykresu dla nałożonych danych"
 
 msgctxt "JAGS|"
 msgid "Bin width type"
-msgstr ""
+msgstr "Metoda ustal. szerokości"
 
 msgctxt "JAGS|"
 msgid "Sturges"
-msgstr ""
+msgstr "Sturges"
 
 msgctxt "JAGS|"
 msgid "Scott"
@@ -284,35 +290,35 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Doane"
-msgstr ""
+msgstr "Doane"
 
 msgctxt "JAGS|"
 msgid "Freedman-Diaconis"
-msgstr ""
+msgstr "Freedman-Diaconis"
 
 msgctxt "JAGS|"
 msgid "Manual"
-msgstr ""
+msgstr "Ręcznie"
 
 msgctxt "JAGS|"
 msgid "Number of bins"
-msgstr ""
+msgstr "Liczba słupków"
 
 msgctxt "JAGS|"
 msgid "Estimation"
-msgstr ""
+msgstr "Oszacowanie"
 
 msgctxt "JAGS|"
 msgid "Summary statistics"
-msgstr ""
+msgstr "Statystyki podsumowujące"
 
 msgctxt "JAGS|"
 msgid "SD"
-msgstr ""
+msgstr "SD"
 
 msgctxt "JAGS|"
 msgid "R-hat"
-msgstr ""
+msgstr "R-hat"
 
 msgctxt "JAGS|"
 msgid "Effective sample size"
@@ -320,15 +326,15 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Probability of"
-msgstr ""
+msgstr "Prawdopodobieństwo"
 
 msgctxt "JAGS|"
 msgid "Testing"
-msgstr ""
+msgstr "Testowanie"
 
 msgctxt "JAGS|"
 msgid "Savage-Dickey"
-msgstr ""
+msgstr "Savage-Dickey"
 
 msgctxt "JAGS|"
 msgid "Determine prior height with"
@@ -336,7 +342,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Sampling"
-msgstr ""
+msgstr "Próbkowanie"
 
 msgctxt "JAGS|"
 msgid "Normal kernel"
@@ -360,12 +366,12 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Export samples:"
-msgstr ""
+msgstr "Eksportuj próby:"
 
 msgctxt "JAGS|"
 msgid "Sync Samples: On"
-msgstr ""
+msgstr "Synchronizuj próby: Wł"
 
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
-msgstr ""
+msgstr "Synchronizuj próby: Wył"
