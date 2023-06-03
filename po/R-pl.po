@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.17.0\n"
 "POT-Creation-Date: 2022-12-24 03:42\n"
-"PO-Revision-Date: 2023-05-12 15:52+0000\n"
+"PO-Revision-Date: 2023-06-02 20:47+0000\n"
 "Last-Translator: Tomasz Misiuro <tomaszmisiuro@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
 "pl/>\n"
@@ -30,16 +30,16 @@ msgid "Posterior"
 msgstr "Posterior"
 
 msgid "95%% Credible Interval"
-msgstr ""
+msgstr "95%% przedział wiarygodności"
 
 msgid "Rhat"
 msgstr ""
 
 msgid "Parameter"
-msgstr ""
+msgstr "Parametr"
 
 msgid "Mean"
-msgstr ""
+msgstr "Średnia"
 
 msgid "Median"
 msgstr "Mediana"
@@ -109,10 +109,10 @@ msgid "Counts"
 msgstr "Liczebności"
 
 msgid "Iteration"
-msgstr ""
+msgstr "Iretacja"
 
 msgid "Autocorrelation"
-msgstr ""
+msgstr "Autokorelacja"
 
 msgid "Lag"
 msgstr ""
@@ -140,7 +140,7 @@ msgid "Statistic"
 msgstr ""
 
 msgid "%s%% Credible Interval"
-msgstr ""
+msgstr "%s%% przedział wiarygodności"
 
 msgid "%s%% HDI"
 msgstr ""
