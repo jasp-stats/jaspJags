@@ -314,7 +314,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 # Tables ----
 .JAGSoutputTable <- function(jaspResults, options, mcmcResult) {
 
-  tb <- createJaspTable("MCMC Summary")
+  tb <- createJaspTable(title = gettext("MCMC Summary"))
   tb$position <- 1L
   ovt0 <- gettext("Posterior")
   ovt1 <- gettextf("95%% Credible Interval")
