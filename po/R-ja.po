@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.1\n"
-"POT-Creation-Date: 2022-12-24 03:42\n"
+"POT-Creation-Date: 2023-07-01 03:45\n"
 "PO-Revision-Date: 2023-04-21 17:51+0000\n"
 "Last-Translator: Daiki Hojo <dhojo.bayes@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
@@ -26,6 +26,9 @@ msgstr "監視するパラメータを指定してください!"
 
 msgid "Please specify which parameters to show output for!"
 msgstr "出力を表示するパラメータを指定してください！"
+
+msgid "MCMC Summary"
+msgstr ""
 
 msgid "Posterior"
 msgstr "事後分布"
@@ -198,6 +201,6 @@ msgstr ""
 "%1$s Rコードの結果は数値のはずですが，モード %2$s および class %3$s でした。"
 
 msgid ""
-"The following error occured while loading the jags modules \"glm\" and \"dic"
-"\": %s."
+"The following error occured while loading the jags modules \"glm\" and "
+"\"dic\": %s."
 msgstr ""

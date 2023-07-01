@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.15\n"
-"POT-Creation-Date: 2022-12-24 03:42\n"
+"POT-Creation-Date: 2023-07-01 03:45\n"
 "PO-Revision-Date: 2022-12-15 07:48+0000\n"
 "Last-Translator: Shun Wang <shuonwang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -26,6 +26,9 @@ msgstr "请指定要监控的参数！"
 
 msgid "Please specify which parameters to show output for!"
 msgstr "请指定要显示输出的参数！"
+
+msgid "MCMC Summary"
+msgstr ""
 
 msgid "Posterior"
 msgstr "后验"
@@ -190,6 +193,6 @@ msgid ""
 msgstr "%1$s R代码的结果应该是数字，但它是mode %2$s和class %3$s"
 
 msgid ""
-"The following error occured while loading the jags modules \"glm\" and \"dic"
-"\": %s."
+"The following error occured while loading the jags modules \"glm\" and "
+"\"dic\": %s."
 msgstr "加载 jags 模块“glm”和“dic”时出现以下错误：%s。"

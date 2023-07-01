@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.17.0\n"
-"POT-Creation-Date: 2022-12-24 03:42\n"
+"POT-Creation-Date: 2023-07-01 03:45\n"
 "PO-Revision-Date: 2023-06-02 20:47+0000\n"
 "Last-Translator: Tomasz Misiuro <tomaszmisiuro@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
@@ -24,6 +24,9 @@ msgid "Please specify which parameters to monitor!"
 msgstr ""
 
 msgid "Please specify which parameters to show output for!"
+msgstr ""
+
+msgid "MCMC Summary"
 msgstr ""
 
 msgid "Posterior"
@@ -182,6 +185,6 @@ msgid ""
 msgstr ""
 
 msgid ""
-"The following error occured while loading the jags modules \"glm\" and \"dic"
-"\": %s."
+"The following error occured while loading the jags modules \"glm\" and "
+"\"dic\": %s."
 msgstr ""

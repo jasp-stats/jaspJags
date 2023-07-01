@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.17.2\n"
-"POT-Creation-Date: 2023-04-22 03:42\n"
+"POT-Creation-Date: 2023-07-01 03:45\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,9 @@ msgid "Please specify which parameters to monitor!"
 msgstr ""
 
 msgid "Please specify which parameters to show output for!"
+msgstr ""
+
+msgid "MCMC Summary"
 msgstr ""
 
 msgid "Posterior"
