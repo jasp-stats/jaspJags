@@ -64,7 +64,7 @@ JAGS <- function(
    options[["data"]] <- NULL
    options[["version"]] <- NULL
 
-   optionsWithFormula <- c("colorScheme", "customInference", "initialValues", "model", "monitoredParameters", "monitoredParametersShown", "userData")
+   optionsWithFormula <- c("colorPalette", "customInference", "initialValues", "model", "monitoredParameters", "monitoredParametersShown", "userData")
    for (name in optionsWithFormula) {
       if ((name %in% optionsWithFormula) && inherits(options[[name]], "formula")) options[[name]] = jaspBase::jaspFormula(options[[name]], data)   }
 

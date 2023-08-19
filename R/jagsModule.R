@@ -387,7 +387,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 .JAGSmcmcPlots <- function(jaspResults, options, mcmcResult) {
 
   if (is.null(jaspResults[["mainContainer"]][["plotContainer"]])) {
-    plotContainer <- createJaspContainer(dependencies = c("monitoredParametersShown", "colorScheme"))
+    plotContainer <- createJaspContainer(dependencies = c("monitoredParametersShown", "colorPalette"))
   } else {
     plotContainer <- jaspResults[["mainContainer"]][["plotContainer"]]
   }
@@ -401,7 +401,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   if (is.null(jaspResults[["mainContainer"]][["plotContainer"]]))
     jaspResults[["mainContainer"]][["plotContainer"]] <- plotContainer
 
-  colorpalette <- options[["colorScheme"]]
+  colorpalette <- options[["colorPalette"]]
   oldColorpalette <- jaspGraphs::getGraphOption("palette")
   on.exit(jaspGraphs::setGraphOption("palette", oldColorpalette))
   jaspGraphs::setGraphOption("palette", colorpalette)
