@@ -87,4 +87,13 @@ Upgrades
 		ChangeRename	{	from:	"showDeviance";						to:		"deviance"								}
 
 	}
+
+	Upgrade
+	{
+		functionName:		"JAGS"
+		fromVersion:		"0.18.0"
+		toVersion:			"0.18.1"
+
+		ChangeRename{from: "colorScheme"; to: "colorPalette "}
+	}
 }

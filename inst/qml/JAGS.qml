@@ -58,7 +58,7 @@ Form
 		}
 		AssignedVariablesList   { name: "monitoredParametersShown";		title: qsTr("Show results for these parameters")}
 	}
-	
+
 	Section
 	{
 		title: qsTr("Observed Values")
@@ -73,20 +73,7 @@ Form
 		title: qsTr("Plots")
 		Group
 		{
-			DropDown
-			{
-				name: "colorScheme"
-				indexDefaultValue: 0
-				label: qsTr("Color scheme for plots:")
-				values:
-					[
-					{ label: qsTr("Colorblind"),		value: "colorblind"		},
-					{ label: qsTr("Colorblind Alt."),	value: "colorblind2"	},
-					{ label: qsTr("Viridis"),			value: "viridis"		},
-					{ label: qsTr("Blue"),				value: "blue"			},
-					{ label: qsTr("Gray"),				value: "gray"			}
-				]
-			}
+			ColorPalette{}
 			CheckBox { name: "aggregatedChains";	label: qsTr("Aggregate chains for densities and histograms");	checked:true	}
 			CheckBox { name: "legend";				label: qsTr("Show legends");									checked:true	}
 			CheckBox { name: "densityPlot";			label: qsTr("Density")															}

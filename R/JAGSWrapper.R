@@ -30,7 +30,7 @@ JAGS <- function(
           bivariateScatterPlot = FALSE,
           burnin = 500,
           chains = 3,
-          colorScheme = "colorblind",
+          colorPalette = "colorblind",
           customInference = list(list(ciLevel = 0.95, data = "", dataSplit = "", ess = TRUE, hdiLevel = 0.95, inferenceCi = FALSE, inferenceCiLevel = 0.95, inferenceCustomHigh = "1", inferenceCustomLow = "0", inferenceHdi = FALSE, inferenceHdiLevel = 0.95, inferenceManual = FALSE, mean = TRUE, median = TRUE, name = "Plot 1", overlayGeomType = "density", overlayHistogramBinWidthType = "sturges", overlayHistogramManualNumberOfBins = 30, parameter = "", parameterOrder = "orderMean", parameterSubset = "", plotCustomHigh = "1", plotCustomLow = "0", plotInterval = "ci", plotsType = "", rhat = TRUE, savageDickey = FALSE, savageDickeyPoint = "0", savageDickeyPosteriorMethod = "samplingPosteriorPoint", savageDickeyPosteriorSamplingType = "normalKernel", savageDickeyPriorHeight = "0", savageDickeyPriorMethod = "sampling", savageDickeySamplingType = "normalKernel", sd = TRUE, shadeIntervalInPlot = FALSE)),
           densityPlot = FALSE,
           deviance = FALSE,
@@ -64,7 +64,7 @@ JAGS <- function(
    options[["data"]] <- NULL
    options[["version"]] <- NULL
 
-   optionsWithFormula <- c("colorScheme", "customInference", "initialValues", "model", "monitoredParameters", "monitoredParametersShown", "userData")
+   optionsWithFormula <- c("colorPalette", "customInference", "initialValues", "model", "monitoredParameters", "monitoredParametersShown", "userData")
    for (name in optionsWithFormula) {
       if ((name %in% optionsWithFormula) && inherits(options[[name]], "formula")) options[[name]] = jaspBase::jaspFormula(options[[name]], data)   }
 
