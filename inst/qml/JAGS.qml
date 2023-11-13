@@ -185,7 +185,7 @@ Form
 						Group
 						{
 
-							enabled: mainWindow.dataAvailable
+							enabled: dataSetInfo.dataAvailable
 							title: qsTr("Superimpose data")
 
 							DropDown
