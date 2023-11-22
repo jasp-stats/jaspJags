@@ -19,7 +19,7 @@
 
 JAGS <- function(
           data = NULL,
-          version = "0.17.1",
+          version = "0.18.2",
           actualExporter = FALSE,
           aggregatedChains = TRUE,
           autoCorPlot = FALSE,
@@ -31,7 +31,7 @@ JAGS <- function(
           burnin = 500,
           chains = 3,
           colorScheme = "colorblind",
-          customInference = list(list(ciLevel = 0.95, data = "", dataSplit = "", ess = TRUE, hdiLevel = 0.95, inferenceCi = FALSE, inferenceCiLevel = 0.95, inferenceCustomHigh = "1", inferenceCustomLow = "0", inferenceHdi = FALSE, inferenceHdiLevel = 0.95, inferenceManual = FALSE, mean = TRUE, median = TRUE, name = "Plot 1", overlayGeomType = "density", overlayHistogramBinWidthType = "sturges", overlayHistogramManualNumberOfBins = 30, parameter = "", parameterOrder = "orderMean", parameterSubset = "", plotCustomHigh = "1", plotCustomLow = "0", plotInterval = "ci", plotsType = "", rhat = TRUE, savageDickey = FALSE, savageDickeyPoint = "0", savageDickeyPosteriorMethod = "samplingPosteriorPoint", savageDickeyPosteriorSamplingType = "normalKernel", savageDickeyPriorHeight = "0", savageDickeyPriorMethod = "sampling", savageDickeySamplingType = "normalKernel", sd = TRUE, shadeIntervalInPlot = FALSE)),
+          customInference = list(list(ciLevel = 0.95, dataSplit = "", ess = TRUE, hdiLevel = 0.95, inferenceCi = FALSE, inferenceCiLevel = 0.95, inferenceCustomHigh = "1", inferenceCustomLow = "0", inferenceData = "", inferenceHdi = FALSE, inferenceHdiLevel = 0.95, inferenceManual = FALSE, mean = TRUE, median = TRUE, name = "Plot 1", overlayGeomType = "histogram", overlayHistogramBinWidthType = "sturges", overlayHistogramManualNumberOfBins = 30, parameter = "", parameterOrder = "orderMean", parameterSubset = "", plotCustomHigh = "1", plotCustomLow = "0", plotInterval = "hdi", plotsType = "", rhat = TRUE, savageDickey = FALSE, savageDickeyPoint = "0", savageDickeyPosteriorMethod = "samplingPosteriorPoint", savageDickeyPosteriorSamplingType = "normalKernel", savageDickeyPriorHeight = "0", savageDickeyPriorMethod = "sampling", savageDickeySamplingType = "normalKernel", sd = TRUE, shadeIntervalInPlot = FALSE)),
           densityPlot = FALSE,
           deviance = FALSE,
           exportSamplesFile = "",
