@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-01-21 20:01+0000\n"
+"PO-Revision-Date: 2024-01-22 18:11+0000\n"
 "Last-Translator: robachowyk <kaya.robach@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/jasp/jaspjags-qml/"
 "fr/>\n"
@@ -39,7 +39,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Monitored parameters"
-msgstr ""
+msgstr "Paramètres contrôlés"
 
 msgctxt "JAGS|"
 msgid "Show results for these parameters"
