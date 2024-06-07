@@ -506,6 +506,11 @@
       "Version": "0.16.0",
       "Source": "Repository"
     },
+    "runjags": {
+      "Package": "runjags",
+      "Version": "2.2.2-4",
+      "Source": "Repository"
+    },
     "rvg": {
       "Package": "rvg",
       "Version": "0.3.3",
