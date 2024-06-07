@@ -19,6 +19,7 @@ Imports:
   jaspBase,
   jaspGraphs,
   rjags,
+  runjags,
   scales,
   stringr
 Suggests:
