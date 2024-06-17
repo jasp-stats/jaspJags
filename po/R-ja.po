@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.1\n"
 "POT-Creation-Date: 2023-07-01 03:45\n"
-"PO-Revision-Date: 2023-04-21 17:51+0000\n"
+"PO-Revision-Date: 2024-06-18 16:09+0000\n"
 "Last-Translator: Daiki Hojo <dhojo.bayes@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
 "ja/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 msgid ""
 "The following names appeared both in the data set and in the user specified "
@@ -28,7 +28,7 @@ msgid "Please specify which parameters to show output for!"
 msgstr "出力を表示するパラメータを指定してください！"
 
 msgid "MCMC Summary"
-msgstr ""
+msgstr "MCMC要約"
 
 msgid "Posterior"
 msgstr "事後分布"
@@ -134,32 +134,32 @@ msgstr ""
 "必要があります!"
 
 msgid "Custom output for %s"
-msgstr ""
+msgstr "%s のカスタム出力"
 
 msgid ""
 "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than "
 "in the parameter or parameter subset (%3$d levels)"
 msgstr ""
+"警告. split by\" に、パラメータまたはパラメータ・サブセット (%3$d 個の水準) "
+"よりも少ない水準があります (%1$s には %2$d 個の水準があります)"
 
 msgid "Stacked density"
-msgstr ""
+msgstr "積み上げ密度"
 
 msgid "Inference for %s"
-msgstr ""
+msgstr "%s の推論"
 
 msgid "Statistic"
-msgstr ""
+msgstr "統計量"
 
-#, fuzzy
 msgid "%s%% Credible Interval"
-msgstr "95%% 信用区間"
+msgstr "%s%% 信用区間"
 
 msgid "%s%% HDI"
-msgstr ""
+msgstr "%s%% HDI"
 
-#, fuzzy
 msgid "%1$s(%2$s < %3$s < %4$s)"
-msgstr "%1$s%2$s に加えて:%3$s%4$s"
+msgstr "%1$s (%2$s < %3$as< %4$s )"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
 msgstr "%1$s%2$s に加えて:%3$s%4$s"
@@ -182,10 +182,10 @@ msgstr "JAGS バージョン 4.3.0 が必要ですが、%s が見つかりまし
 msgid ""
 "Failed to export the samples because the directory to save them in does not "
 "exist."
-msgstr ""
+msgstr "保存するディレクトリが存在しないので、サンプルの書き出しに失敗しました."
 
 msgid "Failed to export the samples because the following error occured: %s"
-msgstr ""
+msgstr "次のエラーが発生したので、サンプルの書き出しに失敗しました: %s"
 
 msgid ""
 "The R code for %1$s crashed with error:\n"
@@ -203,4 +203,4 @@ msgstr ""
 msgid ""
 "The following error occured while loading the jags modules \"glm\" and "
 "\"dic\": %s."
-msgstr ""
+msgstr "jagsモジュール\"glm\" と \"dic\" の読み込み中に次のエラーが発生しました: %s."
