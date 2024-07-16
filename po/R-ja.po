@@ -159,7 +159,7 @@ msgid "%s%% HDI"
 msgstr "%s%% HDI"
 
 msgid "%1$s(%2$s < %3$s < %4$s)"
-msgstr "%1$s (%2$s < %3$as< %4$s )"
+msgstr "%1$s (%2$s < %3$s < %4$s )"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
 msgstr "%1$s%2$s に加えて:%3$s%4$s"
