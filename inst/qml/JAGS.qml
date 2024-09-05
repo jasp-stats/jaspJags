@@ -586,8 +586,7 @@ Form
 		// use the button to toggle a hidden checkbox that controls syncing
 		Button
 		{
-			anchors.right:		parent.right
-			anchors.bottom:		parent.bottom
+			Layout.alignment: 	Qt.AlignBottom | Qt.AlignRight
 			text: 				actualExporter.checked ? qsTr("Sync Samples: On") : qsTr("Sync Samples: Off")
 			onClicked: 			actualExporter.click()
 		}
