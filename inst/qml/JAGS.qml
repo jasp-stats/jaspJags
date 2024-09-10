@@ -31,6 +31,11 @@ Form
 		title:		qsTr("Enter JAGS model below")
 		name:		"model"
 		text:		"model{\n\n}"
+
+		RSyntaxHighlighterQuick
+		{
+			textDocument:		jagsModel.textDocument
+		}
 	}
 
 	VariablesForm
