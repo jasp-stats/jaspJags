@@ -162,23 +162,30 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
       inits    = inits#unname(lapply(inits, list))
     )
 
+    # logic based on coda.samples
+    totalIter <- burnin + samples - samples %% thinning
+    by <- 400# rjags default is 50, but you wouldn't be able to see this anyway. .ceiling(totalIter / 100) # update twice as slow as JAGS usually does
+    totalNoTicks <- ceiling(totalIter / by)
+
+    jaspBase::startProgressbar(totalNoTicks, label = gettext("Sampling"))
+
     # sample burnin
-    rjags::adapt(
+    adapt(
       object         = model,
       n.iter         = burnin,
-      by             = 0L,
-      progress.bar   = "none",
+      by             = by,
+      progress.bar   = "jaspManual",
       end.adaptation = TRUE
     )
 
     # sample remainder
-    samples <- rjags::coda.samples(
+    samples <- coda.samples(
       model          = model,
       variable.names = parametersToSave,
       n.iter         = samples,
       thin           = thinning,
-      by             = 0L,
-      progress.bar   = "none"
+      by             = by,
+      progress.bar   = "jaspManual"
     )
 
     fit <- coda:::summary.mcmc.list(samples, quantiles = c(0.025, 0.5, 0.975))
