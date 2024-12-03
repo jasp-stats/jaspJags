@@ -21,7 +21,7 @@ gettextf <- function(fmt, ..., domain = NULL)  {
   return(sprintf(gettext(fmt, domain = domain), ...))
 }
 
-#' @importFrom jaspBase createJaspContainer createJaspPlot createJaspState createJaspTable jaspDeps
+#' @importFrom jaspBase createJaspContainer createJaspPlot createJaspState createJaspTable createJaspHtml jaspDeps
 #' %setOrRetrieve% encodeColNames .extractErrorMessage .hasErrors isTryError .readDataSetToEnd
 
 #' @export
@@ -822,6 +822,13 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
       container, customPlotOpts,
       c("plotCustomLow", "plotCustomHigh", "inferenceCustomLow", "inferenceCustomHigh")
     )
+    # without an explicit dependency the formula options are not updated when container is retrieved from the state
+    # perhaps this is a bug in JASP and jaspBase::.parseAndStoreFormulaOptions shouldn't abuse the state for this
+    for (opt in c("plotCustomLow", "plotCustomHigh", "inferenceCustomLow", "inferenceCustomHigh"))
+      container[[opt]]$dependOn(nestedOptions = .JAGSnestedDepsWithBase(
+        base = c("customInference", i),
+        deps = opt
+      ))
 
     params <- .JAGSgetCustomPlotParameters(mcmcResult, customPlotOpts)
 
@@ -887,16 +894,11 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   vars2read <- c(dataVar, splitVar)
   vars2read <- vars2read[vars2read != ""]
 
-  # TODO: JASP should encode this by default, but it does not...
-  vars2read2 <- jaspBase::encodeColNames(vars2read)
-  print(sprintf("vars2read = %s\n",  toString(vars2read)))
-  print(sprintf("vars2read2 = %s\n", toString(vars2read2)))
-  overlayRawData <- .readDataSetToEnd(columns = vars2read2)
+  overlayRawData <- if (identical(splitVar, "") || is.null(splitVar))
+    .readDataSetToEnd(columns.as.numeric = dataVar)
+  else
+    .readDataSetToEnd(columns.as.numeric = dataVar, columns.as.factor = splitVar)
 
-  if (!identical(vars2read, vars2read2)) {
-    dataVar <- vars2read2[[1L]]
-    splitVar <- if (splitVar != "") vars2read2[2L]
-  }
   parameterOrder <- attr(params, "order")
   ngroups <- length(parameterOrder)
 
@@ -1370,13 +1372,13 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   if (customPlotOpts[["sd"]])     tb$addColumnInfo(name = "SD",        title = gettext("SD"),                    type = "number", overtitle = overTitle)
 
   if (customPlotOpts[["inferenceCi"]]) {
-    overTitle <- gettextf("%s%% Credible Interval", 100 * customPlotOpts[["ciLevel"]])
+    overTitle <- gettextf("%s%% Credible Interval", 100 * customPlotOpts[["inferenceCiLevel"]])
     tb$addColumnInfo(name = "criLower",     title = gettext("Lower"),                 type = "number", overtitle = overTitle)
     tb$addColumnInfo(name = "criHigher",    title = gettext("Upper"),                 type = "number", overtitle = overTitle)
   }
 
   if (customPlotOpts[["inferenceHdi"]]) {
-    overTitle <- gettextf("%s%% HDI", 100 * customPlotOpts[["hdiLevel"]])
+    overTitle <- gettextf("%s%% HDI", 100 * customPlotOpts[["inferenceHdiLevel"]])
     tb$addColumnInfo(name = "hdiLower",     title = gettext("Lower"),                 type = "number", overtitle = overTitle)
     tb$addColumnInfo(name = "hdiHigher",    title = gettext("Upper"),                 type = "number", overtitle = overTitle)
   }
