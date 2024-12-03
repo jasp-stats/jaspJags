@@ -58,7 +58,7 @@ Form
 		}
 		AssignedVariablesList   { name: "monitoredParametersShown";		title: qsTr("Show results for these parameters")}
 	}
-	
+
 	Section
 	{
 		title: qsTr("Observed Values")
@@ -198,6 +198,7 @@ Form
 								showVariableTypeIcon: 	true
 								addEmptyValue: 			true
 								placeholderText: 		qsTr("None")
+								allowedColumns:			"scale"
 							}
 
 							DropDown
@@ -209,6 +210,7 @@ Form
 								showVariableTypeIcon: 	true
 								addEmptyValue: 			true
 								placeholderText: 		qsTr("None")
+								allowedColumns:			"nominal"
 							}
 						}
 

@@ -7,10 +7,48 @@ One can specify a model using JAGS syntax and let JAGS draw samples from the pos
 ### Input
 -------
 
-#### Model Input 
+#### Model Input
 - Model: Enter the desired model. Columns in the data can be directly referred to. If these contain spaces, then the reference must also contain spaces.
 - Parameters in model: A box that automatically detects which parameters the model contains.
 - Show results for these parameters: Determines which parameters are shown in tables and plots.
+
+#### Observed Values
+Sometimes it is practical to directly specify the observed data without loading a data set.
+Here such observations can be listed.
+- Parameter: The name to be used in the JAGS model code.
+- R Code: the value for the data. This can also be R code.
+
+### Customizable Inference
+#### Parameter selection
+For which parameters to show custom results.
+- Parameter: Select a parameter from the model.
+- Parameter subset: Optionally specify a subset of the parameter, e.g., 1:4 or 1, 3, 5:8.
+
+#### Superimpose data
+Optional, should data be superimposed on the plots?
+- Data: a variable in the dataset.
+- Split by: a variable in the dataset.
+
+#### Plots
+- Plot type: The type of plot to show. Currently, only "None" or "Stacked density" are supported.
+- Order parameters by: The metric used to order the parameters in the stacked density plot.
+- Plot type for superimposed data: The type of plot to show for the superimposed data.
+- Shade interval: Whether to shade an interval in the plot, and if so, which interval.
+  - Intervals: Either Credible intervals, HDI, or a custom interval.
+
+#### Estimation
+Specify which statistics are computed for each parameter and shown in a table.
+##### Summary Statistics
+- Mean: The average value of the posterior samples.
+- Median: The middle value of the posterior samples.
+- SD: The standard deviation of the posterior samples.
+- R-hat: The potential scale reduction factor, used to diagnose convergence of the MCMC chains.
+- Effective sample size: An estimate of the number of independent samples from the posterior distribution.
+
+##### Intervals
+- Credible Interval: An interval within which a certain percentage of the posterior samples fall.
+- HDI (Highest Density Interval): The narrowest interval containing a specified percentage of the posterior samples.
+- Custom Interval: A user-defined interval for the posterior samples.
 
 #### Plots
 - Color scheme for plots: determines the color scheme.
@@ -30,12 +68,6 @@ For each parameter in the model, it is possible to specify an initial value.
 Initial values can be numbers, but also R code.
 The R code is evaluated separately for each chain, so `rnorm(1)` yields different initial values for each chain.
 
-#### Observed Values
-Sometimes it is practical to directly specify the observed data without loading a data set.
-Here such observations can be listed.
-- Parameter: The name to be used in the JAGS model code.
-- R Code: the value for the data. This can also be R code.
-
 #### Advanced
 - MCMC parameters
   - No. samples: The number of samples to draw from the posterior distribution that are used for results (tables, plots).
@@ -47,7 +79,7 @@ Note: Unlike some other software programs, JASP first draws `No. burnin samples`
 
 - Set seed: set a seed for JAGS. The same seed and model specification yields the same results.
 
-- Show results for: By default, `all monitored parameters` is selected which implies that JASP stores the MCMC samples for all parameters in the model. However, for large JAGS models storing all MCMC samples may take too much memory. By selecting `selected parameters`, one can first decide for which parameters the MCMC samples should be stored, and in a next box, decide which of these parameters should be shown in the results. 
+- Show results for: By default, `all monitored parameters` is selected which implies that JASP stores the MCMC samples for all parameters in the model. However, for large JAGS models storing all MCMC samples may take too much memory. By selecting `selected parameters`, one can first decide for which parameters the MCMC samples should be stored, and in a next box, decide which of these parameters should be shown in the results.
 
 - Show Deviance: show the Deviance statistic.
 
