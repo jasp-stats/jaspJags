@@ -165,7 +165,6 @@ Form
 								name: 				"parameter"
 								fieldWidth:			200 * preferencesModel.uiScale
 								source:				allParameters.checked ? ["monitoredParametersShown"] : ["monitoredParameters"]
-								controlMinWidth:	200 * preferencesModel.uiScale
 								addEmptyValue: 		true
 								placeholderText: 	qsTr("Select a parameter")
 							}
@@ -194,7 +193,6 @@ Form
 								label:					qsTr("Data")
 								name:					"inferenceData"
 								fieldWidth:				200 * preferencesModel.uiScale
-								controlMinWidth:		200 * preferencesModel.uiScale
 								showVariableTypeIcon: 	true
 								addEmptyValue: 			true
 								placeholderText: 		qsTr("None")
@@ -206,7 +204,6 @@ Form
 								label:					qsTr("Split by")
 								name:					"dataSplit"
 								fieldWidth:				200 * preferencesModel.uiScale
-								controlMinWidth:		200 * preferencesModel.uiScale
 								showVariableTypeIcon: 	true
 								addEmptyValue: 			true
 								placeholderText: 		qsTr("None")
