@@ -874,7 +874,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     iEnd   <- i * npoints
     r <- iStart:iEnd
 
-    d <- density(unlist(mcmcResult[["samples"]][, params[i], ]))
+    d <- density(.JAGSGetSamplesForParam(mcmcResult, params[i]))
 
     plotData[["x"]][r] <- d[["x"]]
     plotData[["y"]][r] <- d[["y"]]
@@ -1111,7 +1111,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   criValue <- customPlotOpts[[valueKey]]
   criDelta <- (1 - criValue) / 2
   probs <- c(criDelta, 1 - criDelta)
-  criBounds <- vapply(params, \(p) stats::quantile(unlist(mcmcResult[["samples"]][, p, ][[1L]]), probs = probs), FUN.VALUE = numeric(2L))
+  criBounds <- vapply(params, \(p) stats::quantile(.JAGSGetSamplesForParam(mcmcResult, p), probs = probs), FUN.VALUE = numeric(2L))
   colnames(criBounds) <- params
   criPlotData <- .JAGSboundsToRibbonData(criBounds, plotData, yHeightPerDensity, npoints)
 
@@ -1130,7 +1130,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     return(container[[stateKey]]$object)
 
   hdiLevel <- customPlotOpts[[valueKey]]
-  hdiBounds <- vapply(params, \(p) coda::HPDinterval(unlist(mcmcResult[["samples"]][, p, ][[1L]]), prob = hdiLevel), FUN.VALUE = numeric(2L))
+  hdiBounds <- vapply(params, \(p) coda::HPDinterval(.JAGSGetSamplesForParam(mcmcResult, p), prob = hdiLevel), FUN.VALUE = numeric(2L))
   colnames(hdiBounds) <- params
   hdiPlotData <- .JAGSboundsToRibbonData(hdiBounds, plotData, yHeightPerDensity, npoints)
 
@@ -1152,7 +1152,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   )
 
   customPlotData <- .JAGSboundsToRibbonData(customBounds, plotData, yHeightPerDensity, npoints)
-  customArea     <- vapply(params, \(p) .JAGScomputeArea(unlist(mcmcResult[["samples"]][, p, ][[1L]]), customBounds[, 1L]), FUN.VALUE = numeric(1L))
+  customArea     <- vapply(params, \(p) .JAGScomputeArea(.JAGSGetSamplesForParam(mcmcResult, p), customBounds[, 1L]), FUN.VALUE = numeric(1L))
 
   result <- list(customBounds = customBounds, customPlotData = customPlotData, customArea = customArea)
   stateCustomPlotData <- createJaspState(result)
@@ -1326,8 +1326,8 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   nparams <- length(subset)
 
   parameterOrder <- switch(customPlotOpts[["parameterOrder"]],
-                           "orderMean"   = order(vapplyNum(params, \(p)   mean(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
-                           "orderMedian" = order(vapplyNum(params, \(p) median(unlist(mcmcResult[["samples"]][, p, ][[1L]]))), decreasing = FALSE),
+                           "orderMean"   = order(vapplyNum(params, \(p)   mean(.JAGSGetSamplesForParam(mcmcResult, p))), decreasing = FALSE),
+                           "orderMedian" = order(vapplyNum(params, \(p) median(.JAGSGetSamplesForParam(mcmcResult, p))), decreasing = FALSE),
                            "orderSubset" = rev(seq_along(params)) # so we show 3, 2, 1 when a user puts in 1:3
   )
 
@@ -1423,13 +1423,13 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
                 as.data.frame(mcmcResult[["BUGSoutput"]][["summary"]][params, summarySubset, drop = FALSE]))
   if (customPlotOpts[["inferenceCi"]])
     df <- cbind(df,
-                criLower  = object[["criBounds"]][1L, ],
-                criHigher = object[["criBounds"]][2L, ])
+                criLower  = object[["criBounds"]][1L, params],
+                criHigher = object[["criBounds"]][2L, params])
 
   if (customPlotOpts[["inferenceHdi"]])
     df <- cbind(df,
-                hdiLower  = object[["hdiBounds"]][1L, ],
-                hdiHigher = object[["hdiBounds"]][2L, ])
+                hdiLower  = object[["hdiBounds"]][1L, params],
+                hdiHigher = object[["hdiBounds"]][2L, params])
 
   if (customPlotOpts[["inferenceManual"]])
     df <- cbind(df, customArea  = object[["customArea"]])
@@ -1723,6 +1723,10 @@ vapplyNum <- function(x, f, ...) { vapply(x, f, FUN.VALUE = numeric(1L), ...)   
 
   return(result)
 
+}
+
+.JAGSGetSamplesForParam <- function(mcmcResult, paramName) {
+  unlist(mcmcResult[["samples"]][, paramName, ], use.names = FALSE)
 }
 
 # one line helpers ----
