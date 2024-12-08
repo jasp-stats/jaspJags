@@ -220,8 +220,9 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     samples            = samples,
     hasUserData        = !is.null(userData),
     params             = params,
-    rhat               = try(coda::gelman.diag(samples))
+    rhat               = .JAGSComputeRhat(samples)
   )
+
 
   tmp <- createJaspState(object = out)
   tmp$dependOn(c("model", "samples", "burnin", "thinning", "chains", "initialValues", "userData", "resultsFor",
@@ -362,10 +363,14 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 
         tbR[["rhatPoint"]] <- rhat[["psrf"]][idx, 1L]
         tbR[["rhatCI"]]    <- rhat[["psrf"]][idx, 2L]
-        if (!is.null(rhat[["mpsrf"]])) {
+        if (!is.null(rhat[["mpsrf"]]) && rhat[["mpsrfSuccess"]]) {
           tb$addFootnote(message = gettextf(
             "The multivariate potential scale reduction factor is estimated at %.3f.",
             rhat[["mpsrf"]]
+          ))
+        } else {#if (!rhat[["mpsrfSuccess"]]) {
+          tb$addFootnote(message = gettext(
+            "The multivariate potential scale reduction factor could not be computed. This could indicate convergence issues, carefully examine the trace plots and r-hat estimates."
           ))
         }
       }
@@ -1429,10 +1434,19 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   if (customPlotOpts[["inferenceManual"]])
     df <- cbind(df, customArea  = object[["customArea"]])
 
-  if (customPlotOpts[["rhat"]])
-    df <- cbind(df,
-                rhatPoint = mcmcResult[["rhat"]][["psrf"]][params, 1L],
-                rhatCI    = mcmcResult[["rhat"]][["psrf"]][params, 2L])
+  if (customPlotOpts[["rhat"]]) {
+
+    rhat <- mcmcResult[["rhat"]]
+    if (isTryError(rhat)) {
+      tb$addFootnote(message = gettext("Failed to compute the Rhat statistic. This is expected if the model contains discrete parameters."),
+                     colNames = c("rhatPoint", "rhatCI"))
+    } else {
+
+      df <- cbind(df,
+                  rhatPoint = mcmcResult[["rhat"]][["psrf"]][params, 1L],
+                  rhatCI    = mcmcResult[["rhat"]][["psrf"]][params, 2L])
+    }
+  }
 
   if (customPlotOpts[["ess"]])
     df[["neff"]] <- as.integer(mcmcResult[["BUGSoutput"]][["summary"]][params, "neff"])
@@ -1686,6 +1700,29 @@ vapplyNum <- function(x, f, ...) { vapply(x, f, FUN.VALUE = numeric(1L), ...)   
 
   }
   return(res)
+}
+
+.JAGSComputeRhat <- function(samples) {
+
+  # coda::gelman.diag by default computes r-hat and the (much less used)
+  # multivariate potential scale reduction factor. The multivariate one requires computing
+  # a Cholesky (and eigen) decomposition, which are prone to failure.
+  # If the computation fails, we try again without the multivariate one.
+
+  result <- try(coda::gelman.diag(samples))
+  if (!isTryError(result)) {
+    result[["mpsrfSuccess"]] <- TRUE
+    return(result)
+  }
+
+  result <- try(coda::gelman.diag(samples, multivariate = FALSE))
+  if (!isTryError(result)) {
+    result[["mpsrfSuccess"]] <- FALSE
+    return(result)
+  }
+
+  return(result)
+
 }
 
 # one line helpers ----
