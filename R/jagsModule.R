@@ -1130,7 +1130,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     return(container[[stateKey]]$object)
 
   hdiLevel <- customPlotOpts[[valueKey]]
-  hdiBounds <- vapply(params, \(p) coda::HPDinterval(.JAGSGetSamplesForParam(mcmcResult, p), prob = hdiLevel), FUN.VALUE = numeric(2L))
+  hdiBounds <- vapply(params, \(p) coda::HPDinterval(coda::mcmc(.JAGSGetSamplesForParam(mcmcResult, p)), prob = hdiLevel), FUN.VALUE = numeric(2L))
   colnames(hdiBounds) <- params
   hdiPlotData <- .JAGSboundsToRibbonData(hdiBounds, plotData, yHeightPerDensity, npoints)
 
