@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.19.2\n"
-"POT-Creation-Date: 2024-10-19 03:43\n"
+"POT-Creation-Date: 2024-12-14 03:46\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,6 +71,9 @@ msgid "Failed to compute the Rhat statistic. This is expected if the model conta
 msgstr ""
 
 msgid "The multivariate potential scale reduction factor is estimated at %.3f."
+msgstr ""
+
+msgid "The multivariate potential scale reduction factor could not be computed. This could indicate convergence issues, carefully examine the trace plots and r-hat estimates."
 msgstr ""
 
 msgid "Rhat statistic cannot be computed for only one chain. It is strongly recommoned to run more than one chain to assess MCMC convergence!"

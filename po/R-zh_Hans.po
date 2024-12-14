@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.15\n"
-"POT-Creation-Date: 2023-07-01 03:45\n"
+"POT-Creation-Date: 2024-12-14 03:46\n"
 "PO-Revision-Date: 2022-12-15 07:48+0000\n"
 "Last-Translator: Shun Wang <shuonwang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -82,6 +82,12 @@ msgstr "无法计算 Rhat 统计量。如果模型包含离散参数，则会如
 
 msgid "The multivariate potential scale reduction factor is estimated at %.3f."
 msgstr "多变量潜在比例尺度缩减因子(MPSRF)估计为 %.3f。"
+
+msgid ""
+"The multivariate potential scale reduction factor could not be computed. "
+"This could indicate convergence issues, carefully examine the trace plots "
+"and r-hat estimates."
+msgstr ""
 
 msgid ""
 "Rhat statistic cannot be computed for only one chain. It is strongly "
