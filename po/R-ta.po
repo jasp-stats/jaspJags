@@ -2,25 +2,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.19.2\n"
 "POT-Creation-Date: 2024-12-14 03:46\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-01-06 12:24+0000\n"
+"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/jasp/jaspjags-r/ta/"
+">\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid "The following names appeared both in the data set and in the user specified data:\n%s"
 msgstr ""
+"பின்வரும் பெயர்கள் தரவு தொகுப்பிலும் பயனர் குறிப்பிட்ட தரவிலும் தோன்றின:\n"
+" %s"
 
 msgid "Please specify which parameters to monitor!"
-msgstr ""
+msgstr "எந்த அளவுருக்களைக் கண்காணிக்க வேண்டும் என்பதைக் குறிப்பிடவும்!"
 
 msgid "Please specify which parameters to show output for!"
-msgstr ""
+msgstr "எந்த அளவுருக்களைக் காண்பிக்க வேண்டும் என்பதைக் குறிப்பிடவும்!"
 
 msgid "MCMC Summary"
-msgstr ""
+msgstr "MCMC சுருக்கம்"
 
 msgid "Posterior"
 msgstr ""
@@ -29,7 +34,7 @@ msgid "95%% Credible Interval"
 msgstr ""
 
 msgid "Rhat"
-msgstr ""
+msgstr "எலி"
 
 msgid "Parameter"
 msgstr ""
@@ -50,58 +55,65 @@ msgid "Upper"
 msgstr ""
 
 msgid "Point est."
-msgstr ""
+msgstr "புள்ளி."
 
 msgid "Upper CI"
-msgstr ""
+msgstr "மேல் சி.ஐ."
 
 msgid "Effective Sample Size"
-msgstr ""
+msgstr "பயனுள்ள மாதிரி அளவு"
 
 msgid "Output based on %s MCMC draws."
-msgstr ""
+msgstr "%s MCMC டிராக்களை அடிப்படையாகக் கொண்ட வெளியீடு."
 
 msgid "No data was supplied, everything was sampled from the priors!"
 msgstr ""
+"தரவு எதுவும் வழங்கப்படவில்லை, ப்ரியர்களிடமிருந்து எல்லாம் மாதிரி செய்யப்பட்டது!"
 
 msgid "Deviance cannot be computed without data."
-msgstr ""
+msgstr "தரவு இல்லாமல் விலகல் கணக்கிட முடியாது."
 
 msgid "Failed to compute the Rhat statistic. This is expected if the model contains discrete parameters."
 msgstr ""
+"RHAT புள்ளிவிவரத்தை கணக்கிடுவதில் தோல்வி. மாதிரியில் தனித்துவமான அளவுருக்கள் இருந்தால் "
+"இது எதிர்பார்க்கப்படுகிறது."
 
 msgid "The multivariate potential scale reduction factor is estimated at %.3f."
-msgstr ""
+msgstr "பன்முக சாத்தியமான அளவிலான குறைப்பு காரணி %.3f என மதிப்பிடப்பட்டுள்ளது."
 
 msgid "The multivariate potential scale reduction factor could not be computed. This could indicate convergence issues, carefully examine the trace plots and r-hat estimates."
 msgstr ""
+"பன்முக சாத்தியமான அளவிலான குறைப்பு காரணியைக் கணக்கிட முடியவில்லை. இது குவிப்பு "
+"சிக்கல்களைக் குறிக்கலாம், சுவடு அடுக்குகள் மற்றும் ஆர்-தொப்பி மதிப்பீடுகளை கவனமாக ஆராயலாம்."
 
 msgid "Rhat statistic cannot be computed for only one chain. It is strongly recommoned to run more than one chain to assess MCMC convergence!"
 msgstr ""
+"ஒரே ஒரு சங்கிலிக்கு என்ன புள்ளிவிவரங்களை கணக்கிட முடியாது. எம்.சி.எம்.சி ஒருங்கிணைப்பை "
+"மதிப்பிடுவதற்கு ஒன்றுக்கு மேற்பட்ட சங்கிலிகளை இயக்குவது கடுமையாக பரிந்துரைக்கப்படுகிறது!"
 
 msgid "Marginal Density"
-msgstr ""
+msgstr "விளிம்பு அடர்த்தி"
 
 msgid "Marginal Histogram"
-msgstr ""
+msgstr "விளிம்பு இச்டோகிராம்"
 
 msgid "Trace Plots"
-msgstr ""
+msgstr "சுவடு அடுக்கு"
 
 msgid "Autocorrelation Plots"
-msgstr ""
+msgstr "தன்னியக்க தொடர்பு அடுக்கு"
 
 msgid "Bivariate Scatter Plot"
-msgstr ""
+msgstr "பிவாரேட் சிதறல் சூழ்ச்சி"
 
 msgid "Density"
 msgstr ""
 
 msgid "Chain"
-msgstr ""
+msgstr "சங்கிலி"
 
 msgid "Counts"
-msgstr ""
+msgstr "எண்ணிக்கைகள்"
 
 msgid "Iteration"
 msgstr ""
@@ -114,54 +126,67 @@ msgstr ""
 
 msgid "At least two parameters need to be monitored and shown to make a bivariate scatter plot!"
 msgstr ""
+"குறைந்தது இரண்டு அளவுருக்கள் கண்காணிக்கப்பட வேண்டும் மற்றும் ஒரு பிவாரேட் சிதறல் "
+"சதித்திட்டத்தை உருவாக்க வேண்டும்!"
 
 msgid "Custom output for %s"
-msgstr ""
+msgstr "%s க்கான தனிப்பயன் வெளியீடு"
 
 msgid "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than in the parameter or parameter subset (%3$d levels)"
 msgstr ""
+"எச்சரிக்கை. அளவுரு அல்லது அளவுரு துணைக்குழுவைக் காட்டிலும் (%3$d அளவுகள்) விட "
+"\"பிளவு மூலம்\" (%1$s%2$d அளவைக் கொண்டுள்ளது) இல் குறைவான நிலைகள் உள்ளன"
 
 msgid "Stacked density"
-msgstr ""
+msgstr "அடுக்கப்பட்ட அடர்த்தி"
 
 msgid "Inference for %s"
-msgstr ""
+msgstr "%s க்கு அனுமானம்"
 
 msgid "Statistic"
-msgstr ""
+msgstr "புள்ளிவிவரம்"
 
 msgid "%s%% Credible Interval"
 msgstr ""
 
 msgid "%s%% HDI"
-msgstr ""
+msgstr "%s %% அடி"
 
 msgid "%1$s(%2$s < %3$s < %4$s)"
-msgstr ""
+msgstr "%1$s ( %2$s < %3$s < %4 $ s)"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
-msgstr ""
+msgstr "%1$s%2$sin கூட்டல்:%3$s%4 $ s"
 
 msgid "The model contains more '%1$s' than '%2$s' (%3$d vs %4$d)"
-msgstr ""
+msgstr "மாதிரியில் '%2$s' ஐ விட அதிக '%1$s' உள்ளது (%3$d vs%4 $ d)"
 
 msgid "There was a problem loading JAGS, JAGS_HOME is: '%1$s'.\nPlease contact the JASP team for support.\nError was: %2$s."
 msgstr ""
+"சாக்ச் ஏற்றுவதில் சிக்கல் இருந்தது, சாக்ச்_ஓம்: '%1$s'.\n"
+" ஆதரவுக்கு சாச்ப் குழுவைத் தொடர்பு கொள்ளவும்.\n"
+" பிழை: %2$s."
 
 msgid "Expected JAGS version 4.3.0 but found %s"
-msgstr ""
+msgstr "எதிர்பார்க்கப்படும் சாக்ச் பதிப்பு 4.3.0 ஆனால் %s கிடைத்தன"
 
 msgid "Failed to export the samples because the directory to save them in does not exist."
 msgstr ""
+"மாதிரிகளை ஏற்றுமதி செய்யத் தவறிவிட்டது, ஏனெனில் அவற்றைக் காப்பாற்றுவதற்கான அடைவு இல்லை."
 
 msgid "Failed to export the samples because the following error occured: %s"
-msgstr ""
+msgstr "பின்வரும் பிழை ஏற்பட்டதால் மாதிரிகளை ஏற்றுமதி செய்வதில் தோல்வி: %s"
 
 msgid "The R code for %1$s crashed with error:\n%2$s"
 msgstr ""
+"%1$s க்கான R குறியீடு பிழையுடன் செயலிழந்தது:\n"
+" %2$s"
 
 msgid "The result of %1$s R code should be numeric but it was of mode %2$s and class %3$s"
 msgstr ""
+"%1$s r குறியீட்டின் முடிவு எண் 2 $ s மற்றும் வகுப்பு %3$s பயன்முறையாக இருந்தது"
 
 msgid "The following error occured while loading the jags modules \"glm\" and \"dic\": %s."
 msgstr ""
+"சாக்ச் தொகுதிகள் \"சி.எல்.எம்\" மற்றும் \"டி.ஐ.சி\" ஆகியவற்றை ஏற்றும்போது பின்வரும் பிழை "
+"ஏற்பட்டது: %s."
