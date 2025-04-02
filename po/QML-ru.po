@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-04-01 15:06+0000\n"
+"PO-Revision-Date: 2025-04-02 18:57+0000\n"
 "Last-Translator: Иван Рудаков <riv@polygene.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/jasp/"
 "jaspjags-qml/ru/>\n"
@@ -54,7 +54,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr ""
+msgstr "Дальтонизм"
 
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
@@ -62,7 +62,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr ""
+msgstr "Viridis"
 
 msgctxt "JAGS|"
 msgid "Blue"
