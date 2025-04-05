@@ -3,45 +3,53 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Language: tr\n"
 "X-Qt-Contexts: true\n"
 
 msgctxt "Description|"
 msgid "JAGS"
-msgstr "JAGS"
+msgstr ""
+
+msgctxt "Description|"
+msgid ""
+"Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
+"Markov chain Monte Carlo"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Enter JAGS model below"
-msgstr "JAGS modelini aşağıya girin"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Parameters in model"
-msgstr "Modeldeki parametreler"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Monitor these parameters"
-msgstr "Bu parametreleri izle"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Monitored parameters"
-msgstr "İzlenen parametreler"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Show results for these parameters"
-msgstr "Bu parametreler için sonuçları göster"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Observed Values"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Plots"
-msgstr "Grafikler"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Color scheme for plots:"
-msgstr "Grafikler için renk şeması:"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr "Renk körü"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
@@ -49,7 +57,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr "Viridis"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Blue"
@@ -57,7 +65,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Gray"
-msgstr "Gri"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Aggregate chains for densities and histograms"
@@ -69,11 +77,11 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Density"
-msgstr "Yoğunluk"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Histogram"
-msgstr "Histogram"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Trace"
@@ -81,7 +89,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr "otokorelasyon"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "No. lags"
@@ -97,7 +105,7 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "bar"
-msgstr "çubuk"
+msgstr ""
 
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
@@ -117,60 +125,6 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Contour"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Initial Values"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Observed Values"
-msgstr "Gözlemlenen Değerler"
-
-msgctxt "JAGS|"
-msgid "Advanced"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "MCMC parameters"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "No. samples"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "No. burnin samples"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Thinning"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "No. chains"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Show results for"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "all monitored parameters"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "selected parameters"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Show Deviance"
-msgstr ""
-
-msgctxt "Description|"
-msgid ""
-"Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
-"Markov chain Monte Carlo"
 msgstr ""
 
 msgctxt "JAGS|"
@@ -355,6 +309,50 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Normal approximation"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Initial Values"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "MCMC parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. burnin samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Thinning"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. chains"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show results for"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "all monitored parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "selected parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show Deviance"
 msgstr ""
 
 msgctxt "JAGS|"
