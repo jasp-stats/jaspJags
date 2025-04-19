@@ -1389,7 +1389,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   }
 
   if (customPlotOpts[["inferenceManual"]]) {
-    title <- gettextf("%1$s(%2$s < %3$s < %4$s)",
+    title <- sprintf("%1$s(%2$s < %3$s < %4$s)",
                       "\u2119", # fancy P
                       customPlotOpts[["inferenceCustomLow"]],
                       "\u03B8", # theta
