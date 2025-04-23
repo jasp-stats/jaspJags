@@ -153,13 +153,13 @@ msgid "%s%% HDI"
 msgstr "%s %% அடி"
 
 msgid "%1$s(%2$s < %3$s < %4$s)"
-msgstr "%1$s ( %2$s < %3$s < %4 $ s)"
+msgstr "%1$s ( %2$s < %3$s < %4$s)"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
-msgstr "%1$s%2$sin கூட்டல்:%3$s%4 $ s"
+msgstr "%1$s%2$sin கூட்டல்:%3$s%4$s"
 
 msgid "The model contains more '%1$s' than '%2$s' (%3$d vs %4$d)"
-msgstr "மாதிரியில் '%2$s' ஐ விட அதிக '%1$s' உள்ளது (%3$d vs%4 $ d)"
+msgstr "மாதிரியில் '%2$s' ஐ விட அதிக '%1$s' உள்ளது (%3$d vs%4$d)"
 
 msgid "There was a problem loading JAGS, JAGS_HOME is: '%1$s'.\nPlease contact the JASP team for support.\nError was: %2$s."
 msgstr ""
@@ -184,7 +184,7 @@ msgstr ""
 
 msgid "The result of %1$s R code should be numeric but it was of mode %2$s and class %3$s"
 msgstr ""
-"%1$s r குறியீட்டின் முடிவு எண் 2 $ s மற்றும் வகுப்பு %3$s பயன்முறையாக இருந்தது"
+"%1$s r குறியீட்டின் முடிவு எண் %2$s மற்றும் வகுப்பு %3$s பயன்முறையாக இருந்தது"
 
 msgid "The following error occured while loading the jags modules \"glm\" and \"dic\": %s."
 msgstr ""
