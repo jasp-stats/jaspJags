@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: JASP 0.9.2\n"
-"POT-Creation-Date: 2024-12-14 03:46\n"
+"POT-Creation-Date: 2025-04-23 11:22\n"
 "PO-Revision-Date: 2024-12-15 10:00+0000\n"
 "Last-Translator: ecadrian <ecadrian@hotmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
@@ -169,9 +169,6 @@ msgstr "Intervalo con el %s%% de Credibilidad"
 msgid "%s%% HDI"
 msgstr "IMD (HDI) del %s%%"
 
-msgid "%1$s(%2$s < %3$s < %4$s)"
-msgstr "%1$s(%2$s < %3$s < %4$s)"
-
 msgid "%1$s%2$sIn addition:%3$s%4$s"
 msgstr "%1$s%2$sAdemás:%3$s%4$s"
 
@@ -220,3 +217,6 @@ msgid ""
 msgstr ""
 "Ocurrió el siguiente fallo mientras se cargaban los módulos jags \"glm\" y "
 "\"dic\": %s."
+
+#~ msgid "%1$s(%2$s < %3$s < %4$s)"
+#~ msgstr "%1$s(%2$s < %3$s < %4$s)"

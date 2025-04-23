@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: jaspJags 0.19.2\n"
-"POT-Creation-Date: 2024-12-14 03:46\n"
+"Project-Id-Version: jaspJags 0.20.0\n"
+"POT-Creation-Date: 2025-04-23 11:22\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,9 +134,6 @@ msgid "%s%% Credible Interval"
 msgstr ""
 
 msgid "%s%% HDI"
-msgstr ""
-
-msgid "%1$s(%2$s < %3$s < %4$s)"
 msgstr ""
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"

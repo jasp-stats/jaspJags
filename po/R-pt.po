@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 3.6.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
-"POT-Creation-Date: 2024-12-14 03:46\n"
+"POT-Creation-Date: 2025-04-23 11:22\n"
 "PO-Revision-Date: 2021-08-27 20:21+0000\n"
 "Last-Translator: Alex França <alex.tonante@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/jaspjags-"
@@ -163,9 +163,6 @@ msgid "%s%% Credible Interval"
 msgstr "Intervalo de Confiança 95%%"
 
 msgid "%s%% HDI"
-msgstr ""
-
-msgid "%1$s(%2$s < %3$s < %4$s)"
 msgstr ""
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
