@@ -1379,7 +1379,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   tb$dependOn(nestedOptions = .JAGSnestedDepsWithBase(
     base = c("customInference", i),
     deps = c(enablingOptions, "inferenceCiLevel", "inferenceHdiLevel",
-             "inferenceCustomLow", "inferenceCustomHigh", "mode")
+             "inferenceCustomLow", "inferenceCustomHigh")
   ))
 
   overTitle <- gettext("Statistic")
