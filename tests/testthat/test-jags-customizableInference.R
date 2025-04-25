@@ -14,7 +14,7 @@ options$customInference <- list(list(ciLevel = 0.95, inferenceData = "contNormal
                                      ess = TRUE, hdiLevel = 0.95, inferenceCi = TRUE,
                                      inferenceCiLevel = 0.95, inferenceCustomHigh = "1",
                                      inferenceCustomLow = "0", inferenceManual = TRUE,
-                                     inferenceHdi = TRUE, inferenceHdiLevel = 0.95, mean = TRUE,
+                                     inferenceHdi = TRUE, inferenceHdiLevel = 0.95, mean = TRUE, mode = FALSE,
                                      median = TRUE, rhat = TRUE, sd = TRUE, shadeIntervalInPlot = TRUE))
 options$overlayGeomType <- "density"
 options$plotInterval <- "ci"

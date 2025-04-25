@@ -342,6 +342,7 @@ Form
 							title: qsTr("Summary statistics")
 							CheckBox { name: "mean";	label: qsTr("Mean");					checked: true	}
 							CheckBox { name: "median";	label: qsTr("Median");					checked: true	}
+							CheckBox { name: "mode";	label: qsTr("Mode");					checked: true	}
 							CheckBox { name: "sd";		label: qsTr("SD");						checked: true	}
 							CheckBox { name: "rhat";	label: qsTr("R-hat");					checked: true	}
 							CheckBox { name: "ess";		label: qsTr("Effective sample size");	checked: true	}
