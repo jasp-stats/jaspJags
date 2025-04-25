@@ -121,7 +121,7 @@ options$customInference <- list(list(ciLevel = 0.95, inferenceData = "",
                                      ess = TRUE, hdiLevel = 0.95, inferenceCi = TRUE,
                                      inferenceCiLevel = 0.95, inferenceCustomHigh = "1",
                                      inferenceCustomLow = "0", inferenceManual = TRUE,
-                                     inferenceHdi = TRUE, inferenceHdiLevel = 0.95, mean = TRUE,
+                                     inferenceHdi = TRUE, inferenceHdiLevel = 0.95, mean = TRUE, mode = FALSE,
                                      median = TRUE, rhat = TRUE, sd = TRUE, shadeIntervalInPlot = TRUE),
                                 list(ciLevel = 0.95, inferenceData = "",
                                      dataSplit = "", name = "Plot 2",
@@ -139,7 +139,7 @@ options$customInference <- list(list(ciLevel = 0.95, inferenceData = "",
                                      inferenceCiLevel = 0.95, inferenceCustomHigh = "1",
                                      inferenceCustomLow = "0", inferenceManual = FALSE,
                                      inferenceHdi = FALSE, inferenceHdiLevel = 0.95,
-                                     mean = TRUE, median = TRUE, rhat = TRUE, sd = TRUE, shadeIntervalInPlot = TRUE))
+                                     mean = TRUE, mode = FALSE, median = TRUE, rhat = TRUE, sd = TRUE, shadeIntervalInPlot = TRUE))
 options$overlayGeomType <- "density"
 options$plotInterval <- "ci"
 options$deviance <- FALSE
