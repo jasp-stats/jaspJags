@@ -1083,6 +1083,8 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   customPlotData <- tmp[["customPlotData"]]
   customBounds   <- tmp[["customBounds"]]
   customArea     <- tmp[["customArea"]]
+  
+  modes <- .JAGScomputePosteriorMode(mcmcResult, params)
 
   # NOTE: the xxxBounds objects below are all a matrix with column(.) == params and are 2 x length(params)
   # this is required for .JAGSboundsToRibbon.
@@ -1098,8 +1100,19 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     hdiBounds         = hdiBounds,
     customBounds      = customBounds,
     customArea        = customArea,
-    yHeightPerDensity = yHeightPerDensity
+    yHeightPerDensity = yHeightPerDensity,
+    modes             = modes
   ))
+}
+
+.JAGScomputePosteriorMode <- function(jags_obj, params) {
+  all_samples <- do.call(rbind, jags_obj$samples)
+  get_mode <- function(x) {
+    dens <- density(x)
+    dens$x[which.max(dens$y)]
+  }
+  posterior_modes <- apply(all_samples, 2, get_mode)
+  return(posterior_modes[params])
 }
 
 .JAGScomputCustomCri <- function(customPlotOpts, params, mcmcResult, plotData, yHeightPerDensity, npoints, i, container,
@@ -1352,7 +1365,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     return()
 
   enablingOptions <- c(
-    "mean", "median", "sd", "rhat",
+    "mean", "median", "mode", "sd", "rhat",
     "inferenceCi", "inferenceHdi", "inferenceManual"
   )
 
@@ -1374,6 +1387,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 
   if (customPlotOpts[["mean"]])   tb$addColumnInfo(name = "Mean",      title = gettext("Mean"),                  type = "number", overtitle = overTitle)
   if (customPlotOpts[["median"]]) tb$addColumnInfo(name = "50%",       title = gettext("Median"),                type = "number", overtitle = overTitle)
+  if (customPlotOpts[["mode"]])   tb$addColumnInfo(name = "Mode",      title = gettext("Mode"),                  type = "number", overtitle = overTitle)
   if (customPlotOpts[["sd"]])     tb$addColumnInfo(name = "SD",        title = gettext("SD"),                    type = "number", overtitle = overTitle)
 
   if (customPlotOpts[["inferenceCi"]]) {
@@ -1421,6 +1435,9 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   if (length(summarySubset) > 0L)
     df <- cbind(df,
                 as.data.frame(mcmcResult[["BUGSoutput"]][["summary"]][params, summarySubset, drop = FALSE]))
+  if (customPlotOpts[["mode"]])
+    df <- cbind(df,
+                Mode = object[["modes"]][params])
   if (customPlotOpts[["inferenceCi"]])
     df <- cbind(df,
                 criLower  = object[["criBounds"]][1L, params],
