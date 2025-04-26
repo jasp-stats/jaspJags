@@ -41,6 +41,7 @@ Specify which statistics are computed for each parameter and shown in a table.
 ##### Summary Statistics
 - Mean: The average value of the posterior samples.
 - Median: The middle value of the posterior samples.
+- Mode: The value of the posterior distribution with the highest density.
 - SD: The standard deviation of the posterior samples.
 - R-hat: The potential scale reduction factor, used to diagnose convergence of the MCMC chains.
 - Effective sample size: An estimate of the number of independent samples from the posterior distribution.
