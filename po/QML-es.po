@@ -371,3 +371,7 @@ msgstr "Sincronizar Muestras: Encendido"
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
 msgstr "Sincronizar Muestras: Apagado"
+
+msgctxt "JAGS|"
+msgid "Mode"
+msgstr ""

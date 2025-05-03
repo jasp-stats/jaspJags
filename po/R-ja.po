@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.1\n"
-"POT-Creation-Date: 2025-04-23 11:22\n"
+"POT-Creation-Date: 2025-05-03 03:48\n"
 "PO-Revision-Date: 2024-06-18 16:09+0000\n"
 "Last-Translator: Daiki Hojo <dhojo.bayes@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
@@ -157,6 +157,9 @@ msgstr "%s の推論"
 
 msgid "Statistic"
 msgstr "統計量"
+
+msgid "Mode"
+msgstr ""
 
 msgid "%s%% Credible Interval"
 msgstr "%s%% 信用区間"

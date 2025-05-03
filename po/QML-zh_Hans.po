@@ -370,3 +370,7 @@ msgstr "同步样本：开"
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
 msgstr "同步样本：关"
+
+msgctxt "JAGS|"
+msgid "Mode"
+msgstr ""

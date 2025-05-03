@@ -369,3 +369,7 @@ msgstr "Synchronizuj próby: Wł"
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
 msgstr "Synchronizuj próby: Wył"
+
+msgctxt "JAGS|"
+msgid "Mode"
+msgstr ""

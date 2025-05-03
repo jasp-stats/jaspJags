@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.19.2\n"
-"POT-Creation-Date: 2025-04-23 11:22\n"
+"POT-Creation-Date: 2025-05-03 03:48\n"
 "PO-Revision-Date: 2025-04-13 00:02+0000\n"
 "Last-Translator: Marko Bojović <bojovicmarko@outlook.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
@@ -149,6 +149,9 @@ msgid "Inference for %s"
 msgstr ""
 
 msgid "Statistic"
+msgstr ""
+
+msgid "Mode"
 msgstr ""
 
 msgid "%s%% Credible Interval"

@@ -371,3 +371,7 @@ msgstr "Synchronisatie trekkingen: Aan"
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
 msgstr "Synchronisatie trekkingen: Uit"
+
+msgctxt "JAGS|"
+msgid "Mode"
+msgstr ""

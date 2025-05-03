@@ -368,3 +368,7 @@ msgstr ""
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
 msgstr ""
+
+msgctxt "JAGS|"
+msgid "Mode"
+msgstr ""

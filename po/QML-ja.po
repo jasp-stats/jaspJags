@@ -370,3 +370,7 @@ msgstr "サンプル同期: オン"
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
 msgstr "サンプル同期: オフ"
+
+msgctxt "JAGS|"
+msgid "Mode"
+msgstr ""

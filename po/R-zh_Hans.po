@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.15\n"
-"POT-Creation-Date: 2025-04-23 11:22\n"
+"POT-Creation-Date: 2025-05-03 03:48\n"
 "PO-Revision-Date: 2022-12-15 07:48+0000\n"
 "Last-Translator: Shun Wang <shuonwang@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -147,6 +147,9 @@ msgid "Inference for %s"
 msgstr ""
 
 msgid "Statistic"
+msgstr ""
+
+msgid "Mode"
 msgstr ""
 
 #, fuzzy
