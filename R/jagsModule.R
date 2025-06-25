@@ -913,6 +913,14 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 
       breaks <- if (customPlotOpts[["overlayHistogramBinWidthType"]] == "manual") {
         customPlotOpts[["overlayHistogramManualNumberOfBins"]]
+      } else if (customPlotOpts[["overlayHistogramBinWidthType"]] == "doane") {
+
+        rawData <- overlayRawData[[dataVar]]
+        nObs    <- length(rawData)
+        # https://en.wikipedia.org/wiki/Histogram#Doane's_formula, same as in Descriptives
+        sigma.g1 <- sqrt((6 * (nObs - 2)) / ((nObs + 1) * (nObs + 3)))
+        g1 <- mean(abs(rawData)^3)
+        1 + log2(nObs) + log2(1 + (g1 / sigma.g1))
       } else {
         customPlotOpts[["overlayHistogramBinWidthType"]]
       }
@@ -955,6 +963,16 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
       # first compute the histogram on all the data to obtain the breaks
       breaks0 <- if (customPlotOpts[["overlayHistogramBinWidthType"]] == "manual") {
         customPlotOpts[["overlayHistogramManualNumberOfBins"]]
+
+      } else if (customPlotOpts[["overlayHistogramBinWidthType"]] == "doane") {
+
+        rawData <- overlayRawData[rowIdx, dataVar]
+        nObs    <- length(rawData)
+        # https://en.wikipedia.org/wiki/Histogram#Doane's_formula, same as in Descriptives
+        sigma.g1 <- sqrt((6 * (nObs - 2)) / ((nObs + 1) * (nObs + 3)))
+        g1 <- mean(abs(rawData)^3)
+        1 + log2(nObs) + log2(1 + (g1 / sigma.g1))
+
       } else {
         customPlotOpts[["overlayHistogramBinWidthType"]]
       }
@@ -1083,7 +1101,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   customPlotData <- tmp[["customPlotData"]]
   customBounds   <- tmp[["customBounds"]]
   customArea     <- tmp[["customArea"]]
-  
+
   modes <- .JAGScomputePosteriorMode(mcmcResult, params)
 
   # NOTE: the xxxBounds objects below are all a matrix with column(.) == params and are 2 x length(params)
