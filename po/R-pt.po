@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: R 3.6.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
 "POT-Creation-Date: 2025-05-03 03:48\n"
-"PO-Revision-Date: 2021-08-27 20:21+0000\n"
-"Last-Translator: Alex França <alex.tonante@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/jaspjags-"
-"r/pt/>\n"
+"PO-Revision-Date: 2025-08-05 16:02+0000\n"
+"Last-Translator: Wendel Paulo Silvestre <wpsilvestre@ucs.br>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/"
+"jaspjags-r/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 "X-Language: en_US\n"
 "X-Source-Language: American English\n"
 "X-Qt-Contexts: true\n"
@@ -27,13 +27,13 @@ msgstr ""
 "%s"
 
 msgid "Please specify which parameters to monitor!"
-msgstr ""
+msgstr "Por favor, especifique quais parâmetros devem ser monitorados!"
 
 msgid "Please specify which parameters to show output for!"
-msgstr ""
+msgstr "Por favor, especifique para quais parâmetros se deve exibir a saída!"
 
 msgid "MCMC Summary"
-msgstr ""
+msgstr "Resumo MCMC"
 
 msgid "Posterior"
 msgstr "Posterior"
@@ -42,7 +42,7 @@ msgid "95%% Credible Interval"
 msgstr "Intervalo de Confiança 95%%"
 
 msgid "Rhat"
-msgstr ""
+msgstr "Rhat"
 
 msgid "Parameter"
 msgstr "Parâmetro"
@@ -68,9 +68,8 @@ msgstr ""
 msgid "Upper CI"
 msgstr ""
 
-#, fuzzy
 msgid "Effective Sample Size"
-msgstr "Tamanho de efeito"
+msgstr "Tamanho de Amostra Efetivo"
 
 msgid "Output based on %s MCMC draws."
 msgstr ""
@@ -100,17 +99,14 @@ msgid ""
 "recommoned to run more than one chain to assess MCMC convergence!"
 msgstr ""
 
-#, fuzzy
 msgid "Marginal Density"
-msgstr "Médias marginais"
+msgstr "Densidade Marginal"
 
-#, fuzzy
 msgid "Marginal Histogram"
-msgstr "Posteriores marginal"
+msgstr "Histograma Marginal"
 
-#, fuzzy
 msgid "Trace Plots"
-msgstr "Diagramas Separados"
+msgstr "Gráfico de Traços"
 
 msgid "Autocorrelation Plots"
 msgstr ""
@@ -125,7 +121,7 @@ msgid "Chain"
 msgstr ""
 
 msgid "Counts"
-msgstr "Contagem"
+msgstr "Contagens"
 
 msgid "Iteration"
 msgstr "Iteração"
@@ -134,7 +130,7 @@ msgid "Autocorrelation"
 msgstr "Autocorrelação"
 
 msgid "Lag"
-msgstr ""
+msgstr "Lag"
 
 msgid ""
 "At least two parameters need to be monitored and shown to make a bivariate "
@@ -161,9 +157,8 @@ msgstr ""
 msgid "Mode"
 msgstr ""
 
-#, fuzzy
 msgid "%s%% Credible Interval"
-msgstr "Intervalo de Confiança 95%%"
+msgstr "Intervalo credível %s%%"
 
 msgid "%s%% HDI"
 msgstr ""
