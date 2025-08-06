@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-08-06 02:02+0000\n"
+"PO-Revision-Date: 2025-08-06 07:43+0000\n"
 "Last-Translator: Wendel Paulo Silvestre <wpsilvestre@ucs.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/"
 "jaspjags-qml/pt/>\n"
@@ -52,43 +52,43 @@ msgstr "Daltônico Alt."
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr ""
+msgstr "Viridis"
 
 msgctxt "JAGS|"
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 msgctxt "JAGS|"
 msgid "Gray"
-msgstr ""
+msgstr "Cinza"
 
 msgctxt "JAGS|"
 msgid "Aggregate chains for densities and histograms"
-msgstr ""
+msgstr "Agregar cadeias para densidades e histogramas"
 
 msgctxt "JAGS|"
 msgid "Show legends"
-msgstr ""
+msgstr "Mostrar legendas"
 
 msgctxt "JAGS|"
 msgid "Density"
-msgstr ""
+msgstr "Densidade"
 
 msgctxt "JAGS|"
 msgid "Histogram"
-msgstr ""
+msgstr "Histograma"
 
 msgctxt "JAGS|"
 msgid "Trace"
-msgstr ""
+msgstr "Traço"
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr ""
+msgstr "Autocorrelação"
 
 msgctxt "JAGS|"
 msgid "No. lags"
-msgstr ""
+msgstr "N° lags"
 
 msgctxt "JAGS|"
 msgid "Type"
