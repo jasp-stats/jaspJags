@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: R 3.6.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
 "POT-Creation-Date: 2025-05-03 03:48\n"
-"PO-Revision-Date: 2025-08-05 16:02+0000\n"
+"PO-Revision-Date: 2025-08-06 07:43+0000\n"
 "Last-Translator: Wendel Paulo Silvestre <wpsilvestre@ucs.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/"
 "jaspjags-r/pt/>\n"
@@ -63,22 +63,22 @@ msgid "Upper"
 msgstr "Superior"
 
 msgid "Point est."
-msgstr ""
+msgstr "Est. Pontual"
 
 msgid "Upper CI"
-msgstr ""
+msgstr "IC Superior"
 
 msgid "Effective Sample Size"
 msgstr "Tamanho de Amostra Efetivo"
 
 msgid "Output based on %s MCMC draws."
-msgstr ""
+msgstr "Saída baseada em %s extrações MCMC."
 
 msgid "No data was supplied, everything was sampled from the priors!"
-msgstr ""
+msgstr "Nenhum dado foi fornecido, tudo foi amostrado dos anteriores!"
 
 msgid "Deviance cannot be computed without data."
-msgstr ""
+msgstr "O desvio não pode ser calculado sem dados."
 
 msgid ""
 "Failed to compute the Rhat statistic. This is expected if the model contains "
