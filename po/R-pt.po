@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: R 3.6.1\n"
 "Report-Msgid-Bugs-To: github.com/jasp-stats/jasp-issues/issues\n"
 "POT-Creation-Date: 2025-05-03 03:48\n"
-"PO-Revision-Date: 2021-08-27 20:21+0000\n"
-"Last-Translator: Alex França <alex.tonante@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/jaspjags-"
-"r/pt/>\n"
+"PO-Revision-Date: 2025-08-08 15:01+0000\n"
+"Last-Translator: Wendel Paulo Silvestre <wpsilvestre@ucs.br>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/"
+"jaspjags-r/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 "X-Language: en_US\n"
 "X-Source-Language: American English\n"
 "X-Qt-Contexts: true\n"
@@ -27,13 +27,13 @@ msgstr ""
 "%s"
 
 msgid "Please specify which parameters to monitor!"
-msgstr ""
+msgstr "Por favor, especifique quais parâmetros devem ser monitorados!"
 
 msgid "Please specify which parameters to show output for!"
-msgstr ""
+msgstr "Por favor, especifique para quais parâmetros se deve exibir a saída!"
 
 msgid "MCMC Summary"
-msgstr ""
+msgstr "Resumo MCMC"
 
 msgid "Posterior"
 msgstr "Posterior"
@@ -42,7 +42,7 @@ msgid "95%% Credible Interval"
 msgstr "Intervalo de Confiança 95%%"
 
 msgid "Rhat"
-msgstr ""
+msgstr "Rhat"
 
 msgid "Parameter"
 msgstr "Parâmetro"
@@ -63,69 +63,72 @@ msgid "Upper"
 msgstr "Superior"
 
 msgid "Point est."
-msgstr ""
+msgstr "Est. Pontual"
 
 msgid "Upper CI"
-msgstr ""
+msgstr "IC Superior"
 
-#, fuzzy
 msgid "Effective Sample Size"
-msgstr "Tamanho de efeito"
+msgstr "Tamanho de Amostra Efetivo"
 
 msgid "Output based on %s MCMC draws."
-msgstr ""
+msgstr "Saída baseada em %s extrações MCMC."
 
 msgid "No data was supplied, everything was sampled from the priors!"
-msgstr ""
+msgstr "Nenhum dado foi fornecido, tudo foi amostrado dos anteriores!"
 
 msgid "Deviance cannot be computed without data."
-msgstr ""
+msgstr "O desvio não pode ser calculado sem dados."
 
 msgid ""
 "Failed to compute the Rhat statistic. This is expected if the model contains "
 "discrete parameters."
 msgstr ""
+"Falha em computar a estatística Rhat. Isto é esperado se o modelo contém "
+"parâmetros discretos."
 
 msgid "The multivariate potential scale reduction factor is estimated at %.3f."
-msgstr ""
+msgstr "O fator de redução de escala potencial multivariado é estimado em %.3f."
 
 msgid ""
 "The multivariate potential scale reduction factor could not be computed. "
 "This could indicate convergence issues, carefully examine the trace plots "
 "and r-hat estimates."
 msgstr ""
+"O fator de redução de escala potencial multivariado não pôde ser calculado. "
+"Isso pode indicar problemas de convergência, examine cuidadosamente os "
+"gráficos de traços e as estimativas r-hat."
 
 msgid ""
 "Rhat statistic cannot be computed for only one chain. It is strongly "
 "recommoned to run more than one chain to assess MCMC convergence!"
 msgstr ""
+"A estatística Rhat não pôde ser calculada para apenas uma cadeia. Recomenda-"
+"se fortemente rodar mais de uma cadeia para avaliar a convergência do MCMC!"
 
-#, fuzzy
 msgid "Marginal Density"
-msgstr "Médias marginais"
+msgstr "Densidade Marginal"
 
-#, fuzzy
 msgid "Marginal Histogram"
-msgstr "Posteriores marginal"
+msgstr "Histograma Marginal"
 
-#, fuzzy
 msgid "Trace Plots"
-msgstr "Diagramas Separados"
+msgstr "Gráfico de Traços"
 
 msgid "Autocorrelation Plots"
-msgstr ""
+msgstr "Gráficos de Autocorrelação"
 
 msgid "Bivariate Scatter Plot"
-msgstr ""
+msgstr "Gráfico de Dispersão Bivariado"
 
 msgid "Density"
 msgstr "Densidade"
 
 msgid "Chain"
-msgstr ""
+msgstr "Cadeia"
 
 msgid "Counts"
-msgstr "Contagem"
+msgstr "Contagens"
 
 msgid "Iteration"
 msgstr "Iteração"
@@ -134,74 +137,87 @@ msgid "Autocorrelation"
 msgstr "Autocorrelação"
 
 msgid "Lag"
-msgstr ""
+msgstr "Lag"
 
 msgid ""
 "At least two parameters need to be monitored and shown to make a bivariate "
 "scatter plot!"
 msgstr ""
+"Pelo menos dois parâmetros devem ser monitorados e exibidos para gerar um "
+"diagrama de dispersão bivariado!"
 
 msgid "Custom output for %s"
-msgstr ""
+msgstr "Saída de resultados personalizada para %s"
 
 msgid ""
 "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than "
 "in the parameter or parameter subset (%3$d levels)"
 msgstr ""
+"Aviso. Há menos níveis (%1$s tem %2$d levels) em \"dividir por\" do que no "
+"parâmetro ou subconjunto de parâmetros (%3$d níveis)"
 
 msgid "Stacked density"
-msgstr ""
+msgstr "Densidade acumulada"
 
 msgid "Inference for %s"
-msgstr ""
+msgstr "Inferência para %s"
 
 msgid "Statistic"
-msgstr ""
+msgstr "Estatística"
 
 msgid "Mode"
-msgstr ""
+msgstr "Moda"
 
-#, fuzzy
 msgid "%s%% Credible Interval"
-msgstr "Intervalo de Confiança 95%%"
+msgstr "Intervalo credível %s%%"
 
 msgid "%s%% HDI"
-msgstr ""
+msgstr "IMD do %s%%"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
-msgstr ""
+msgstr "%1$s%2$sAlém disso:%3$s%4$s"
 
 msgid "The model contains more '%1$s' than '%2$s' (%3$d vs %4$d)"
-msgstr ""
+msgstr "O modelo contém mais '%1$s' do que '%2$s' (%3$d vs %4$d)"
 
 msgid ""
 "There was a problem loading JAGS, JAGS_HOME is: '%1$s'.\n"
 "Please contact the JASP team for support.\n"
 "Error was: %2$s."
 msgstr ""
+"Ocorreu um problema carregando o JAGS, JAGS_HOME é: '%1$s'.\n"
+"Por favor, contate a equipe JASP para suporte.\n"
+"O erro foi: %2$s."
 
 msgid "Expected JAGS version 4.3.0 but found %s"
-msgstr ""
+msgstr "Versão JAGS esperada é a 4.3.0 mas a encontrada foi %s"
 
 msgid ""
 "Failed to export the samples because the directory to save them in does not "
 "exist."
 msgstr ""
+"Falha em exportar as amostras porque o diretório para salvá-las não existe."
 
 msgid "Failed to export the samples because the following error occured: %s"
-msgstr ""
+msgstr "Falha em exportar as amostras porque o seguinte erro ocorreu: %s"
 
 msgid ""
 "The R code for %1$s crashed with error:\n"
 "%2$s"
 msgstr ""
+"O código R para %1$s travou com erro:\n"
+"%2$s"
 
 msgid ""
 "The result of %1$s R code should be numeric but it was of mode %2$s and "
 "class %3$s"
 msgstr ""
+"O resultado do código R para %1$s deveria ser numéricos mas foi do modo %2$s "
+"e da classe %3$s"
 
 msgid ""
 "The following error occured while loading the jags modules \"glm\" and "
 "\"dic\": %s."
 msgstr ""
+"O seguinte erro ocorreu durante o carregamento dos módulos jags \"glm\" e "
+"\"dic\": %s."
