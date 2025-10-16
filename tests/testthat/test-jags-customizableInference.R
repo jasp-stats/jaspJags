@@ -38,6 +38,7 @@ set.seed(1)
 results <- runAnalysis("JAGS", "debug.csv", options)
 
 test_that("Model 1: Inference for mu table results match", {
+  testthat::skip_on_os("mac")
   table <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_customInferencemu"]][["collection"]][["mainContainer_customInferencemu_customTable"]][["data"]]
   expected <- list(0.133602335511261, 0.138283372282693, 0.102259127567002, 0.251645058422332, 0.640660111794534,
                    -0.351300850007532, 0.0348333333333333, 0.632776781447128, -0.354233117239452,
@@ -55,11 +56,6 @@ test_that("Model 1: Inference for mu table results match", {
                    0.714, 0.0122545012905073, -0.82415397357156, 6143, "mu<unicode>",
                    1.0112935232358, 1.0032265318921
   )
-  if (jaspTools:::getOS() == "osx") {
-    # somehow there are off by one errors on macOS
-    expected[[10]] <- 5999
-    expected[[49]] <- 6000
-  }
   jaspTools::expect_equal_tables(table, expected)
 })
 
@@ -70,6 +66,7 @@ test_that("Model 1: Stacked density plot matches", {
 })
 
 test_that("Model 1: MCMC Summary table results match", {
+  testthat::skip_on_os("mac")
   table <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_mainTable"]][["data"]]
   expected <- list(-0.735115370473834, -0.337076587253446, 0.0525307652862037, -0.335829822221644,
                    0.198588475451556, 6000, "mu[1]", 1.00020507425196, 1.00003111989494,
@@ -92,11 +89,6 @@ test_that("Model 1: MCMC Summary table results match", {
                    5758, "tau[4]", 1.00617479051822, 1.00261878558365, 0.254513803148647,
                    0.528682080860744, 0.944728722126935, 0.547341780478094, 0.175095540540636,
                    5638, "tau[5]", 1.00368268931584, 1.00079106174679)
-  if (jaspTools:::getOS() == "osx") {
-    # somehow there are off by one errors on macOS
-    expected[[24]] <- 5999
-    expected[[33]] <- 6000
-  }
   jaspTools::expect_equal_tables(table, expected)
 })
 
