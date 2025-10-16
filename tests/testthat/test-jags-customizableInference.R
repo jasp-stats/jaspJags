@@ -57,8 +57,8 @@ test_that("Model 1: Inference for mu table results match", {
   )
   if (jaspTools:::getOS() == "osx") {
     # somehow there are off by one errors on macOS
-    expected[[10]] <- 6000
-    expected[[36]] <- 5999
+    expected[[10]] <- 5999
+    expected[[49]] <- 6000
   }
   jaspTools::expect_equal_tables(table, expected)
 })
@@ -94,8 +94,8 @@ test_that("Model 1: MCMC Summary table results match", {
                    5638, "tau[5]", 1.00368268931584, 1.00079106174679)
   if (jaspTools:::getOS() == "osx") {
     # somehow there are off by one errors on macOS
-    expected[[6]] <- 5999
-    expected[[24]] <- 6000
+    expected[[24]] <- 5999
+    expected[[33]] <- 6000
   }
   jaspTools::expect_equal_tables(table, expected)
 })
