@@ -97,8 +97,7 @@ test_that("Model 1: MCMC Summary table results match", {
     expected[[6]] <- 5999
     expected[[24]] <- 6000
   }
-  jaspTools::expect_equal_tables(table,
-                                 )
+  jaspTools::expect_equal_tables(table, expected)
 })
 
 # reuses previous options
