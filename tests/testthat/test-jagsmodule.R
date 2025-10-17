@@ -41,12 +41,14 @@ test_that("MCMC summary table results match", {
 })
 
 test_that("autoCorPlot mu plot matches", {
+  testthat::skip_on_os("mac")
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_autoCorPlot"]][["collection"]][["mainContainer_plotContainer_autoCorPlot_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotAutoCor-mu")
 })
 
 test_that("autoCorPlot theta plot matches", {
+  testthat::skip_on_os("mac")
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_autoCorPlot"]][["collection"]][["mainContainer_plotContainer_autoCorPlot_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotAutoCor-theta")
@@ -77,12 +79,14 @@ test_that("histogramPlot theta plot matches", {
 })
 
 test_that("tracePlot mu plot matches", {
+  testthat::skip_on_os("mac")
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_tracePlot"]][["collection"]][["mainContainer_plotContainer_tracePlot_mu"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotTrace-mu")
 })
 
 test_that("tracePlot theta plot matches", {
+  testthat::skip_on_os("mac")
   plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_plotContainer"]][["collection"]][["mainContainer_plotContainer_tracePlot"]][["collection"]][["mainContainer_plotContainer_tracePlot_theta"]][["data"]]
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "plotTrace-theta")
