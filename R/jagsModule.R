@@ -835,6 +835,9 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
         deps = opt
       ))
 
+    if (is.null(mcmcResult) || jaspResults[["mainContainer"]]$getError())
+      next
+
     params <- .JAGSgetCustomPlotParameters(mcmcResult, customPlotOpts)
 
     # computes all relevant information
