@@ -8,6 +8,7 @@ Description
 	icon:     		"analysis-JAGS.svg"
 	requiresData: 	false
 	hasWrappers: 	true
+	preloadData: 	false
 
 	Analysis
 	{
