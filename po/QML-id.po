@@ -1,9 +1,15 @@
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2026-03-22 23:24+0000\n"
+"Last-Translator: Zahid Rizky Fakhri <zahidrizkyfakhri@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/jasp/jaspjags-"
+"qml/id/>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.17-dev\n"
 "X-Language: id\n"
 "X-Qt-Contexts: true\n"
 
@@ -17,7 +23,7 @@ msgstr "Masukkan model JAGS di bawah"
 
 msgctxt "JAGS|"
 msgid "Parameters in model"
-msgstr "Parameter pada model"
+msgstr "Parameter dalam model"
 
 msgctxt "JAGS|"
 msgid "Monitor these parameters"
@@ -61,7 +67,7 @@ msgstr "Abu-abu"
 
 msgctxt "JAGS|"
 msgid "Aggregate chains for densities and histograms"
-msgstr ""
+msgstr "Agregasikan rantaian untuk kepadatan dan histogram"
 
 msgctxt "JAGS|"
 msgid "Show legends"
@@ -69,7 +75,7 @@ msgstr "Tampilkan legenda"
 
 msgctxt "JAGS|"
 msgid "Density"
-msgstr "Kepekatan"
+msgstr "Kepadatan"
 
 msgctxt "JAGS|"
 msgid "Histogram"
@@ -81,15 +87,15 @@ msgstr "Lacak"
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr "Otokorelasi"
+msgstr "Korelasi Otomatis"
 
 msgctxt "JAGS|"
 msgid "No. lags"
-msgstr ""
+msgstr "Jml. penundaan"
 
 msgctxt "JAGS|"
 msgid "Type"
-msgstr "Tipe"
+msgstr "Jenis"
 
 msgctxt "JAGS|"
 msgid "line"
@@ -105,12 +111,11 @@ msgstr "Pencaran bivariat"
 
 msgctxt "JAGS|"
 msgid "Diagonal plot type"
-msgstr "Tipe plot diagonal"
+msgstr "Jenis diagram diagonal"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Off-diagonal plot type"
-msgstr "Tipe plot off-diagonal"
+msgstr "Jenis diagram off-diagonal"
 
 msgctxt "JAGS|"
 msgid "Hexagonal"
@@ -126,7 +131,7 @@ msgstr "Nilai Awal"
 
 msgctxt "JAGS|"
 msgid "Observed Values"
-msgstr "Nilai Hasil Amatan"
+msgstr "Nilai Terobservasi"
 
 msgctxt "JAGS|"
 msgid "Advanced"
@@ -142,9 +147,8 @@ msgstr "Jml. Sampel"
 
 msgctxt "JAGS|"
 msgid "No. burnin samples"
-msgstr ""
+msgstr "Jml. sampel burnin"
 
-#, fuzzy
 msgctxt "JAGS|"
 msgid "Thinning"
 msgstr "Penipisan"
@@ -167,212 +171,212 @@ msgstr "parameter yang dipilih"
 
 msgctxt "JAGS|"
 msgid "Show Deviance"
-msgstr "Tampilkan Simpangan"
+msgstr "Tampilkan Devians"
 
 msgctxt "Description|"
 msgid ""
 "Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
 "Markov chain Monte Carlo"
 msgstr ""
-"Terapkan model grafis Bayesian dengan program JAGS Martyn Plummer untuk "
-"Monter Carlo rangkaian Markov"
+"Terapkan model grafis Bayes dengan program JAGS Martyn Plummer untuk Monter "
+"Carlo rantaian Markov"
 
 msgctxt "JAGS|"
 msgid "Customizable Inference"
-msgstr ""
+msgstr "Inferensi Tersesuaikan"
 
 msgctxt "JAGS|"
 msgid "Plot 1"
-msgstr ""
+msgstr "Diagram 1"
 
 msgctxt "JAGS|"
 msgid "Parameter selection"
-msgstr ""
+msgstr "Pemilihan parameter"
 
 msgctxt "JAGS|"
 msgid "Parameter"
-msgstr ""
+msgstr "Parameter"
 
 msgctxt "JAGS|"
 msgid "Select a parameter"
-msgstr ""
+msgstr "Pilih parameter"
 
 msgctxt "JAGS|"
 msgid "Parameter subset"
-msgstr ""
+msgstr "Subset parameter"
 
 msgctxt "JAGS|"
 msgid "Optional subset, e.g., 1:4 or 1, 3, 5:8 "
-msgstr ""
+msgstr "Subset opsional, mis., 1:4, 1, 3, 5:8 "
 
 msgctxt "JAGS|"
 msgid "Superimpose data"
-msgstr ""
+msgstr "Data tersuperimpos"
 
 msgctxt "JAGS|"
 msgid "Data"
-msgstr ""
+msgstr "Data"
 
 msgctxt "JAGS|"
 msgid "None"
-msgstr ""
+msgstr "Tidak Ada"
 
 msgctxt "JAGS|"
 msgid "Split by"
-msgstr ""
+msgstr "Pisahkan berdasarkan"
 
 msgctxt "JAGS|"
 msgid "Plot type"
-msgstr ""
+msgstr "Jenis diagram"
 
 msgctxt "JAGS|"
 msgid "Stacked density"
-msgstr ""
+msgstr "Kepadatan tertumpuk"
 
 msgctxt "JAGS|"
 msgid "Order parameters by"
-msgstr ""
+msgstr "Urutkan parameter berdasarkan"
 
 msgctxt "JAGS|"
 msgid "Mean"
-msgstr ""
+msgstr "Rerata"
 
 msgctxt "JAGS|"
 msgid "Median"
-msgstr ""
+msgstr "Median"
 
 msgctxt "JAGS|"
 msgid "Subset"
-msgstr ""
+msgstr "Subset"
 
 msgctxt "JAGS|"
 msgid "Shade interval"
-msgstr ""
+msgstr "Interval bayangan"
 
 msgctxt "JAGS|"
 msgid "Intervals"
-msgstr ""
+msgstr "Interval"
 
 msgctxt "JAGS|"
 msgid "Credible Interval"
-msgstr ""
+msgstr "Interval Kredibel"
 
 msgctxt "JAGS|"
 msgid "HDI"
-msgstr ""
+msgstr "HDI"
 
 msgctxt "JAGS|"
 msgid "Area where"
-msgstr ""
+msgstr "Area di mana"
 
 msgctxt "JAGS|"
 msgid "< θ < "
-msgstr ""
+msgstr "< θ < "
 
 msgctxt "JAGS|"
 msgid "Plot type for superimposed data"
-msgstr ""
+msgstr "Jenis diagram untuk data tersuperimpos"
 
 msgctxt "JAGS|"
 msgid "Bin width type"
-msgstr ""
+msgstr "Jenis lebar bin"
 
 msgctxt "JAGS|"
 msgid "Sturges"
-msgstr ""
+msgstr "Sturges"
 
 msgctxt "JAGS|"
 msgid "Scott"
-msgstr ""
+msgstr "Scott"
 
 msgctxt "JAGS|"
 msgid "Doane"
-msgstr ""
+msgstr "Doane"
 
 msgctxt "JAGS|"
 msgid "Freedman-Diaconis"
-msgstr ""
+msgstr "Freedman-Diaconis"
 
 msgctxt "JAGS|"
 msgid "Manual"
-msgstr ""
+msgstr "Manual"
 
 msgctxt "JAGS|"
 msgid "Number of bins"
-msgstr ""
+msgstr "Jumlah bin"
 
 msgctxt "JAGS|"
 msgid "Estimation"
-msgstr ""
+msgstr "Estimasi"
 
 msgctxt "JAGS|"
 msgid "Summary statistics"
-msgstr ""
+msgstr "Statistik ringkasan"
 
 msgctxt "JAGS|"
 msgid "SD"
-msgstr ""
+msgstr "SD"
 
 msgctxt "JAGS|"
 msgid "R-hat"
-msgstr ""
+msgstr "R-hat"
 
 msgctxt "JAGS|"
 msgid "Effective sample size"
-msgstr ""
+msgstr "Ukuran sampel efektif"
 
 msgctxt "JAGS|"
 msgid "Probability of"
-msgstr ""
+msgstr "Probabilitas dari"
 
 msgctxt "JAGS|"
 msgid "Testing"
-msgstr ""
+msgstr "Pengujian"
 
 msgctxt "JAGS|"
 msgid "Savage-Dickey"
-msgstr ""
+msgstr "Savage-Dickey"
 
 msgctxt "JAGS|"
 msgid "Determine prior height with"
-msgstr ""
+msgstr "Tentukan tinggi priori dengan"
 
 msgctxt "JAGS|"
 msgid "Sampling"
-msgstr ""
+msgstr "Pensampelan"
 
 msgctxt "JAGS|"
 msgid "Normal kernel"
-msgstr ""
+msgstr "Kernel normal"
 
 msgctxt "JAGS|"
 msgid "Splines"
-msgstr ""
+msgstr "Spline"
 
 msgctxt "JAGS|"
 msgid "Manual value"
-msgstr ""
+msgstr "Nilai manual"
 
 msgctxt "JAGS|"
 msgid "Determine posterior height with"
-msgstr ""
+msgstr "Tentukan tinggi posterior dengan"
 
 msgctxt "JAGS|"
 msgid "Normal approximation"
-msgstr ""
+msgstr "Pendekatan normal"
 
 msgctxt "JAGS|"
 msgid "Export samples:"
-msgstr ""
+msgstr "Ekspor sampel:"
 
 msgctxt "JAGS|"
 msgid "Sync Samples: On"
-msgstr ""
+msgstr "Sampel Sinkron: Nyala"
 
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
-msgstr ""
+msgstr "Sampel Sinkron: Mati"
 
 msgctxt "JAGS|"
 msgid "Mode"
-msgstr ""
+msgstr "Mode"
