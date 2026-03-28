@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.95.5\n"
 "POT-Creation-Date: 2025-11-15 03:48\n"
-"PO-Revision-Date: 2026-03-21 04:15+0000\n"
+"PO-Revision-Date: 2026-03-22 23:25+0000\n"
 "Last-Translator: Zahid Rizky Fakhri <zahidrizkyfakhri@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/jasp/jaspjags-"
 "r/id/>\n"
@@ -15,33 +15,36 @@ msgstr ""
 
 msgid "The following names appeared both in the data set and in the user specified data:\n%s"
 msgstr ""
+"Nama berikut ditampilkan di kedua rangkaian data dan data tertentukan "
+"pengguna:\n"
+"%s"
 
 msgid "Please specify which parameters to monitor!"
-msgstr ""
+msgstr "Silakan tentukan mana parameter untuk memantau!"
 
 msgid "Please specify which parameters to show output for!"
-msgstr ""
+msgstr "Silakan tentukan mana parameter untuk menampilkan luaran!"
 
 msgid "MCMC Summary"
-msgstr ""
+msgstr "Ringkasan MCMC"
 
 msgid "Posterior"
-msgstr ""
+msgstr "Posterior"
 
 msgid "95%% Credible Interval"
-msgstr ""
+msgstr "95%% Interval Kredibel"
 
 msgid "Rhat"
-msgstr ""
+msgstr "Rhat"
 
 msgid "Parameter"
-msgstr ""
+msgstr "Parameter"
 
 msgid "Mean"
 msgstr "Rerata"
 
 msgid "Median"
-msgstr ""
+msgstr "Median"
 
 msgid "SD"
 msgstr "SD"
@@ -53,118 +56,136 @@ msgid "Upper"
 msgstr "Atas"
 
 msgid "Point est."
-msgstr ""
+msgstr "Est. titik"
 
 msgid "Upper CI"
-msgstr ""
+msgstr "Atas CI"
 
 msgid "Effective Sample Size"
-msgstr ""
+msgstr "Ukuran Sampel Efektif"
 
 msgid "Output based on %s MCMC draws."
-msgstr ""
+msgstr "Luaran berdasarkan %s penggambaran MCMC."
 
 msgid "No data was supplied, everything was sampled from the priors!"
-msgstr ""
+msgstr "Tidak ada data telah diterapkan, semua telah disampel dari priori!"
 
 msgid "Deviance cannot be computed without data."
-msgstr ""
+msgstr "Devians tidak dapat dihitung tanpa data."
 
 msgid "Failed to compute the Rhat statistic. This is expected if the model contains discrete parameters."
 msgstr ""
+"Gagal menghitung statistik Rhat. Ini diharapkan jika model berisi parameter "
+"diskrit."
 
 msgid "The multivariate potential scale reduction factor is estimated at %.3f."
-msgstr ""
+msgstr "Faktor reduksi skala potensial multivariat diestimasikan di %.3f."
 
 msgid "The multivariate potential scale reduction factor could not be computed. This could indicate convergence issues, carefully examine the trace plots and r-hat estimates."
 msgstr ""
+"Faktor reduksi skala potensial multivariat tidak dapat dihitung. Ini dapat "
+"mengindikasikan isu konvergensi, secara hati-hati teliti diagram pelacakan "
+"dan estimasi r-hat."
 
 msgid "Rhat statistic cannot be computed for only one chain. It is strongly recommoned to run more than one chain to assess MCMC convergence!"
 msgstr ""
+"Statistik Rhat tidak dapat dihitung untuk hanya satu rantaian. Itu sangat "
+"disarankan menjalankan lebih dari satu rantaian untuk menilai konvergensi "
+"MCMC!"
 
 msgid "Marginal Density"
-msgstr ""
+msgstr "Kepadatan Margin"
 
 msgid "Marginal Histogram"
-msgstr ""
+msgstr "Histogram Margin"
 
 msgid "Trace Plots"
-msgstr ""
+msgstr "Diagram Lacak"
 
 msgid "Autocorrelation Plots"
-msgstr ""
+msgstr "Diagram Korelasi Otomatis"
 
 msgid "Bivariate Scatter Plot"
-msgstr ""
+msgstr "Diagram Pencaran Bivariat"
 
 msgid "Density"
 msgstr "Kepadatan"
 
 msgid "Chain"
-msgstr ""
+msgstr "Rantaian"
 
 msgid "Counts"
 msgstr "Hitungan"
 
 msgid "Iteration"
-msgstr ""
+msgstr "Iterasi"
 
 msgid "Autocorrelation"
-msgstr ""
+msgstr "Korelasi Otomatis"
 
 msgid "Lag"
 msgstr "Penundaan"
 
 msgid "At least two parameters need to be monitored and shown to make a bivariate scatter plot!"
 msgstr ""
+"Setidaknya dua parameter perlu dipantau dan ditampilkan untuk membuat "
+"diagram pencaran bivariat!"
 
 msgid "Custom output for %s"
-msgstr ""
+msgstr "Luaran kustom untuk %s"
 
 msgid "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than in the parameter or parameter subset (%3$d levels)"
 msgstr ""
+"Peringatan. Ada beberapa tingkat di \"pisahkan berdasarkan (%1$s memiliki "
+"%2$d tingkat) dari parameter atau subset parameter (%3$d tingkat)"
 
 msgid "Stacked density"
-msgstr ""
+msgstr "Kepadatan tertumpuk"
 
 msgid "Inference for %s"
-msgstr ""
+msgstr "Inferensi untuk %s"
 
 msgid "Statistic"
 msgstr "Statistik"
 
 msgid "Mode"
-msgstr ""
+msgstr "Mode"
 
 msgid "%s%% Credible Interval"
-msgstr ""
+msgstr "%s%% Interval Kredibel"
 
 msgid "%s%% HDI"
-msgstr ""
+msgstr "%s%% HDI"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
-msgstr ""
+msgstr "%1$s%2$sDalam tambahan:%3$s%4$s"
 
 msgid "The model contains more '%1$s' than '%2$s' (%3$d vs %4$d)"
-msgstr ""
+msgstr "Model berisi '%1$s' lebih dari '%2$s' (%3$d vs %4$d)"
 
 msgid "There was a problem loading JAGS, JAGS_HOME is: '%1$s'.\nPlease contact the JASP team for support.\nError was: %2$s."
 msgstr ""
+"Ada masalah memuat JAGS, JAGS_HOME adalah: '%1$s'.\n"
+"Silakan hubungi tim JASP untuk dukungan.\n"
+"Galat adalah: %2$s."
 
 msgid "Expected JAGS version 4.3.0 but found %s"
-msgstr ""
+msgstr "JAGS versi 4.3.0 terharap tetapi ditemukan %s"
 
 msgid "Failed to export the samples because the directory to save them in does not exist."
-msgstr ""
+msgstr "Gagal mengekspor sampel karena direktori untuk menyimpannya tidak ada."
 
 msgid "Failed to export the samples because the following error occured: %s"
-msgstr ""
+msgstr "Gagal mengekspor sampel karena terjadi galat berikut: %s"
 
 msgid "The R code for %1$s crashed with error:\n%2$s"
 msgstr ""
+"Kode R untuk %1$s rusak dengan galat:\n"
+"%2$s"
 
 msgid "The result of %1$s R code should be numeric but it was of mode %2$s and class %3$s"
 msgstr ""
+"Hasil kode R %1$s seharusnya numerik tetapi itu mode %2$s dan kelas %3$s"
 
 msgid "The following error occured while loading the jags modules \"glm\" and \"dic\": %s."
-msgstr ""
+msgstr "Terjadi galat berikut saat memuat modul jags \"glm\" dan \"dic\": %s."
