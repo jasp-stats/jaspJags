@@ -9,6 +9,12 @@ msgctxt "Description|"
 msgid "JAGS"
 msgstr ""
 
+msgctxt "Description|"
+msgid ""
+"Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
+"Markov chain Monte Carlo"
+msgstr ""
+
 msgctxt "JAGS|"
 msgid "Enter JAGS model below"
 msgstr ""
@@ -27,6 +33,10 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Show results for these parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Observed Values"
 msgstr ""
 
 msgctxt "JAGS|"
@@ -115,60 +125,6 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Contour"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Initial Values"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Observed Values"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Advanced"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "MCMC parameters"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "No. samples"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "No. burnin samples"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Thinning"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "No. chains"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Show results for"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "all monitored parameters"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "selected parameters"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Show Deviance"
-msgstr ""
-
-msgctxt "Description|"
-msgid ""
-"Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
-"Markov chain Monte Carlo"
 msgstr ""
 
 msgctxt "JAGS|"
@@ -304,6 +260,10 @@ msgid "Summary statistics"
 msgstr ""
 
 msgctxt "JAGS|"
+msgid "Mode"
+msgstr ""
+
+msgctxt "JAGS|"
 msgid "SD"
 msgstr ""
 
@@ -356,6 +316,50 @@ msgid "Normal approximation"
 msgstr ""
 
 msgctxt "JAGS|"
+msgid "Initial Values"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "MCMC parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. burnin samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Thinning"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. chains"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show results for"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "all monitored parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "selected parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show Deviance"
+msgstr ""
+
+msgctxt "JAGS|"
 msgid "Export samples:"
 msgstr ""
 
@@ -365,8 +369,4 @@ msgstr ""
 
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Mode"
 msgstr ""
