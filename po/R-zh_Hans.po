@@ -28,7 +28,7 @@ msgid "Please specify which parameters to show output for!"
 msgstr "请指定要显示输出的参数！"
 
 msgid "MCMC Summary"
-msgstr ""
+msgstr "MCMC 汇总"
 
 msgid "Posterior"
 msgstr "后验"
@@ -88,6 +88,8 @@ msgid ""
 "This could indicate convergence issues, carefully examine the trace plots "
 "and r-hat estimates."
 msgstr ""
+"多变量潜在比例尺度缩减因子无法计算。这可能表明存在收敛问题，请仔细检查轨迹图和 "
+"r-hat 估计值。"
 
 msgid ""
 "Rhat statistic cannot be computed for only one chain. It is strongly "
@@ -133,30 +135,31 @@ msgid ""
 msgstr "至少需要监控和显示两个参数才能制作二变量散点图！"
 
 msgid "Custom output for %s"
-msgstr ""
+msgstr "%s 的自定义输出"
 
 msgid ""
 "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than "
 "in the parameter or parameter subset (%3$d levels)"
 msgstr ""
+"警告。“split by”（%1$s 有 %2$d 个水平）中的水平数少于参数或参数子集中的水平数（%3$d 个水平）"
 
 msgid "Stacked density"
-msgstr ""
+msgstr "堆叠密度"
 
 msgid "Inference for %s"
-msgstr ""
+msgstr "%s 的推断"
 
 msgid "Statistic"
-msgstr ""
+msgstr "统计量"
 
 msgid "Mode"
-msgstr ""
+msgstr "众数"
 
 msgid "%s%% Credible Interval"
 msgstr "%s%% 可信区间"
 
 msgid "%s%% HDI"
-msgstr ""
+msgstr "%s%% HDI"
 
 msgid "%1$s%2$sIn addition:%3$s%4$s"
 msgstr "%1$s%2$sIn addition:%3$s%4$s"

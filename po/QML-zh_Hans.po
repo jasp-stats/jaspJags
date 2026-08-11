@@ -257,7 +257,7 @@ msgstr "可信区间"
 
 msgctxt "JAGS|"
 msgid "HDI"
-msgstr ""
+msgstr "HDI"
 
 msgctxt "JAGS|"
 msgid "Area where"
@@ -341,11 +341,11 @@ msgstr "抽样"
 
 msgctxt "JAGS|"
 msgid "Normal kernel"
-msgstr ""
+msgstr "正态核"
 
 msgctxt "JAGS|"
 msgid "Splines"
-msgstr ""
+msgstr "样条"
 
 msgctxt "JAGS|"
 msgid "Manual value"
@@ -373,4 +373,4 @@ msgstr "同步样本：关"
 
 msgctxt "JAGS|"
 msgid "Mode"
-msgstr ""
+msgstr "众数"
