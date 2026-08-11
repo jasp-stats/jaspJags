@@ -41,23 +41,23 @@ msgstr "Afficher les résultats pour ces paramètres"
 
 msgctxt "JAGS|"
 msgid "Plots"
-msgstr ""
+msgstr "Graphiques"
 
 msgctxt "JAGS|"
 msgid "Color scheme for plots:"
-msgstr ""
+msgstr "Jeu de couleurs pour les graphiques :"
 
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr ""
+msgstr "Daltonien"
 
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
-msgstr ""
+msgstr "Daltonien alt."
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr ""
+msgstr "Viridis"
 
 msgctxt "JAGS|"
 msgid "Blue"
@@ -73,15 +73,15 @@ msgstr "Agréger les chaînes pour les densités et histogrammes"
 
 msgctxt "JAGS|"
 msgid "Show legends"
-msgstr ""
+msgstr "Afficher les légendes"
 
 msgctxt "JAGS|"
 msgid "Density"
-msgstr ""
+msgstr "Densité"
 
 msgctxt "JAGS|"
 msgid "Histogram"
-msgstr ""
+msgstr "Histogramme"
 
 msgctxt "JAGS|"
 msgid "Trace"
@@ -89,7 +89,7 @@ msgstr "Trace"
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr ""
+msgstr "Autocorrélation"
 
 msgctxt "JAGS|"
 msgid "No. lags"
@@ -105,19 +105,19 @@ msgstr "Ligne"
 
 msgctxt "JAGS|"
 msgid "bar"
-msgstr ""
+msgstr "Barres"
 
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
-msgstr ""
+msgstr "Nuage de points bivarié"
 
 msgctxt "JAGS|"
 msgid "Diagonal plot type"
-msgstr ""
+msgstr "Type de graphique diagonal"
 
 msgctxt "JAGS|"
 msgid "Off-diagonal plot type"
-msgstr ""
+msgstr "Type de graphique hors diagonale"
 
 msgctxt "JAGS|"
 msgid "Hexagonal"
@@ -129,248 +129,248 @@ msgstr "Contour"
 
 msgctxt "JAGS|"
 msgid "Initial Values"
-msgstr ""
+msgstr "Valeurs initiales"
 
 msgctxt "JAGS|"
 msgid "Observed Values"
-msgstr ""
+msgstr "Valeurs observées"
 
 msgctxt "JAGS|"
 msgid "Advanced"
-msgstr ""
+msgstr "Avancé"
 
 msgctxt "JAGS|"
 msgid "MCMC parameters"
-msgstr ""
+msgstr "Paramètres MCMC"
 
 msgctxt "JAGS|"
 msgid "No. samples"
-msgstr ""
+msgstr "Nb. d'échantillons"
 
 msgctxt "JAGS|"
 msgid "No. burnin samples"
-msgstr ""
+msgstr "Nb. d'échantillons de burnin"
 
 msgctxt "JAGS|"
 msgid "Thinning"
-msgstr ""
+msgstr "Amincissement"
 
 msgctxt "JAGS|"
 msgid "No. chains"
-msgstr ""
+msgstr "Nb. de chaînes"
 
 msgctxt "JAGS|"
 msgid "Show results for"
-msgstr ""
+msgstr "Afficher les résultats pour"
 
 msgctxt "JAGS|"
 msgid "all monitored parameters"
-msgstr ""
+msgstr "tous les paramètres contrôlés"
 
 msgctxt "JAGS|"
 msgid "selected parameters"
-msgstr ""
+msgstr "les paramètres sélectionnés"
 
 msgctxt "JAGS|"
 msgid "Show Deviance"
-msgstr ""
+msgstr "Afficher la déviance"
 
 msgctxt "JAGS|"
 msgid "Customizable Inference"
-msgstr ""
+msgstr "Inférence personnalisable"
 
 msgctxt "JAGS|"
 msgid "Plot 1"
-msgstr ""
+msgstr "Graphique 1"
 
 msgctxt "JAGS|"
 msgid "Parameter selection"
-msgstr ""
+msgstr "Sélection des paramètres"
 
 msgctxt "JAGS|"
 msgid "Parameter"
-msgstr ""
+msgstr "Paramètre"
 
 msgctxt "JAGS|"
 msgid "Select a parameter"
-msgstr ""
+msgstr "Sélectionner un paramètre"
 
 msgctxt "JAGS|"
 msgid "Parameter subset"
-msgstr ""
+msgstr "Sous-ensemble de paramètres"
 
 msgctxt "JAGS|"
 msgid "Optional subset, e.g., 1:4 or 1, 3, 5:8 "
-msgstr ""
+msgstr "Sous-ensemble facultatif, p. ex., 1:4 ou 1, 3, 5:8 "
 
 msgctxt "JAGS|"
 msgid "Superimpose data"
-msgstr ""
+msgstr "Superposer les données"
 
 msgctxt "JAGS|"
 msgid "Data"
-msgstr ""
+msgstr "Données"
 
 msgctxt "JAGS|"
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 msgctxt "JAGS|"
 msgid "Split by"
-msgstr ""
+msgstr "Fractionner par"
 
 msgctxt "JAGS|"
 msgid "Plot type"
-msgstr ""
+msgstr "Type de graphique"
 
 msgctxt "JAGS|"
 msgid "Stacked density"
-msgstr ""
+msgstr "Densité empilée"
 
 msgctxt "JAGS|"
 msgid "Order parameters by"
-msgstr ""
+msgstr "Classer les paramètres par"
 
 msgctxt "JAGS|"
 msgid "Mean"
-msgstr ""
+msgstr "Moyenne"
 
 msgctxt "JAGS|"
 msgid "Median"
-msgstr ""
+msgstr "Médiane"
 
 msgctxt "JAGS|"
 msgid "Subset"
-msgstr ""
+msgstr "Sous-ensemble"
 
 msgctxt "JAGS|"
 msgid "Shade interval"
-msgstr ""
+msgstr "Intervalle ombré"
 
 msgctxt "JAGS|"
 msgid "Intervals"
-msgstr ""
+msgstr "Intervalles"
 
 msgctxt "JAGS|"
 msgid "Credible Interval"
-msgstr ""
+msgstr "Intervalle de crédibilité"
 
 msgctxt "JAGS|"
 msgid "HDI"
-msgstr ""
+msgstr "HDI"
 
 msgctxt "JAGS|"
 msgid "Area where"
-msgstr ""
+msgstr "Zone où"
 
 msgctxt "JAGS|"
 msgid "< θ < "
-msgstr ""
+msgstr "< θ < "
 
 msgctxt "JAGS|"
 msgid "Plot type for superimposed data"
-msgstr ""
+msgstr "Type de graphique pour les données superposées"
 
 msgctxt "JAGS|"
 msgid "Bin width type"
-msgstr ""
+msgstr "Type de largeur d'intervalle"
 
 msgctxt "JAGS|"
 msgid "Sturges"
-msgstr ""
+msgstr "Sturges"
 
 msgctxt "JAGS|"
 msgid "Scott"
-msgstr ""
+msgstr "Scott"
 
 msgctxt "JAGS|"
 msgid "Doane"
-msgstr ""
+msgstr "Doane"
 
 msgctxt "JAGS|"
 msgid "Freedman-Diaconis"
-msgstr ""
+msgstr "Freedman-Diaconis"
 
 msgctxt "JAGS|"
 msgid "Manual"
-msgstr ""
+msgstr "Manuel"
 
 msgctxt "JAGS|"
 msgid "Number of bins"
-msgstr ""
+msgstr "Nombre d'intervalles"
 
 msgctxt "JAGS|"
 msgid "Estimation"
-msgstr ""
+msgstr "Estimation"
 
 msgctxt "JAGS|"
 msgid "Summary statistics"
-msgstr ""
+msgstr "Statistiques descriptives"
 
 msgctxt "JAGS|"
 msgid "SD"
-msgstr ""
+msgstr "ÉT"
 
 msgctxt "JAGS|"
 msgid "R-hat"
-msgstr ""
+msgstr "R-chapeau"
 
 msgctxt "JAGS|"
 msgid "Effective sample size"
-msgstr ""
+msgstr "Taille effective de l'échantillon"
 
 msgctxt "JAGS|"
 msgid "Probability of"
-msgstr ""
+msgstr "Probabilité de"
 
 msgctxt "JAGS|"
 msgid "Testing"
-msgstr ""
+msgstr "Test"
 
 msgctxt "JAGS|"
 msgid "Savage-Dickey"
-msgstr ""
+msgstr "Savage-Dickey"
 
 msgctxt "JAGS|"
 msgid "Determine prior height with"
-msgstr ""
+msgstr "Déterminer la hauteur de la distribution a priori avec"
 
 msgctxt "JAGS|"
 msgid "Sampling"
-msgstr ""
+msgstr "Échantillonnage"
 
 msgctxt "JAGS|"
 msgid "Normal kernel"
-msgstr ""
+msgstr "Noyau normal"
 
 msgctxt "JAGS|"
 msgid "Splines"
-msgstr ""
+msgstr "Splines"
 
 msgctxt "JAGS|"
 msgid "Manual value"
-msgstr ""
+msgstr "Valeur manuelle"
 
 msgctxt "JAGS|"
 msgid "Determine posterior height with"
-msgstr ""
+msgstr "Déterminer la hauteur de la distribution a posteriori avec"
 
 msgctxt "JAGS|"
 msgid "Normal approximation"
-msgstr ""
+msgstr "Approximation normale"
 
 msgctxt "JAGS|"
 msgid "Export samples:"
-msgstr ""
+msgstr "Exporter les échantillons :"
 
 msgctxt "JAGS|"
 msgid "Sync Samples: On"
-msgstr ""
+msgstr "Synchroniser les échantillons : activé"
 
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
-msgstr ""
+msgstr "Synchroniser les échantillons : désactivé"
 
 msgctxt "JAGS|"
 msgid "Mode"
-msgstr ""
+msgstr "Mode"
