@@ -9,7 +9,7 @@ msgstr ""
 
 msgctxt "Description|"
 msgid "JAGS"
-msgstr ""
+msgstr "JAGS"
 
 msgctxt "Description|"
 msgid ""
@@ -28,348 +28,348 @@ msgstr "模型中之參數"
 
 msgctxt "JAGS|"
 msgid "Monitor these parameters"
-msgstr ""
+msgstr "監控這些參數"
 
 msgctxt "JAGS|"
 msgid "Monitored parameters"
-msgstr ""
+msgstr "已監控的參數"
 
 msgctxt "JAGS|"
 msgid "Show results for these parameters"
-msgstr ""
+msgstr "顯示這些參數的結果"
 
 msgctxt "JAGS|"
 msgid "Plots"
-msgstr ""
+msgstr "繪圖"
 
 msgctxt "JAGS|"
 msgid "Color scheme for plots:"
-msgstr ""
+msgstr "繪圖的配色方案："
 
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr ""
+msgstr "Colorblind"
 
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
-msgstr ""
+msgstr "Colorblind Alt."
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr ""
+msgstr "Viridis"
 
 msgctxt "JAGS|"
 msgid "Blue"
-msgstr ""
+msgstr "Blue"
 
 msgctxt "JAGS|"
 msgid "Gray"
-msgstr ""
+msgstr "灰階"
 
 msgctxt "JAGS|"
 msgid "Aggregate chains for densities and histograms"
-msgstr ""
+msgstr "密度和直方圖的聚合鏈"
 
 msgctxt "JAGS|"
 msgid "Show legends"
-msgstr ""
+msgstr "顯示圖例"
 
 msgctxt "JAGS|"
 msgid "Density"
-msgstr ""
+msgstr "密度"
 
 msgctxt "JAGS|"
 msgid "Histogram"
-msgstr ""
+msgstr "直方圖"
 
 msgctxt "JAGS|"
 msgid "Trace"
-msgstr ""
+msgstr "軌跡(Trace)"
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr ""
+msgstr "自相關"
 
 msgctxt "JAGS|"
 msgid "No. lags"
-msgstr ""
+msgstr "滯後(lag)階數"
 
 msgctxt "JAGS|"
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 msgctxt "JAGS|"
 msgid "line"
-msgstr ""
+msgstr "線形"
 
 msgctxt "JAGS|"
 msgid "bar"
-msgstr ""
+msgstr "條形"
 
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
-msgstr ""
+msgstr "雙變量散點(Bivariate scatter)"
 
 msgctxt "JAGS|"
 msgid "Diagonal plot type"
-msgstr ""
+msgstr "對角線圖類型"
 
 msgctxt "JAGS|"
 msgid "Off-diagonal plot type"
-msgstr ""
+msgstr "非對角線繪圖類型"
 
 msgctxt "JAGS|"
 msgid "Hexagonal"
-msgstr ""
+msgstr "六邊形(Hexagonal)"
 
 msgctxt "JAGS|"
 msgid "Contour"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Customizable Inference"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Plot 1"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Parameter selection"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Parameter"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Select a parameter"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Parameter subset"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Optional subset, e.g., 1:4 or 1, 3, 5:8 "
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Superimpose data"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Data"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "None"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Split by"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Plot type"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Stacked density"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Order parameters by"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Mean"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Median"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Subset"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Shade interval"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Intervals"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Credible Interval"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "HDI"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Area where"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "< θ < "
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Plot type for superimposed data"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Bin width type"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Sturges"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Scott"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Doane"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Freedman-Diaconis"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Manual"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Number of bins"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Estimation"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Summary statistics"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "SD"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "R-hat"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Effective sample size"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Probability of"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Testing"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Savage-Dickey"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Determine prior height with"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Sampling"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Normal kernel"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Splines"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Manual value"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Determine posterior height with"
-msgstr ""
-
-msgctxt "JAGS|"
-msgid "Normal approximation"
-msgstr ""
+msgstr "輪廓(Contour)"
 
 msgctxt "JAGS|"
 msgid "Initial Values"
-msgstr ""
+msgstr "初始值"
 
 msgctxt "JAGS|"
 msgid "Observed Values"
-msgstr ""
+msgstr "觀測值"
 
 msgctxt "JAGS|"
 msgid "Advanced"
-msgstr ""
+msgstr "進階"
 
 msgctxt "JAGS|"
 msgid "MCMC parameters"
-msgstr ""
+msgstr "MCMC 參數"
 
 msgctxt "JAGS|"
 msgid "No. samples"
-msgstr ""
+msgstr "樣本數量"
 
 msgctxt "JAGS|"
 msgid "No. burnin samples"
-msgstr ""
+msgstr "樣本丟棄(burnin)數量"
 
 msgctxt "JAGS|"
 msgid "Thinning"
-msgstr ""
+msgstr "Thinning"
 
 msgctxt "JAGS|"
 msgid "No. chains"
-msgstr ""
+msgstr "No. chains"
 
 msgctxt "JAGS|"
 msgid "Show results for"
-msgstr ""
+msgstr "顯示結果為"
 
 msgctxt "JAGS|"
 msgid "all monitored parameters"
-msgstr ""
+msgstr "所有監控的參數"
 
 msgctxt "JAGS|"
 msgid "selected parameters"
-msgstr ""
+msgstr "選定的參數"
 
 msgctxt "JAGS|"
 msgid "Show Deviance"
-msgstr ""
+msgstr "顯示偏差"
+
+msgctxt "JAGS|"
+msgid "Customizable Inference"
+msgstr "自訂推論"
+
+msgctxt "JAGS|"
+msgid "Plot 1"
+msgstr "繪圖 1"
+
+msgctxt "JAGS|"
+msgid "Parameter selection"
+msgstr "參數選擇"
+
+msgctxt "JAGS|"
+msgid "Parameter"
+msgstr "參數"
+
+msgctxt "JAGS|"
+msgid "Select a parameter"
+msgstr "選擇參數"
+
+msgctxt "JAGS|"
+msgid "Parameter subset"
+msgstr "參數子集"
+
+msgctxt "JAGS|"
+msgid "Optional subset, e.g., 1:4 or 1, 3, 5:8 "
+msgstr "可選子集，例如，1:4 或 1, 3, 5:8 "
+
+msgctxt "JAGS|"
+msgid "Superimpose data"
+msgstr "疊加資料"
+
+msgctxt "JAGS|"
+msgid "Data"
+msgstr "資料"
+
+msgctxt "JAGS|"
+msgid "None"
+msgstr "無"
+
+msgctxt "JAGS|"
+msgid "Split by"
+msgstr "分組"
+
+msgctxt "JAGS|"
+msgid "Plot type"
+msgstr "繪圖類型"
+
+msgctxt "JAGS|"
+msgid "Stacked density"
+msgstr "堆疊密度"
+
+msgctxt "JAGS|"
+msgid "Order parameters by"
+msgstr "參數排序依據"
+
+msgctxt "JAGS|"
+msgid "Mean"
+msgstr "平均值"
+
+msgctxt "JAGS|"
+msgid "Median"
+msgstr "中位數"
+
+msgctxt "JAGS|"
+msgid "Subset"
+msgstr "子集"
+
+msgctxt "JAGS|"
+msgid "Shade interval"
+msgstr "陰影間隔"
+
+msgctxt "JAGS|"
+msgid "Intervals"
+msgstr "間隔"
+
+msgctxt "JAGS|"
+msgid "Credible Interval"
+msgstr "可信區間"
+
+msgctxt "JAGS|"
+msgid "HDI"
+msgstr "HDI"
+
+msgctxt "JAGS|"
+msgid "Area where"
+msgstr "位於區域："
+
+msgctxt "JAGS|"
+msgid "< θ < "
+msgstr "< θ < "
+
+msgctxt "JAGS|"
+msgid "Plot type for superimposed data"
+msgstr "疊加資料的繪圖類型"
+
+msgctxt "JAGS|"
+msgid "Bin width type"
+msgstr "組距（箱寬）類型"
+
+msgctxt "JAGS|"
+msgid "Sturges"
+msgstr "Sturges公式"
+
+msgctxt "JAGS|"
+msgid "Scott"
+msgstr "Scott公式"
+
+msgctxt "JAGS|"
+msgid "Doane"
+msgstr "Doane公式"
+
+msgctxt "JAGS|"
+msgid "Freedman-Diaconis"
+msgstr "Freedman-Diaconis公式"
+
+msgctxt "JAGS|"
+msgid "Manual"
+msgstr "手動設定"
+
+msgctxt "JAGS|"
+msgid "Number of bins"
+msgstr "組數（箱數）"
+
+msgctxt "JAGS|"
+msgid "Estimation"
+msgstr "估計"
+
+msgctxt "JAGS|"
+msgid "Summary statistics"
+msgstr "摘要統計"
+
+msgctxt "JAGS|"
+msgid "SD"
+msgstr "標準差"
+
+msgctxt "JAGS|"
+msgid "R-hat"
+msgstr "R-hat"
+
+msgctxt "JAGS|"
+msgid "Effective sample size"
+msgstr "有效樣本量"
+
+msgctxt "JAGS|"
+msgid "Probability of"
+msgstr "機率區間"
+
+msgctxt "JAGS|"
+msgid "Testing"
+msgstr "檢定"
+
+msgctxt "JAGS|"
+msgid "Savage-Dickey"
+msgstr "Savage-Dickey"
+
+msgctxt "JAGS|"
+msgid "Determine prior height with"
+msgstr "確定先驗高度"
+
+msgctxt "JAGS|"
+msgid "Sampling"
+msgstr "抽樣"
+
+msgctxt "JAGS|"
+msgid "Normal kernel"
+msgstr "常態核"
+
+msgctxt "JAGS|"
+msgid "Splines"
+msgstr "樣條"
+
+msgctxt "JAGS|"
+msgid "Manual value"
+msgstr "手動值"
+
+msgctxt "JAGS|"
+msgid "Determine posterior height with"
+msgstr "確定後驗高度"
+
+msgctxt "JAGS|"
+msgid "Normal approximation"
+msgstr "常態近似"
 
 msgctxt "JAGS|"
 msgid "Export samples:"
-msgstr ""
+msgstr "匯出樣本："
 
 msgctxt "JAGS|"
 msgid "Sync Samples: On"
-msgstr ""
+msgstr "同步樣本：開"
 
 msgctxt "JAGS|"
 msgid "Sync Samples: Off"
-msgstr ""
+msgstr "同步樣本：關"
 
 msgctxt "JAGS|"
 msgid "Mode"
-msgstr ""
+msgstr "眾數"
