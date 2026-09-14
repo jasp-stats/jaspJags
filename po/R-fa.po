@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.96.3\n"
 "POT-Creation-Date: 2026-04-25 04:31\n"
-"PO-Revision-Date: 2026-09-14 02:35+0000\n"
+"PO-Revision-Date: 2026-09-15 04:04+0000\n"
 "Last-Translator: Sohrab Delshad <sdel4030@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
 "fa/>\n"
@@ -26,7 +26,7 @@ msgid "MCMC Summary"
 msgstr ""
 
 msgid "Posterior"
-msgstr ""
+msgstr "پسین"
 
 msgid "95%% Credible Interval"
 msgstr ""
@@ -41,7 +41,7 @@ msgid "Mean"
 msgstr "میانگین"
 
 msgid "Median"
-msgstr ""
+msgstr "میانه"
 
 msgid "SD"
 msgstr "انحراف معیار"
@@ -104,7 +104,7 @@ msgid "Chain"
 msgstr ""
 
 msgid "Counts"
-msgstr ""
+msgstr "شمارش‌ها"
 
 msgid "Iteration"
 msgstr ""
@@ -113,7 +113,7 @@ msgid "Autocorrelation"
 msgstr "خودهمبستگی"
 
 msgid "Lag"
-msgstr ""
+msgstr "تأخیر"
 
 msgid "At least two parameters need to be monitored and shown to make a bivariate scatter plot!"
 msgstr ""
@@ -134,10 +134,10 @@ msgid "Statistic"
 msgstr "آماره"
 
 msgid "Mode"
-msgstr ""
+msgstr "مُد"
 
 msgid "%s%% Credible Interval"
-msgstr "فاصله باور %s%%"
+msgstr "بازه باورپذیر %s%%"
 
 msgid "%s%% HDI"
 msgstr ""
