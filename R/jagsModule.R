@@ -317,6 +317,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 
   tb <- createJaspTable(title = gettext("MCMC Summary"))
   tb$position <- 1L
+  tb$info <- gettextf("Summarizes the posterior samples of each parameter selected under 'Show results for these parameters': the posterior mean, median, and standard deviation, the 95%% credible interval, the R-hat statistic (point estimate and upper bound of its confidence interval) used to diagnose convergence of the MCMC chains, and the effective sample size.")
   ovt0 <- gettext("Posterior")
   ovt1 <- gettextf("95%% Credible Interval")
   ovt2 <- gettext("Rhat")
@@ -428,6 +429,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     if (is.null(plotContainer[["densityPlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Marginal Density"),  position = 1,
                                                 dependencies = c("densityPlot", "aggregatedChains", "legend"))
+      add[["container"]]$info <- gettext("Shows the marginal density of the posterior samples for each parameter selected under 'Show results for these parameters'. If 'Aggregate chains for densities and histograms' is checked then a single density line for each parameter is shown. Otherwise, different colors are used to represent the different chains.")
       plotContainer[["densityPlot"]] <- add[["container"]]
     } else {
       add[["container"]] <- plotContainer[["densityPlot"]]
@@ -441,6 +443,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     if (is.null(plotContainer[["histogramPlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Marginal Histogram"),  position = 2,
                                                 dependencies = c("histogramPlot", "aggregatedChains", "legend"))
+      add[["container"]]$info <- gettext("Shows the marginal histogram of the posterior samples for each parameter selected under 'Show results for these parameters'. If 'Aggregate chains for densities and histograms' is checked then a single histogram for each parameter is shown. Otherwise, different colors are used to represent the different chains.")
       plotContainer[["histogramPlot"]] <- add[["container"]]
     } else {
       add[["container"]] <- plotContainer[["histogramPlot"]]
@@ -454,6 +457,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     if (is.null(plotContainer[["tracePlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Trace Plots"),  position = 3,
                                                 dependencies = c("tracePlot", "legend"))
+      add[["container"]]$info <- gettext("Shows a trace plot of the posterior samples for each parameter selected under 'Show results for these parameters'.")
       plotContainer[["tracePlot"]] <- add[["container"]]
     } else {
       add[["container"]] <- plotContainer[["tracePlot"]]
@@ -467,6 +471,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     if (is.null(plotContainer[["autoCorPlot"]])) {
       add[["container"]] <- createJaspContainer(title = gettext("Autocorrelation Plots"),  position = 4,
                                                 dependencies = c("autoCorPlot", "autoCorPlotLags", "autoCorPlotType", "legend"))
+      add[["container"]]$info <- gettext("Plots the autocorrelation of the posterior samples for each parameter selected under 'Show results for these parameters'.")
       plotContainer[["autoCorPlot"]] <- add[["container"]]
     } else {
       add[["container"]] <- plotContainer[["autoCorPlot"]]
@@ -479,6 +484,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     jaspPlot <- createJaspPlot(title  = gettext("Bivariate Scatter Plot"),  position = 5,
                                dependencies = c("bivariateScatterPlot", "monitoredParametersShown", "bivariateScatterDiagonalType",
                                                 "bivariateScatterOffDiagonalType"))
+    jaspPlot$info <- gettext("Shows a matrix plot of all pairs of parameters. The diagonal plot entries show a density plot or histogram. The off-diagonal plot entries show a bivariate plot, either a hexagonal histogram or a contour plot.")
     plotContainer[["bivariateScatterPlot"]] <- jaspPlot
 
   }
@@ -815,6 +821,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
         initCollapsed = length(parameters) > 1L,
         position = i + 1L
       )
+      container$info <- gettext("The custom results of a tab of 'Customizable Inference' for its parameter.")
       container$dependOn(nestedOptions = .JAGSnestedDepsWithBase(
         base = c("customInference", i),
         deps = c("parameter", "parameterSubset", "parameterOrder")
@@ -1270,6 +1277,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
     )
 
   jaspPlot <- createJaspPlot(plot = plt, title = gettext("Stacked density"), width = 400, height = 400 + 25 * nparams, position = 1L)
+  jaspPlot$info <- gettext("Shows the posterior density of each element of the parameter (subset) stacked on top of each other, ordered by the metric chosen in 'Order parameters by'. Optionally, an interval is shaded and data are superimposed.")
   jaspPlot$dependOn(optionsFromObject = container[["statePlotRibbonData"]], nestedOptions = .JAGSnestedDepsWithBase(
     base = c("customInference", i),
     deps = c("plotsType",
@@ -1396,6 +1404,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 
   parameterName <- customPlotOpts[["parameter"]]
   tb <- createJaspTable(title = gettextf("Inference for %s", parameterName), position = 2L)
+  tb$info <- gettext("Shows the statistics and intervals selected under 'Estimation' for each element of the parameter (subset).")
 
   tb$dependOn(nestedOptions = .JAGSnestedDepsWithBase(
     base = c("customInference", i),
