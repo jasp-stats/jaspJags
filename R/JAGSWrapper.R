@@ -19,6 +19,59 @@
 
 #' JAGS
 #'
+#' JAGS -- Just Another Gibbs Sampler -- is software for general purpose Bayesian inference. One can specify a model using JAGS syntax and let JAGS draw samples from the posterior distribution.
+#'
+#' @param actualExporter, When on, the MCMC samples are written to the export file, and written again each time the analysis is rerun. Toggled with the 'Sync Samples' button.
+#'    Defaults to \code{FALSE}.
+#' @param aggregatedChains, If checked, the samples of different chains are aggregated in density plots and histograms. If unchecked, there are separate colors per chain.
+#'    Defaults to \code{TRUE}.
+#' @param autoCorPlot, Plot the autocorrelation of the posterior samples for each parameter selected under 'Show results for these parameters'.
+#'    Defaults to \code{FALSE}.
+#' @param autoCorPlotLags, The maximum number of lags to show in the autocorrelation plot.
+#' @param autoCorPlotType, Whether to display the autocorrelation as a bar at each lag, or as a line that connects subsequent lags.
+#' \itemize{
+#'   \item \code{"lines"}
+#'   \item \code{"bars"}
+#' }
+#' @param bivariateScatterDiagonalType, Show a density plot or a histogram on the diagonal entries of the scatter plot.
+#' \itemize{
+#'   \item \code{"density"}
+#'   \item \code{"histogram"}
+#' }
+#' @param bivariateScatterOffDiagonalType, Show a hexagonal bivariate density plot, or a contour plot on the off-diagonal entries of the scatter plot.
+#' \itemize{
+#'   \item \code{"hexagon"}
+#'   \item \code{"contour"}
+#' }
+#' @param bivariateScatterPlot, Show a matrix plot of all pairs of parameters. Only shows output when more than 1 parameter is sampled.
+#'    Defaults to \code{FALSE}.
+#' @param burnin, The number of samples to draw from the posterior distribution and immediately discard.
+#' @param chains, The number of MCMC chains to run.
+#' @param colorScheme, Determines the color scheme of the plots.
+#' @param customInference, Each tab specifies a set of custom results (a plot and a table) for one parameter. Up to 10 tabs can be added.
+#' @param densityPlot, Show the marginal density of the posterior samples for each parameter selected under 'Show results for these parameters'.
+#'    Defaults to \code{FALSE}.
+#' @param deviance, Show the Deviance statistic.
+#'    Defaults to \code{FALSE}.
+#' @param exportSamplesFile, The CSV file to save the MCMC samples to. The samples are only written when 'Sync Samples' is on.
+#' @param histogramPlot, Show the marginal histogram of the posterior samples for each parameter selected under 'Show results for these parameters'.
+#'    Defaults to \code{FALSE}.
+#' @param initialValues, Each row has a 'Parameter' of the model and an 'R Code', its initial value.
+#' @param legend, Show a legend in the plots.
+#'    Defaults to \code{TRUE}.
+#' @param model, Enter the desired model. Columns in the data can be directly referred to. If these contain spaces, then the reference must also contain spaces.
+#' @param monitoredParameters, The parameters for which the MCMC samples are stored. Only available when 'Show results for' is set to 'selected parameters'.
+#' @param monitoredParametersShown, Determines which parameters are shown in tables and plots.
+#' @param resultsFor, By default, 'all monitored parameters' is selected which implies that JASP stores the MCMC samples for all parameters in the model. However, for large JAGS models storing all MCMC samples may take too much memory. By selecting 'selected parameters', one can first decide for which parameters the MCMC samples should be stored, and in a next box, decide which of these parameters should be shown in the results.
+#' \itemize{
+#'   \item \code{"allParameters"}
+#'   \item \code{"selectedParameters"}
+#' }
+#' @param samples, The number of samples to draw from the posterior distribution that are used for results (tables, plots).
+#' @param thinning, Every nth value of 'No. samples' is kept for the results, where n is given by 'Thinning'.
+#' @param tracePlot, Show a trace plot of the posterior samples for each parameter selected under 'Show results for these parameters'.
+#'    Defaults to \code{FALSE}.
+#' @param userData, Each row has a 'Parameter', the name to be used in the JAGS model code, and an 'R Code', the value for the data. This value can also be R code.
 JAGS <- function(
           data = NULL,
           version = "1",

@@ -55,6 +55,84 @@ JAGS(
     = list(), name = "R Code", values = list()))
 )
 }
+\arguments{
+\item{actualExporter, }{When on, the MCMC samples are written to the export file, and written again each time the analysis is rerun. Toggled with the 'Sync Samples' button.
+Defaults to \code{FALSE}.}
+
+\item{aggregatedChains, }{If checked, the samples of different chains are aggregated in density plots and histograms. If unchecked, there are separate colors per chain.
+Defaults to \code{TRUE}.}
+
+\item{autoCorPlot, }{Plot the autocorrelation of the posterior samples for each parameter selected under 'Show results for these parameters'.
+Defaults to \code{FALSE}.}
+
+\item{autoCorPlotLags, }{The maximum number of lags to show in the autocorrelation plot.}
+
+\item{autoCorPlotType, }{Whether to display the autocorrelation as a bar at each lag, or as a line that connects subsequent lags.
+\itemize{
+\item \code{"lines"}
+\item \code{"bars"}
+}}
+
+\item{bivariateScatterDiagonalType, }{Show a density plot or a histogram on the diagonal entries of the scatter plot.
+\itemize{
+\item \code{"density"}
+\item \code{"histogram"}
+}}
+
+\item{bivariateScatterOffDiagonalType, }{Show a hexagonal bivariate density plot, or a contour plot on the off-diagonal entries of the scatter plot.
+\itemize{
+\item \code{"hexagon"}
+\item \code{"contour"}
+}}
+
+\item{bivariateScatterPlot, }{Show a matrix plot of all pairs of parameters. Only shows output when more than 1 parameter is sampled.
+Defaults to \code{FALSE}.}
+
+\item{burnin, }{The number of samples to draw from the posterior distribution and immediately discard.}
+
+\item{chains, }{The number of MCMC chains to run.}
+
+\item{colorScheme, }{Determines the color scheme of the plots.}
+
+\item{customInference, }{Each tab specifies a set of custom results (a plot and a table) for one parameter. Up to 10 tabs can be added.}
+
+\item{densityPlot, }{Show the marginal density of the posterior samples for each parameter selected under 'Show results for these parameters'.
+Defaults to \code{FALSE}.}
+
+\item{deviance, }{Show the Deviance statistic.
+Defaults to \code{FALSE}.}
+
+\item{exportSamplesFile, }{The CSV file to save the MCMC samples to. The samples are only written when 'Sync Samples' is on.}
+
+\item{histogramPlot, }{Show the marginal histogram of the posterior samples for each parameter selected under 'Show results for these parameters'.
+Defaults to \code{FALSE}.}
+
+\item{initialValues, }{Each row has a 'Parameter' of the model and an 'R Code', its initial value.}
+
+\item{legend, }{Show a legend in the plots.
+Defaults to \code{TRUE}.}
+
+\item{model, }{Enter the desired model. Columns in the data can be directly referred to. If these contain spaces, then the reference must also contain spaces.}
+
+\item{monitoredParameters, }{The parameters for which the MCMC samples are stored. Only available when 'Show results for' is set to 'selected parameters'.}
+
+\item{monitoredParametersShown, }{Determines which parameters are shown in tables and plots.}
+
+\item{resultsFor, }{By default, 'all monitored parameters' is selected which implies that JASP stores the MCMC samples for all parameters in the model. However, for large JAGS models storing all MCMC samples may take too much memory. By selecting 'selected parameters', one can first decide for which parameters the MCMC samples should be stored, and in a next box, decide which of these parameters should be shown in the results.
+\itemize{
+\item \code{"allParameters"}
+\item \code{"selectedParameters"}
+}}
+
+\item{samples, }{The number of samples to draw from the posterior distribution that are used for results (tables, plots).}
+
+\item{thinning, }{Every nth value of 'No. samples' is kept for the results, where n is given by 'Thinning'.}
+
+\item{tracePlot, }{Show a trace plot of the posterior samples for each parameter selected under 'Show results for these parameters'.
+Defaults to \code{FALSE}.}
+
+\item{userData, }{Each row has a 'Parameter', the name to be used in the JAGS model code, and an 'R Code', the value for the data. This value can also be R code.}
+}
 \description{
-JAGS
+JAGS -- Just Another Gibbs Sampler -- is software for general purpose Bayesian inference. One can specify a model using JAGS syntax and let JAGS draw samples from the posterior distribution.
 }
