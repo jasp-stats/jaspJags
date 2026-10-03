@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.15\n"
-"POT-Creation-Date: 2025-05-03 03:48\n"
+"POT-Creation-Date: 2026-10-03 04:00\n"
 "PO-Revision-Date: 2026-07-10 05:01+0000\n"
 "Last-Translator: 陳正昌 <chencc99@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -29,6 +29,14 @@ msgstr "请指定要显示输出的参数！"
 
 msgid "MCMC Summary"
 msgstr "MCMC 汇总"
+
+msgid ""
+"Summarizes the posterior samples of each parameter selected under 'Show "
+"results for these parameters': the posterior mean, median, and standard "
+"deviation, the 95%% credible interval, the R-hat statistic (point estimate "
+"and upper bound of its confidence interval) used to diagnose convergence of "
+"the MCMC chains, and the effective sample size."
+msgstr ""
 
 msgid "Posterior"
 msgstr "后验"
@@ -88,8 +96,8 @@ msgid ""
 "This could indicate convergence issues, carefully examine the trace plots "
 "and r-hat estimates."
 msgstr ""
-"多变量潜在比例尺度缩减因子无法计算。这可能表明存在收敛问题，请仔细检查轨迹图和 "
-"r-hat 估计值。"
+"多变量潜在比例尺度缩减因子无法计算。这可能表明存在收敛问题，请仔细检查轨迹图"
+"和 r-hat 估计值。"
 
 msgid ""
 "Rhat statistic cannot be computed for only one chain. It is strongly "
@@ -99,17 +107,49 @@ msgstr "不能只为一条链计算 Rhat 统计量。强烈建议运行多个链
 msgid "Marginal Density"
 msgstr "边际密度"
 
+msgid ""
+"Shows the marginal density of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'. If 'Aggregate chains for "
+"densities and histograms' is checked then a single density line for each "
+"parameter is shown. Otherwise, different colors are used to represent the "
+"different chains."
+msgstr ""
+
 msgid "Marginal Histogram"
 msgstr "边际直方图"
+
+msgid ""
+"Shows the marginal histogram of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'. If 'Aggregate chains for "
+"densities and histograms' is checked then a single histogram for each "
+"parameter is shown. Otherwise, different colors are used to represent the "
+"different chains."
+msgstr ""
 
 msgid "Trace Plots"
 msgstr "轨迹图"
 
+msgid ""
+"Shows a trace plot of the posterior samples for each parameter selected "
+"under 'Show results for these parameters'."
+msgstr ""
+
 msgid "Autocorrelation Plots"
 msgstr "自相关图"
 
+msgid ""
+"Plots the autocorrelation of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'."
+msgstr ""
+
 msgid "Bivariate Scatter Plot"
 msgstr "二变量散点图"
+
+msgid ""
+"Shows a matrix plot of all pairs of parameters. The diagonal plot entries "
+"show a density plot or histogram. The off-diagonal plot entries show a "
+"bivariate plot, either a hexagonal histogram or a contour plot."
+msgstr ""
 
 msgid "Density"
 msgstr "密度"
@@ -138,16 +178,32 @@ msgid "Custom output for %s"
 msgstr "%s 的自定义输出"
 
 msgid ""
+"The custom results of a tab of 'Customizable Inference' for its parameter."
+msgstr ""
+
+msgid ""
 "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than "
 "in the parameter or parameter subset (%3$d levels)"
 msgstr ""
-"警告。“split by”（%1$s 有 %2$d 个水平）中的水平数少于参数或参数子集中的水平数（%3$d 个水平）"
+"警告。“split by”（%1$s 有 %2$d 个水平）中的水平数少于参数或参数子集中的水平数"
+"（%3$d 个水平）"
 
 msgid "Stacked density"
 msgstr "堆叠密度"
 
+msgid ""
+"Shows the posterior density of each element of the parameter (subset) "
+"stacked on top of each other, ordered by the metric chosen in 'Order "
+"parameters by'. Optionally, an interval is shaded and data are superimposed."
+msgstr ""
+
 msgid "Inference for %s"
 msgstr "%s 的推断"
+
+msgid ""
+"Shows the statistics and intervals selected under 'Estimation' for each "
+"element of the parameter (subset)."
+msgstr ""
 
 msgid "Statistic"
 msgstr "统计量"

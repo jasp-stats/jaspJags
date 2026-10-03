@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: jaspJags 0.17.0\n"
-"POT-Creation-Date: 2025-05-03 03:48\n"
+"POT-Creation-Date: 2026-10-03 04:00\n"
 "PO-Revision-Date: 2025-05-30 02:03+0000\n"
 "Last-Translator: Tomasz Misiuro <tomaszmisiuro@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/jasp/jaspjags-r/"
@@ -28,6 +28,14 @@ msgstr "Proszę określić, które parametry mają zostać wyświetlone w wynika
 
 msgid "MCMC Summary"
 msgstr "Podsumowanie dla MCMC"
+
+msgid ""
+"Summarizes the posterior samples of each parameter selected under 'Show "
+"results for these parameters': the posterior mean, median, and standard "
+"deviation, the 95%% credible interval, the R-hat statistic (point estimate "
+"and upper bound of its confidence interval) used to diagnose convergence of "
+"the MCMC chains, and the effective sample size."
+msgstr ""
 
 msgid "Posterior"
 msgstr "Posterior"
@@ -96,16 +104,48 @@ msgstr ""
 msgid "Marginal Density"
 msgstr ""
 
+msgid ""
+"Shows the marginal density of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'. If 'Aggregate chains for "
+"densities and histograms' is checked then a single density line for each "
+"parameter is shown. Otherwise, different colors are used to represent the "
+"different chains."
+msgstr ""
+
 msgid "Marginal Histogram"
+msgstr ""
+
+msgid ""
+"Shows the marginal histogram of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'. If 'Aggregate chains for "
+"densities and histograms' is checked then a single histogram for each "
+"parameter is shown. Otherwise, different colors are used to represent the "
+"different chains."
 msgstr ""
 
 msgid "Trace Plots"
 msgstr ""
 
+msgid ""
+"Shows a trace plot of the posterior samples for each parameter selected "
+"under 'Show results for these parameters'."
+msgstr ""
+
 msgid "Autocorrelation Plots"
 msgstr "Wykresy autikorelacji"
 
+msgid ""
+"Plots the autocorrelation of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'."
+msgstr ""
+
 msgid "Bivariate Scatter Plot"
+msgstr ""
+
+msgid ""
+"Shows a matrix plot of all pairs of parameters. The diagonal plot entries "
+"show a density plot or histogram. The off-diagonal plot entries show a "
+"bivariate plot, either a hexagonal histogram or a contour plot."
 msgstr ""
 
 msgid "Density"
@@ -135,6 +175,10 @@ msgid "Custom output for %s"
 msgstr ""
 
 msgid ""
+"The custom results of a tab of 'Customizable Inference' for its parameter."
+msgstr ""
+
+msgid ""
 "Warning. There are fewer levels in \"split by\" (%1$s has %2$d levels) than "
 "in the parameter or parameter subset (%3$d levels)"
 msgstr ""
@@ -142,7 +186,18 @@ msgstr ""
 msgid "Stacked density"
 msgstr ""
 
+msgid ""
+"Shows the posterior density of each element of the parameter (subset) "
+"stacked on top of each other, ordered by the metric chosen in 'Order "
+"parameters by'. Optionally, an interval is shaded and data are superimposed."
+msgstr ""
+
 msgid "Inference for %s"
+msgstr ""
+
+msgid ""
+"Shows the statistics and intervals selected under 'Estimation' for each "
+"element of the parameter (subset)."
 msgstr ""
 
 msgid "Statistic"
