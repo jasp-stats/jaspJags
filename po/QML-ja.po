@@ -6,6 +6,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Language: ja\n"
 "X-Qt-Contexts: true\n"
+"PO-Revision-Date: 2026-10-12 03:51+0000\n"
+"Last-Translator: Koji Kosugi <kosugitti@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspjags-"
+"qml/ja/>\n"
+"Language: ja\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 msgctxt "Description|"
 msgid "JAGS"
@@ -21,7 +27,7 @@ msgstr "モデル内のパラメータ"
 
 msgctxt "JAGS|"
 msgid "Monitor these parameters"
-msgstr "これらのパラメーターをモニタする"
+msgstr "これらのパラメータをモニタする"
 
 msgctxt "JAGS|"
 msgid "Monitored parameters"
@@ -41,15 +47,15 @@ msgstr "プロットの配色:"
 
 msgctxt "JAGS|"
 msgid "Colorblind"
-msgstr "カラーブラインド"
+msgstr "色覚に配慮"
 
 msgctxt "JAGS|"
 msgid "Colorblind Alt."
-msgstr "カラーブラインドのための代案"
+msgstr "色覚に配慮(代替)"
 
 msgctxt "JAGS|"
 msgid "Viridis"
-msgstr "ビリジアン"
+msgstr "Viridis"
 
 msgctxt "JAGS|"
 msgid "Blue"
@@ -81,23 +87,23 @@ msgstr "トレース"
 
 msgctxt "JAGS|"
 msgid "Autocorrelation"
-msgstr "自己 相関"
+msgstr "自己相関"
 
 msgctxt "JAGS|"
 msgid "No. lags"
-msgstr "ラグなし"
+msgstr "ラグの数"
 
 msgctxt "JAGS|"
 msgid "Type"
-msgstr "型"
+msgstr "タイプ"
 
 msgctxt "JAGS|"
 msgid "line"
-msgstr "ライン"
+msgstr "線"
 
 msgctxt "JAGS|"
 msgid "bar"
-msgstr "バー"
+msgstr "棒"
 
 msgctxt "JAGS|"
 msgid "Bivariate scatter"
@@ -117,7 +123,7 @@ msgstr "六角形"
 
 msgctxt "JAGS|"
 msgid "Contour"
-msgstr "輪郭"
+msgstr "等高線"
 
 msgctxt "JAGS|"
 msgid "Initial Values"
@@ -145,7 +151,7 @@ msgstr "バーンインサンプルの数"
 
 msgctxt "JAGS|"
 msgid "Thinning"
-msgstr "Thin"
+msgstr "Thinning(間引き間隔)"
 
 msgctxt "JAGS|"
 msgid "No. chains"
@@ -157,7 +163,7 @@ msgstr "結果を表示する"
 
 msgctxt "JAGS|"
 msgid "all monitored parameters"
-msgstr "すべてのパラメータ"
+msgstr "モニタしているすべてのパラメータ"
 
 msgctxt "JAGS|"
 msgid "selected parameters"
@@ -201,7 +207,7 @@ msgstr "パラメータサブセット"
 
 msgctxt "JAGS|"
 msgid "Optional subset, e.g., 1:4 or 1, 3, 5:8 "
-msgstr "サブセットのオプション, e.g., 1:4 or 1, 3, 5:8 "
+msgstr "サブセットを任意で指定(例: 1:4 または 1, 3, 5:8) "
 
 msgctxt "JAGS|"
 msgid "Superimpose data"
@@ -245,11 +251,11 @@ msgstr "サブセット"
 
 msgctxt "JAGS|"
 msgid "Shade interval"
-msgstr "陰の間隔"
+msgstr "区間に陰を付ける"
 
 msgctxt "JAGS|"
 msgid "Intervals"
-msgstr "間隔"
+msgstr "区間"
 
 msgctxt "JAGS|"
 msgid "Credible Interval"
@@ -261,7 +267,7 @@ msgstr "HDI"
 
 msgctxt "JAGS|"
 msgid "Area where"
-msgstr "場所"
+msgstr "次の範囲の確率"
 
 msgctxt "JAGS|"
 msgid "< θ < "
@@ -277,19 +283,19 @@ msgstr "ビン幅タイプ"
 
 msgctxt "JAGS|"
 msgid "Sturges"
-msgstr "スタージェス"
+msgstr "Sturges"
 
 msgctxt "JAGS|"
 msgid "Scott"
-msgstr "スコット"
+msgstr "Scott"
 
 msgctxt "JAGS|"
 msgid "Doane"
-msgstr "ドーン"
+msgstr "Doane"
 
 msgctxt "JAGS|"
 msgid "Freedman-Diaconis"
-msgstr "フリードマン - ダイアコニス"
+msgstr "Freedman-Diaconis"
 
 msgctxt "JAGS|"
 msgid "Manual"
@@ -333,7 +339,7 @@ msgstr "サベージ-ディッキー"
 
 msgctxt "JAGS|"
 msgid "Determine prior height with"
-msgstr "事前の高さを決定"
+msgstr "事前分布の高さの求め方"
 
 msgctxt "JAGS|"
 msgid "Sampling"
@@ -349,11 +355,11 @@ msgstr "スプライン"
 
 msgctxt "JAGS|"
 msgid "Manual value"
-msgstr "マニュアル値"
+msgstr "手動で指定した値"
 
 msgctxt "JAGS|"
 msgid "Determine posterior height with"
-msgstr "事後の高さの決定"
+msgstr "事後分布の高さの求め方"
 
 msgctxt "JAGS|"
 msgid "Normal approximation"
