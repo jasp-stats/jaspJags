@@ -1,0 +1,688 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Language: sv\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgctxt "Description|"
+msgid "JAGS"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Enter JAGS model below"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Parameters in model"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Monitor these parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Monitored parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show results for these parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Plots"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Color scheme for plots:"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Colorblind"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Colorblind Alt."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Viridis"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Blue"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Gray"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Aggregate chains for densities and histograms"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show legends"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Density"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Histogram"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Trace"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Autocorrelation"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. lags"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "line"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "bar"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Bivariate scatter"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Diagonal plot type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Off-diagonal plot type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Hexagonal"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Contour"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Initial Values"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Observed Values"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "MCMC parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. burnin samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Thinning"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "No. chains"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show results for"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "all monitored parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "selected parameters"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show Deviance"
+msgstr ""
+
+msgctxt "Description|"
+msgid ""
+"Implement Bayesian graphical models with Martyn Plummer’s JAGS program for "
+"Markov chain Monte Carlo"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Customizable Inference"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Plot 1"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Parameter selection"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Parameter"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Select a parameter"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Parameter subset"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Optional subset, e.g., 1:4 or 1, 3, 5:8 "
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Superimpose data"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Data"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "None"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Split by"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Plot type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Stacked density"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Order parameters by"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Mean"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Median"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Subset"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Shade interval"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Intervals"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Credible Interval"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "HDI"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Area where"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "< θ < "
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Plot type for superimposed data"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Bin width type"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sturges"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Scott"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Doane"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Freedman-Diaconis"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Manual"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Number of bins"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Estimation"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Summary statistics"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "SD"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "R-hat"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Effective sample size"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Probability of"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Testing"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Savage-Dickey"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Determine prior height with"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sampling"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Normal kernel"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Splines"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Manual value"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Determine posterior height with"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Normal approximation"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Export samples:"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sync Samples: On"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sync Samples: Off"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Mode"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"JAGS -- Just Another Gibbs Sampler -- is software for general purpose "
+"Bayesian inference. One can specify a model using JAGS syntax and let JAGS "
+"draw samples from the posterior distribution."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "References"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "R Packages"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Enter the desired model. Columns in the data can be directly referred to. If "
+"these contain spaces, then the reference must also contain spaces."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "A box that automatically detects which parameters the model contains."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The parameters for which the MCMC samples are stored. Only available when "
+"'Show results for' is set to 'selected parameters'."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Determines which parameters are shown in tables and plots."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Sometimes it is practical to directly specify the observed data without "
+"loading a data set. Here such observations can be listed."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Each row has a 'Parameter', the name to be used in the JAGS model code, and "
+"an 'R Code', the value for the data. This value can also be R code."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Determines the color scheme of the plots."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"If checked, the samples of different chains are aggregated in density plots "
+"and histograms. If unchecked, there are separate colors per chain."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show a legend in the plots."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Show the marginal density of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Show the marginal histogram of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Show a trace plot of the posterior samples for each parameter selected under "
+"'Show results for these parameters'."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Plot the autocorrelation of the posterior samples for each parameter "
+"selected under 'Show results for these parameters'."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The maximum number of lags to show in the autocorrelation plot."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Whether to display the autocorrelation as a bar at each lag, or as a line "
+"that connects subsequent lags."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Show a matrix plot of all pairs of parameters. Only shows output when more "
+"than 1 parameter is sampled."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Show a density plot or a histogram on the diagonal entries of the scatter "
+"plot."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Show a hexagonal bivariate density plot, or a contour plot on the off-"
+"diagonal entries of the scatter plot."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Each tab specifies a set of custom results (a plot and a table) for one "
+"parameter. Up to 10 tabs can be added."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "For which parameter to show custom results."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Select a parameter from the model."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Optionally specify a subset of the parameter, e.g., 1:4 or 1, 3, 5:8."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Optionally, superimpose data on the plots. Only available when a data set is "
+"loaded."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "A scale variable in the data set to superimpose on the plots."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "A nominal variable in the data set used to split the superimposed data."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The type of plot to show. Currently, only 'None' or 'Stacked density' are "
+"supported."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The metric used to order the parameters in the stacked density plot."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Whether to shade an interval in the plot."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The interval to shade: a credible interval, a highest density interval "
+"(HDI), or a custom interval."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Shade the area between the lower and the upper bound."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The type of plot to show for the superimposed data. Only available when data "
+"are superimposed."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The method used to determine the bin width of the histogram."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The number of bins, when the bin width type is 'Manual'."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Specify which statistics are computed for each parameter and shown in a "
+"table."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The average value of the posterior samples."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The middle value of the posterior samples."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The value of the posterior distribution with the highest density."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The standard deviation of the posterior samples."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The potential scale reduction factor, used to diagnose convergence of the "
+"MCMC chains."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"An estimate of the number of independent samples from the posterior "
+"distribution."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"An interval within which a certain percentage of the posterior samples fall."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Highest Density Interval: the narrowest interval containing a specified "
+"percentage of the posterior samples."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The proportion of the posterior samples that fall within a user-defined "
+"interval."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"For each parameter in the model, it is possible to specify an initial value. "
+"Initial values can be numbers, but also R code. The R code is evaluated "
+"separately for each chain, so `rnorm(1)` yields different initial values for "
+"each chain."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Each row has a 'Parameter' of the model and an 'R Code', its initial value."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Unlike some other software programs, JASP first draws 'No. burnin samples' "
+"from the posterior distribution and afterward 'No. samples', keeping every "
+"nth sample as specified by 'Thinning'."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The number of samples to draw from the posterior distribution that are used "
+"for results (tables, plots)."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The number of samples to draw from the posterior distribution and "
+"immediately discard."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Every nth value of 'No. samples' is kept for the results, where n is given "
+"by 'Thinning'."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "The number of MCMC chains to run."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"By default, 'all monitored parameters' is selected which implies that JASP "
+"stores the MCMC samples for all parameters in the model. However, for large "
+"JAGS models storing all MCMC samples may take too much memory. By selecting "
+"'selected parameters', one can first decide for which parameters the MCMC "
+"samples should be stored, and in a next box, decide which of these "
+"parameters should be shown in the results."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"Set a seed for JAGS. The same seed and model specification yields the same "
+"results."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Show the Deviance statistic."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"The CSV file to save the MCMC samples to. The samples are only written when "
+"'Sync Samples' is on."
+msgstr ""
+
+msgctxt "JAGS|"
+msgid "Sync Samples"
+msgstr ""
+
+msgctxt "JAGS|"
+msgid ""
+"When on, the MCMC samples are written to the export file, and written again "
+"each time the analysis is rerun. Toggled with the 'Sync Samples' button."
+msgstr ""
