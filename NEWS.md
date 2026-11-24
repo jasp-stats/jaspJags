@@ -16,7 +16,8 @@
 
 # jaspJags (development version)
 
-
+## Fixed
+* Fixed the MCMC Summary table matching parameters with a dot in their name, such as `pi.hat`, by the part before the dot (`pi`), so their rows were left out, or listed when only `pi` was shown ([INTERNAL-jasp#1788](https://github.com/jasp-stats/INTERNAL-jasp/issues/1788), [INTERNAL-jasp#2232](https://github.com/jasp-stats/INTERNAL-jasp/issues/2232)).
 
 ---
 

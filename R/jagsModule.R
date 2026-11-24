@@ -347,7 +347,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
       parametersToShow <- c("deviance", parametersToShow)
     sum <- mcmcResult[["BUGSoutput"]][["summary"]]
     nms <- rownames(sum)
-    nms2 <- sapply(stringr::str_extract_all(nms, "\\w+"), `[[`, 1L)
+    nms2 <- sub("\\[.*$", "", nms)
     idx <- nms2 %in% parametersToShow
 
     tbR <- as.data.frame(sum[idx, c("Mean", "SD", "50%", "2.5%", "97.5%", "neff"), drop = FALSE])

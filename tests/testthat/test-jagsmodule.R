@@ -212,3 +212,74 @@ test_that("Model errors are captured gracefully", {
 
 })
 
+test_that("MCMC summary table shows parameters with a dot in their name", {
+
+  # with k = 7 out of n = 10, the Beta(1, 1) prior of pi.hat gives the posterior Beta(8, 4).
+  # theta.x[1] and theta.x[2] get no data, so their posterior is their N(0, 1) prior.
+  options <- jaspTools::analysisOptions("JAGS")
+  options$model <- list(columns = list(), model = "model{\n pi.hat ~ dbeta(1, 1)\n k ~ dbinom(pi.hat, n)\n for (i in 1:2) {\n  theta.x[i] ~ dnorm(0, 1)\n }\n}",
+                        parameters = c("pi.hat", "theta.x"))
+  options$initialValues <- list(list(levels = "Row 1", name = "Parameter", values = "pi.hat"),
+                                list(levels = "Row 1", name = "R Code", values = "..."))
+  options$userData <- list(list(levels = c("Row 0", "Row 1"), name = "Parameter", values = c("k", "n")),
+                           list(levels = c("Row 0", "Row 1"), name = "R Code", values = c("7", "10")))
+  options$monitoredParametersShown <- c("pi.hat", "theta.x")
+  options$burnin <- 500
+  options$chains <- 4
+  options$samples <- 2000
+  options$setSeed <- TRUE
+  options$seed <- 1
+
+  # sample with JAGS instead of reading the saved samples used by the tests above
+  jaspTools:::replaceFn("coda.samples", old.coda.samples, "rjags")
+  results <- jaspTools::runAnalysis("JAGS", "debug.csv", options)
+  jaspTools:::replaceFn("coda.samples", new.coda.samples, "rjags")
+
+  table <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_mainTable"]][["data"]]
+  expect_identical(vapply(table, `[[`, character(1L), "parameter"), c("pi.hat", "theta.x[1]", "theta.x[2]"))
+
+  # each tolerance is about 5 Monte Carlo standard errors or more for these 8000 draws
+  observed <- vapply(table, function(row) unlist(row[c("Mean", "SD", "50%", "2.5%", "97.5%")]), numeric(5L))
+  expected <- cbind(
+    c(8 / 12, sqrt(8 * 4 / (12^2 * 13)), qbeta(c(0.5, 0.025, 0.975), 8, 4)),
+    c(0, 1, qnorm(c(0.5, 0.025, 0.975))),
+    c(0, 1, qnorm(c(0.5, 0.025, 0.975)))
+  )
+  tolerance <- cbind(rep(0.03, 5L), c(0.075, 0.05, 0.075, 0.15, 0.15), c(0.075, 0.05, 0.075, 0.15, 0.15))
+  expect_true(all(abs(observed - expected) < tolerance))
+
+  # every row also gets an Rhat
+  rhat <- vapply(table, `[[`, numeric(1L), "rhatPoint")
+  expect_true(all(rhat > 0.99 & rhat < 1.05))
+
+})
+
+test_that("MCMC summary table does not show a parameter whose name starts with that of a shown parameter", {
+
+  # pi and pi.hat are both monitored, but only pi is shown
+  options <- jaspTools::analysisOptions("JAGS")
+  options$model <- list(columns = list(), model = "model{\n pi ~ dbeta(1, 1)\n pi.hat ~ dbeta(2, 2)\n k ~ dbinom(pi, n)\n}",
+                        parameters = c("pi", "pi.hat"))
+  options$initialValues <- list(list(levels = "Row 1", name = "Parameter", values = "pi"),
+                                list(levels = "Row 1", name = "R Code", values = "..."))
+  options$userData <- list(list(levels = c("Row 0", "Row 1"), name = "Parameter", values = c("k", "n")),
+                           list(levels = c("Row 0", "Row 1"), name = "R Code", values = c("7", "10")))
+  options$resultsFor <- "selectedParameters"
+  options$monitoredParameters <- c("pi", "pi.hat")
+  options$monitoredParametersShown <- "pi"
+  options$burnin <- 500
+  options$chains <- 4
+  options$samples <- 2000
+  options$setSeed <- TRUE
+  options$seed <- 1
+
+  jaspTools:::replaceFn("coda.samples", old.coda.samples, "rjags")
+  results <- jaspTools::runAnalysis("JAGS", "debug.csv", options)
+  jaspTools:::replaceFn("coda.samples", new.coda.samples, "rjags")
+
+  table <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_mainTable"]][["data"]]
+  expect_identical(vapply(table, `[[`, character(1L), "parameter"), "pi")
+  # the posterior of pi is Beta(8, 4)
+  expect_lt(abs(table[[1L]][["Mean"]] - 8 / 12), 0.02)
+
+})
