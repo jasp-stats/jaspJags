@@ -230,3 +230,85 @@ test_that("Stacked density plot matches", {
   testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
   jaspTools::expect_equal_plots(testPlot, "model-2-stacked-density-2")
 })
+
+test_that("Stacked density plot draws the posteriors and the superimposed data on the same density scale", {
+
+  # theta[1] and theta[2] get no data, so their posterior is their wide N(0, sd = sqrt(10)) prior.
+  # score has a small spread (sd 0.50, and 0.24 within each group), so its density is far taller than that of theta.
+  dataset <- data.frame(
+    score = c(1.62, 1.85, 1.97, 2.04, 2.11, 2.18, 2.26, 2.39, 2.55, 2.71, 2.83, 2.88, 2.95, 3.02, 3.09, 3.31),
+    group = rep(1:2, each = 8L)
+  )
+  inference <- list(ciLevel = 0.95, inferenceData = "score", dataSplit = "", name = "Plot 1",
+                    overlayGeomType = "density", overlayHistogramBinWidthType = "sturges",
+                    overlayHistogramManualNumberOfBins = 30, parameter = "theta",
+                    parameterOrder = "orderMean", parameterSubset = "",
+                    plotCustomHigh = "1", plotCustomLow = "0", plotInterval = "ci", plotsType = "stackedDensity",
+                    savageDickey = FALSE, savageDickeyPoint = "0", savageDickeyPosteriorMethod = "samplingPosteriorPoint",
+                    savageDickeyPosteriorSamplingType = "normalKernel", savageDickeyPriorHeight = "0",
+                    savageDickeyPriorMethod = "sampling", savageDickeySamplingType = "normalKernel",
+                    ess = TRUE, hdiLevel = 0.95, inferenceCi = FALSE, inferenceCiLevel = 0.95,
+                    inferenceCustomHigh = "1", inferenceCustomLow = "0", inferenceManual = FALSE,
+                    inferenceHdi = FALSE, inferenceHdiLevel = 0.95, mean = TRUE, median = TRUE, mode = TRUE,
+                    rhat = TRUE, sd = TRUE, shadeIntervalInPlot = FALSE)
+  model <- "model{\n for (j in 1:2) {\n  theta[j] ~ dnorm(0, 0.1)\n }\n eta ~ dnorm(0, 0.5)\n for (i in 1:16) {\n  score[i] ~ dnorm(eta, 25)\n }\n}"
+
+  options <- jaspTools::analysisOptions("JAGS")
+  options$model <- list(columns = c("score", "group"), model = model, modelOriginal = model, parameters = c("theta", "eta"))
+  options$initialValues <- list(list(levels = c("Row 1", "Row 2"), name = "Parameter", values = c("theta", "eta")),
+                                list(levels = c("Row 1", "Row 2"), name = "R Code", values = c("...", "...")))
+  options$userData <- list(list(levels = list(), name = "Parameter", values = list()),
+                           list(levels = list(), name = "R Code", values = list()))
+  options$monitoredParametersShown <- c("theta", "eta")
+  options$burnin <- 500
+  options$chains <- 2
+  options$samples <- 2000
+  options$setSeed <- TRUE
+  options$seed <- 1
+
+  # trapezoid rule
+  area <- function(x, y) sum(diff(x) * (head(y, -1L) + tail(y, -1L)) / 2)
+
+  for (overlay in list(c("density", ""), c("histogram", "group"))) {
+
+    options$customInference <- list(inference)
+    options$customInference[[1L]]$overlayGeomType <- overlay[1L]
+    options$customInference[[1L]]$dataSplit       <- overlay[2L]
+
+    jaspTools:::replaceFn("coda.samples", old.coda.samples, "rjags")
+    results <- jaspTools::runAnalysis("JAGS", dataset, options)
+    jaspTools:::replaceFn("coda.samples", new.coda.samples, "rjags")
+
+    plotName <- results[["results"]][["mainContainer"]][["collection"]][["mainContainer_customInferencetheta"]][["collection"]][["mainContainer_customInferencetheta_theta"]][["data"]]
+    testPlot <- results[["state"]][["figures"]][[plotName]][["obj"]]
+
+    # each density is drawn from its own baseline, at the y-axis breaks
+    yScale    <- testPlot[["scales"]]$get_scales("y")
+    baselines <- unname(yScale[["breaks"]][1:2])
+
+    # a density has area 1, for the posteriors (512 points each) and for the data
+    posterior <- testPlot[["data"]]
+    for (i in 1:2) {
+      rows <- (i - 1L) * 512L + 1:512
+      expect_equal(area(posterior[["x"]][rows], posterior[["y"]][rows] - baselines[i]), 1, tolerance = 0.01)
+    }
+
+    overlayData <- testPlot[["layers"]][[2L]][["data"]]
+    if (overlay[1L] == "density") {
+      for (i in 1:2) {
+        rows <- (i - 1L) * 512L + 1:512
+        expect_equal(area(overlayData[["x"]][rows], overlayData[["y"]][rows] - baselines[i]), 1, tolerance = 0.01)
+      }
+      top <- max(overlayData[["y"]])
+    } else {
+      binWidth <- diff(sort(unique(overlayData[["x"]])))[1L]
+      areas    <- tapply((overlayData[["ymax"]] - overlayData[["ymin"]]) * binWidth, overlayData[["g"]], sum)
+      expect_equal(unname(c(areas)), c(1, 1), tolerance = 1e-8)
+      top <- max(overlayData[["ymax"]])
+    }
+
+    # and the data fit inside the plot
+    expect_lte(top, yScale[["limits"]][2L])
+  }
+
+})

@@ -896,8 +896,8 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   maxDensities <- tapply(plotData[["y"]], plotData[["g"]], max)
   yHeightPerDensity <- stats::quantile(maxDensities, probs = .85)
 
-  # normalize wrt to yHeightPerDensity and add an offset for each parameter
-  plotData[["y"]] <- plotData[["y"]] / yHeightPerDensity + yHeightPerDensity * rep(seq_len(nparams) - 1, each = npoints)
+  # add an offset for each parameter
+  plotData[["y"]] <- plotData[["y"]] + yHeightPerDensity * rep(seq_len(nparams) - 1, each = npoints)
 
   return(list(plotData = plotData, yHeightPerDensity = yHeightPerDensity))
 }
@@ -1225,15 +1225,18 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
   overlayGeomOrLabs <- .JAGSoverlayDataToGeom(object[["overlayPlotData"]])
 
   xBreaks <- jaspGraphs::getPrettyAxisBreaks(plotData[["x"]])
+  yMax    <- max(plotData[["y"]])
 
   if (is.data.frame(object[["overlayPlotData"]])) {
     width <- attr(object[["overlayPlotData"]], "width")
     if (is.null(width)) { # density
       xBreaks <- jaspGraphs::getPrettyAxisBreaks(c(xBreaks, object[["overlayPlotData"]][["x"]]))
+      yMax    <- max(yMax, object[["overlayPlotData"]][["y"]])
     } else { # histogram
       extrema <- range(object[["overlayPlotData"]][["x"]])
       extrema <- extrema + c(-width, width)
       xBreaks <- jaspGraphs::getPrettyAxisBreaks(c(xBreaks, extrema))
+      yMax    <- max(yMax, object[["overlayPlotData"]][["ymax"]])
     }
   }
 
@@ -1241,7 +1244,7 @@ JAGSInternal <- function(jaspResults, dataset, options, state = NULL) {
 
 
   # slightly unusual heuristic but since we do not show the y-axis we want to be closer to the maximum density
-  yLimits <- c(0, 0.1 * yHeightPerDensity + max(plotData[["y"]]))
+  yLimits <- c(0, 0.1 * yHeightPerDensity + yMax)
   yBreaks <- c(seq(0, length = nparams, by = yHeightPerDensity), yLimits[2])
   if (any(grepl("[", params, fixed = TRUE))) {
     # for a plot with 100 parameters/ subscripts, using ggtext is about 1.5 times slower (.467 to .666 seconds for total plotting time, measured with ggplot2::benchplot)
